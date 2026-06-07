@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Founder's Hub — Narxoz University</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Unbounded:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #644620;
+      --accent-hover: #4e3518;
+      --accent-light: #e9dbac;
+      --black: #1a1208;
+      --white: #FDFAF3;
+      --surface: #F5EDD8;
+      --dark-surface: #2a1f0e;
+      --muted: #7a6540;
+      --max-width: 1200px;
+      --section-pad: clamp(3rem, 6vw, 5rem);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --transition: 0.25s ease;
+    }
+ 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Onest', system-ui, sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--black);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
+ 
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 4vw, 2rem);
+    }
+ 
+    .section-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .section-label--light { color: var(--accent-light); }
+ 
+    h1, h2, h3, .display {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--black);
+    }
+    h2 { font-size: clamp(1.75rem, 4vw, 2.25rem); margin-bottom: 1.5rem; }
+    .accent-text { color: var(--accent); }
+ 
+    /* NAV */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(253, 250, 243, 0.93);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26, 18, 8, 0.06);
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1rem clamp(1.25rem, 4vw, 2rem);
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    .nav__brand { display: flex; align-items: center; gap: 0.75rem; }
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 700;
+      font-size: 1.125rem;
+      white-space: nowrap;
+    }
+    .nav__logo-img {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: var(--surface);
+      border: 1.5px dashed rgba(100, 70, 32, 0.35);
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav__logo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .nav__logo-img:has(img:not([src="" i])) { border-style: solid; border-color: rgba(100, 70, 32, 0.15); }
+    .nav__logo-hub { color: var(--accent); }
+    .nav__back {
+      display: none;
+      align-items: center;
+      font-family: 'Onest', sans-serif;
+      background: transparent;
+      border: none;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 0;
+      margin-right: 12px;
+      transition: opacity 0.2s;
+    }
+    .nav__back:hover { opacity: 0.7; }
+    .nav__toggle { display: none; }
+    .nav__burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav__burger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--black);
+      transition: var(--transition);
+    }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav__links a {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--black);
+      transition: color var(--transition);
+    }
+    .nav__links a:hover { color: var(--accent); }
+ 
+    /* Hide nav links/cta on inner pages via class (not inline style) */
+    .nav--inner .nav__links,
+    .nav--inner .btn--nav { display: none !important; }
+ 
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      font-family: 'Onest', sans-serif;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn--primary { background: var(--accent); color: var(--white); }
+    .btn--primary:hover { background: var(--accent-hover); box-shadow: 0 8px 24px rgba(100, 70, 32, 0.35); }
+    .btn--secondary { background: transparent; color: var(--black); border: 1.5px solid rgba(26, 18, 8, 0.15); }
+    .btn--secondary:hover { border-color: var(--black); background: var(--surface); }
+    .btn--nav { padding: 0.625rem 1.25rem; font-size: 0.875rem; }
+ 
+    /* HERO */
+    .hero { padding: var(--section-pad) 0; }
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: center;
+    }
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 0.5rem 1rem;
+      border: 1.5px solid rgba(26, 18, 8, 0.12);
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+    .hero__badge::before { content: '•'; color: var(--accent); font-weight: 700; }
+    .hero h1 { font-size: clamp(2rem, 4.5vw, 3rem); margin-bottom: 1.25rem; }
+    .hero__desc { font-size: 15px; color: var(--muted); max-width: 32rem; margin-bottom: 2rem; line-height: 1.7; }
+    .hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2.5rem; }
+    .hero__stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem 2.5rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid rgba(26, 18, 8, 0.1);
+    }
+    .hero__stat { display: flex; flex-direction: column; gap: 0.15rem; }
+    .hero__stat-num { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1.25rem; color: var(--black); }
+    .hero__stat-label { font-size: 10px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); }
+    .hero__card {
+      position: relative;
+      background: linear-gradient(135deg, #644620 0%, #3d2910 50%, #1a1208 100%);
+      border-radius: var(--radius);
+      min-height: 380px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .hero__card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px rgba(100, 70, 32, 0.3); }
+    .hero__card-pattern { position: absolute; inset: 0; opacity: 0.1; pointer-events: none; }
+    .hero__card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 30%, rgba(26, 18, 8, 0.45) 100%);
+      pointer-events: none;
+    }
+    .hero__card-content { position: relative; z-index: 1; color: var(--white); }
+    .hero__card-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.85; margin-bottom: 0.75rem; }
+    .hero__card-year { font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: clamp(3rem, 8vw, 3.75rem); line-height: 1; margin-bottom: 0.5rem; }
+    .hero__card-sub { font-size: 1rem; font-weight: 500; opacity: 0.9; }
+ 
+    /* ABOUT */
+    .about { padding: var(--section-pad) 0; }
+    .about__grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: start;
+    }
+    .about__left h2 { margin-bottom: 2rem; }
+    .about__logo-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 3rem 2rem;
+      text-align: center;
+      transition: box-shadow var(--transition);
+    }
+    .about__logo-card:hover { box-shadow: 0 12px 40px rgba(26, 18, 8, 0.08); }
+    .about__logo-text { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1.5rem; line-height: 1.4; }
+    .about__paragraphs { display: flex; flex-direction: column; gap: 1.25rem; }
+    .about__paragraphs p { font-size: 1rem; color: var(--black); line-height: 1.75; }
+ 
+    /* NEWS CARD */
+    .news-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      border: 1.5px solid rgba(100, 70, 32, 0.12);
+      transition: transform 0.25s, box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .news-card:hover { transform: translateY(-5px); box-shadow: 0 14px 36px rgba(100, 70, 32, 0.15); }
+    .news-card__visual { position: relative; height: 120px; }
+    .news-card__visual--1 { background: linear-gradient(135deg, #644620 0%, #8a6030 60%, #e9dbac 100%); }
+    .news-card__visual--2 { background: linear-gradient(135deg, #3d2910 0%, #644620 50%, #8a6030 100%); }
+    .news-card__tag {
+      position: absolute;
+      bottom: 12px;
+      left: 14px;
+      background: rgba(233, 219, 172, 0.25);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+      backdrop-filter: blur(4px);
+    }
+    .news-card__body { padding: 1.25rem 1.5rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+    .news-card__date { font-size: 11px; color: var(--muted); font-weight: 500; }
+    .news-card__title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.9375rem; color: var(--black); line-height: 1.35; }
+    .news-card__desc { font-size: 0.8125rem; color: var(--muted); line-height: 1.6; flex: 1; }
+    .news-card__footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.875rem;
+      border-top: 1px solid rgba(100, 70, 32, 0.1);
+      margin-top: 0.5rem;
+    }
+    .news-card__read-btn {
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      font-family: 'Onest', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .news-card__read-btn:hover { background: var(--accent-hover); }
+    .news-card__read-btn:active { transform: scale(0.98); }
+    .news-card__meta { font-size: 11px; color: var(--muted); }
+ 
+    /* DIRECTIONS */
+    .directions { padding: var(--section-pad) 0; background: var(--surface); }
+    .directions__header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .directions__sub { font-size: 0.9375rem; color: var(--muted); max-width: 280px; text-align: right; }
+    .dir-slider-wrapper { width: 100%; overflow: hidden; }
+    .dir-slider-track {
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: scroll;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+      cursor: grab;
+    }
+    .dir-slider-track::-webkit-scrollbar { display: none; }
+    .dir-slider-track:active { cursor: grabbing; }
+    .dir-slider-track .direction-card {
+      flex: 0 0 calc(33.333% - 0.85rem);
+      scroll-snap-align: start;
+      min-width: 0;
+    }
+    @media (max-width: 900px) {
+      .dir-slider-track .direction-card { flex: 0 0 calc(50% - 0.625rem); }
+    }
+    @media (max-width: 600px) {
+      .dir-slider-track .direction-card { flex: 0 0 85%; }
+    }
+    .dir-slider-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 20px; }
+    #dir-dots { display: flex; justify-content: center; gap: 8px; margin-top: 0; }
+    .dir-arrow {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(100, 70, 32, 0.2);
+      background: var(--white);
+      color: var(--accent);
+      font-size: 1.125rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, opacity 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .dir-arrow:hover:not(:disabled) { background: var(--surface); border-color: var(--accent); }
+    .dir-arrow:active:not(:disabled) { transform: scale(0.95); }
+    .dir-arrow:disabled { opacity: 0.35; cursor: not-allowed; }
+ 
+    .direction-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .direction-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(26, 18, 8, 0.1); }
+    .direction-card__visual {
+      position: relative;
+      height: 160px;
+      background: linear-gradient(135deg, #644620 0%, #8a6030 50%, #1a1208 100%);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 1.25rem;
+    }
+    .direction-card__visual--2 { background: linear-gradient(135deg, #1a1208 0%, #644620 60%, #8a6030 100%); }
+    .direction-card__visual--3 { background: linear-gradient(135deg, #8a6030 0%, #644620 40%, #1a1208 100%); }
+    .direction-card__visual--4 { background: linear-gradient(135deg, #8a6030 0%, #644620 40%, #3d2910 100%); }
+    .direction-card__visual--5 { background: linear-gradient(135deg, #3d2910 0%, #8a6030 50%, #644620 100%); }
+    .direction-card__visual--6 { background: linear-gradient(135deg, #644620 0%, #1a1208 50%, #8a6030 100%); }
+    .direction-card__num { font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: 2.5rem; color: rgba(253, 250, 243, 0.25); line-height: 1; }
+    .direction-card__arrow {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(253, 250, 243, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      transition: background var(--transition), transform var(--transition), color var(--transition);
+    }
+    .direction-card:hover .direction-card__arrow { background: var(--white); color: var(--accent); transform: rotate(-45deg); }
+    .direction-card__body { padding: 1.5rem; }
+    .direction-card__title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; color: var(--black); }
+    .direction-card__desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+ 
+    /* FOR WHOM */
+    .for-whom { padding: var(--section-pad) 0; }
+    .for-whom__grid { margin-top: 2rem; }
+    #whom-slider .whom-card {
+      flex: 0 0 min(280px, 85vw);
+      scroll-snap-align: start;
+      align-self: flex-start;
+    }
+    .whom-card {
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      padding: 1.75rem 1.5rem;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .whom-card:hover { background: var(--white); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26, 18, 8, 0.08); }
+    .whom-card__num {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    .whom-card__title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.9375rem; margin-bottom: 0.5rem; line-height: 1.35; }
+    .whom-card__desc { font-size: 0.875rem; color: var(--muted); line-height: 1.55; }
+ 
+    /* HOW TO JOIN */
+    .join { padding: var(--section-pad) 0; background: #1a1208; color: var(--white); }
+    .join h2 { color: var(--white); }
+    .join__grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+    .join__desc { font-size: 1rem; color: rgba(253, 250, 243, 0.65); line-height: 1.75; margin-bottom: 2rem; max-width: 28rem; }
+    .join__steps-card { background: var(--dark-surface); border-radius: var(--radius); padding: 2rem; }
+    .join__step { position: relative; padding-left: 1.25rem; padding-bottom: 1.75rem; border-left: 3px solid var(--accent); margin-left: 0.25rem; }
+    .join__step:last-child { padding-bottom: 0; }
+    .join__step-num { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.75rem; color: var(--accent-light); margin-bottom: 0.35rem; }
+    .join__step-title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1rem; color: var(--white); margin-bottom: 0.35rem; }
+    .join__step-desc { font-size: 0.875rem; color: rgba(253, 250, 243, 0.55); line-height: 1.55; }
+ 
+    /* TEAM */
+    .team { padding: var(--section-pad) 0; }
+    .team__sub { font-size: 0.9375rem; color: var(--muted); margin-top: -0.75rem; margin-bottom: 2rem; }
+    .team__block { margin-bottom: 2.5rem; }
+    .team__block:last-child { margin-bottom: 0; }
+    .team__block-title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 1.25rem; color: var(--black); }
+    .team-card {
+      flex: 0 0 min(320px, 88vw);
+      scroll-snap-align: start;
+      align-self: flex-start;
+      border-radius: var(--radius);
+      background: var(--surface);
+      transition: transform var(--transition), box-shadow var(--transition);
+      overflow: hidden;
+    }
+    .team-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(26, 18, 8, 0.1); }
+    .team-card__photo { height: 200px; border-radius: var(--radius) var(--radius) 0 0; overflow: hidden; background: linear-gradient(145deg, #644620 0%, #1a1208 70%); }
+    .team-card__photo--2 { background: linear-gradient(145deg, #1a1208 0%, #644620 50%); }
+    .team-card__photo--3 { background: linear-gradient(145deg, #8a6030 0%, #644620 50%); }
+    .team-card__photo--4 { background: linear-gradient(145deg, #644620 0%, #3d2910 60%); }
+    .team-card__photo--5 { background: linear-gradient(145deg, #3d2910 0%, #8a6030 100%); }
+    .team-card__photo--6 { background: linear-gradient(145deg, #1a1208 0%, #8a6030 70%); }
+    .team-card__photo--7 { background: linear-gradient(145deg, #644620 0%, #1a1208 40%, #8a6030 100%); }
+    .team-card__body { padding: 1.5rem; }
+    .team-card__role { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .team-card__name { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1.0625rem; margin-bottom: 0.5rem; line-height: 1.3; }
+    .team-card__bio { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+    .team-card__full-bio {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s ease;
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .team-card__full-bio > div { overflow: hidden; }
+    .team-card__full-bio.is-open {
+      grid-template-rows: 1fr;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--accent-light);
+    }
+    .team-card__toggle { display: block; font-family: 'Onest', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; color: var(--accent); background: transparent; border: none; cursor: pointer; padding: 10px 0 0; transition: opacity var(--transition); }
+    .team-card__toggle:hover { opacity: 0.7; }
+
+    /* UNIFIED HORIZONTAL SLIDER */
+    .slider-wrapper { width: 100%; overflow: hidden; }
+    .slider-track {
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      align-items: flex-start;
+      cursor: grab;
+      padding-bottom: 4px;
+    }
+    .slider-track::-webkit-scrollbar { display: none; }
+    .slider-track:active { cursor: grabbing; }
+    .slider-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .slider-arrow {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(100, 70, 32, 0.25);
+      background: var(--white);
+      color: var(--accent);
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .slider-arrow:hover:not(:disabled) { background: var(--accent); color: var(--white); border-color: var(--accent); box-shadow: 0 6px 18px rgba(100, 70, 32, 0.3); }
+    .slider-arrow:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
+
+    /* DEPT LEAD (direction pages) */
+    .dept-lead {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+      max-width: 520px;
+    }
+    .dept-lead__avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #644620 0%, #1a1208 70%);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--accent-light);
+    }
+    .dept-lead__label { font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.25rem; }
+    .dept-lead__name { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.15rem; }
+    .dept-lead__role { font-size: 0.875rem; color: var(--muted); }
+ 
+    /* SUCCESS STORIES */
+    .about__stories { margin-top: clamp(2.5rem, 5vw, 4rem); }
+    .about__stories-heading { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1.25rem; color: var(--black); margin-bottom: 0.5rem; }
+    .about__stories-sub { font-size: 0.9375rem; color: var(--muted); margin-bottom: 1.75rem; }
+    .stories-slider { width: 100%; }
+    .stories-track {
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: scroll;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      cursor: grab;
+      padding-bottom: 4px;
+    }
+    .stories-track::-webkit-scrollbar { display: none; }
+    .stories-track:active { cursor: grabbing; }
+    .story-card {
+      flex: 0 0 calc(33.333% - 0.85rem);
+      scroll-snap-align: start;
+      min-width: 260px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: transform 0.25s, box-shadow 0.25s;
+      border: 1.5px solid rgba(100, 70, 32, 0.1);
+    }
+    .story-card:hover { transform: translateY(-5px); box-shadow: 0 14px 36px rgba(100, 70, 32, 0.13); }
+    .story-card--accent { background: var(--accent); }
+    .story-card--accent .story-card__name, .story-card--accent .story-card__text { color: var(--white); }
+    .story-card--accent .story-card__tag { background: rgba(233, 219, 172, 0.25); color: var(--accent-light); }
+    .story-card--accent .story-card__avatar { background: rgba(233, 219, 172, 0.2); color: var(--accent-light); border-color: rgba(233, 219, 172, 0.3); }
+    .story-card--dark { background: #1a1208; }
+    .story-card--dark .story-card__name, .story-card--dark .story-card__text { color: var(--white); }
+    .story-card--dark .story-card__tag { background: rgba(100, 70, 32, 0.4); color: var(--accent-light); }
+    .story-card--dark .story-card__avatar { background: rgba(100, 70, 32, 0.3); color: var(--accent-light); border-color: rgba(100, 70, 32, 0.4); }
+    .story-card__avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      color: var(--accent);
+      border: 2px solid rgba(100, 70, 32, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 700;
+      font-size: 1.125rem;
+      flex-shrink: 0;
+    }
+    .story-card__name { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1rem; color: var(--black); margin-bottom: 0.35rem; }
+    .story-card__tag { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: rgba(100, 70, 32, 0.1); color: var(--accent); margin-bottom: 0.5rem; }
+    .story-card__text { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
+    .stories-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
+    .stories-arrow {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(100, 70, 32, 0.25);
+      background: var(--white);
+      color: var(--accent);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+      flex-shrink: 0;
+    }
+    .stories-arrow:hover { background: var(--accent); color: var(--white); border-color: var(--accent); box-shadow: 0 6px 18px rgba(100, 70, 32, 0.3); transform: scale(1.07); }
+    .stories-arrow:disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
+    .stories-dots { display: flex; gap: 7px; align-items: center; }
+ 
+    @media (max-width: 768px) {
+      .story-card { flex: 0 0 85%; min-width: 0; }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .story-card { flex: 0 0 calc(50% - 0.625rem); }
+    }
+ 
+    /* NEWS PAGE */
+    .news-page { padding: var(--section-pad) 0; background: var(--white); }
+    .news-group { margin-bottom: 3rem; }
+    .news-group:last-child { margin-bottom: 0; }
+    .news-group__title {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 700;
+      font-size: 1.125rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--accent-light);
+    }
+    .news-group__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .news-group__empty { font-size: 0.9375rem; color: var(--muted); padding: 1.5rem; background: var(--surface); border-radius: var(--radius-sm); }
+ 
+    /* FOOTER */
+    .footer { background: #1a1208; color: var(--white); padding: clamp(3rem, 6vw, 4.5rem) 0 0; }
+    .footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); padding-bottom: clamp(2.5rem, 5vw, 3.5rem); border-bottom: 1px solid rgba(253, 250, 243, 0.08); }
+    .footer__logo { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1.25rem; margin-bottom: 1rem; color: var(--white); }
+    .footer__logo span { color: var(--accent-light); }
+    .footer__brand-desc { font-size: 0.875rem; color: rgba(253, 250, 243, 0.5); line-height: 1.7; max-width: 260px; }
+    .footer__col-heading { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(253, 250, 243, 0.45); margin-bottom: 1.25rem; }
+    .footer__links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .footer__link { font-size: 0.9375rem; color: rgba(253, 250, 243, 0.85); text-decoration: none; transition: color 0.2s; display: inline-flex; align-items: center; gap: 0.4rem; }
+    .footer__link:hover { color: var(--accent-light); }
+    .footer__link::before { content: '→'; font-size: 12px; opacity: 0.6; }
+    .footer__contact-item { font-size: 0.9375rem; color: rgba(253, 250, 243, 0.85); line-height: 1.6; }
+    .footer__bottom { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; flex-wrap: wrap; gap: 0.5rem; }
+    .footer__copy { font-size: 0.8125rem; color: rgba(253, 250, 243, 0.35); }
+    .footer__sub { font-size: 0.8125rem; color: rgba(253, 250, 243, 0.35); }
+ 
+    /* INNER PAGES */
+    .inner-hero { background: var(--accent-light); padding: clamp(2.5rem, 5vw, 4rem) 0; }
+    .inner-hero h1 { font-size: clamp(2rem, 4.5vw, 2.75rem); margin-bottom: 1rem; }
+    .inner-hero__lead { font-size: 1.0625rem; color: var(--muted); max-width: 42rem; line-height: 1.75; }
+    .inner-block { padding: var(--section-pad) 0; }
+    .inner-block--white { background: var(--white); }
+    .inner-block--surface { background: var(--surface); }
+    .inner-block h2 { font-size: clamp(1.35rem, 3vw, 1.75rem); margin-bottom: 1.25rem; }
+    .inner-2col { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 4vw, 3.5rem); align-items: start; }
+    .inner-text { font-size: 1rem; line-height: 1.75; color: var(--black); }
+    .numbered-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .numbered-list li { display: flex; gap: 1rem; align-items: flex-start; font-size: 0.9375rem; line-height: 1.55; }
+    .numbered-list__num { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.875rem; color: var(--accent); flex-shrink: 0; min-width: 1.75rem; }
+    .feature-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .feature-card { background: var(--white); border-radius: var(--radius-sm); padding: 1.75rem 1.5rem; transition: transform var(--transition), box-shadow var(--transition); }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26, 18, 8, 0.08); }
+    .feature-card__icon { font-size: 1.5rem; color: var(--accent); margin-bottom: 1rem; }
+    .feature-card__title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.9375rem; margin-bottom: 0.5rem; }
+    .feature-card__desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .timeline { display: flex; flex-direction: column; gap: 1.25rem; }
+    .timeline__item { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; padding-left: 1.25rem; border-left: 3px solid var(--accent); }
+    .timeline__badge { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 0.35rem 0.75rem; border-radius: 999px; background: var(--accent-light); color: var(--accent); }
+    .timeline__title { font-weight: 600; font-size: 0.9375rem; flex: 1; min-width: 200px; }
+    .timeline__status { font-size: 12px; font-weight: 600; color: var(--muted); padding: 0.25rem 0.625rem; border-radius: 999px; background: var(--surface); }
+    .stepper { display: flex; flex-direction: column; gap: 0; }
+    .stepper__item { padding-left: 1.25rem; padding-bottom: 1.5rem; border-left: 3px solid var(--accent); margin-left: 0.25rem; }
+    .stepper__item:last-child { padding-bottom: 0; }
+    .stepper__num { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.75rem; color: var(--accent); margin-bottom: 0.25rem; }
+    .stepper__title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.9375rem; margin-bottom: 0.25rem; }
+    .stepper__desc { font-size: 0.875rem; color: var(--muted); line-height: 1.55; }
+    .icon-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    .icon-card { background: var(--white); border-radius: var(--radius-sm); padding: 1.5rem; transition: transform var(--transition), box-shadow var(--transition); }
+    .icon-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(26, 18, 8, 0.08); }
+    .icon-card__icon { font-size: 1.35rem; color: var(--accent); margin-bottom: 0.75rem; }
+    .icon-card__title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.875rem; margin-bottom: 0.35rem; }
+    .icon-card__desc { font-size: 0.8125rem; color: var(--muted); line-height: 1.5; }
+    .project-scroll { display: flex; gap: 1.25rem; overflow-x: auto; padding-bottom: 0.5rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+    .project-scroll::-webkit-scrollbar { height: 6px; }
+    .project-scroll::-webkit-scrollbar-thumb { background: var(--accent-light); border-radius: 3px; }
+    .project-card { flex: 0 0 min(300px, 85vw); scroll-snap-align: start; border-radius: var(--radius); padding: 1.75rem; background: linear-gradient(145deg, #644620 0%, #3d2910 50%, #1a1208 100%); color: var(--white); transition: transform var(--transition); }
+    .project-card:hover { transform: translateY(-4px); }
+    .project-card__tag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 0.3rem 0.65rem; border-radius: 999px; background: rgba(233, 219, 172, 0.2); color: var(--accent-light); margin-bottom: 0.75rem; }
+    .project-card__name { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1.125rem; margin-bottom: 0.5rem; }
+    .project-card__desc { font-size: 0.875rem; opacity: 0.8; line-height: 1.55; margin-bottom: 1rem; }
+    .project-card__team { font-size: 12px; font-weight: 600; opacity: 0.65; }
+    .community-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .community-card { background: var(--surface); border-radius: var(--radius-sm); padding: 1.75rem 1.5rem; transition: transform var(--transition), box-shadow var(--transition); }
+    .community-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26, 18, 8, 0.08); }
+    .community-card__emoji { font-size: 1.75rem; margin-bottom: 1rem; }
+    .community-card__title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.9375rem; margin-bottom: 0.5rem; }
+    .community-card__desc { font-size: 0.875rem; color: var(--muted); line-height: 1.55; }
+    .pull-quote { position: relative; max-width: 720px; margin: 0 auto; text-align: center; padding: 2rem 1rem; }
+    .pull-quote__mark { font-family: 'Unbounded', sans-serif; font-size: 5rem; line-height: 1; color: var(--accent-light); margin-bottom: 0.5rem; }
+    .pull-quote__text { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: clamp(1.25rem, 3vw, 1.625rem); line-height: 1.45; margin-bottom: 1.25rem; }
+    .pull-quote__attr { font-size: 0.875rem; color: var(--muted); }
+    .inner-cta { background: #1a1208; padding: clamp(2.5rem, 5vw, 3.5rem) 0; text-align: center; }
+    .inner-cta h2 { color: var(--white); font-size: clamp(1.35rem, 3vw, 1.75rem); margin-bottom: 1.5rem; }
+    .news-hero__tag { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; background: rgba(100, 70, 32, 0.15); color: var(--accent); margin-bottom: 0.75rem; }
+    .news-hero__date { font-size: 0.8125rem; color: var(--muted); margin-bottom: 1rem; }
+    .news-article { background: var(--white); padding: 3rem clamp(1.25rem, 4vw, 1.5rem); }
+    .news-article__inner { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.25rem; }
+    .news-article__inner p { font-size: 1rem; line-height: 1.75; color: var(--black); }
+    .news-callout, .inner-callout { background: var(--surface); border-left: 3px solid var(--accent); padding: 1.25rem; font-size: 0.9375rem; line-height: 1.65; color: var(--black); font-style: italic; }
+    .news-back { background: var(--surface); padding: 2rem 0; text-align: center; }
+    .news-back__btn { font-family: 'Onest', sans-serif; background: transparent; border: none; color: var(--accent); font-weight: 600; font-size: 0.9375rem; cursor: pointer; transition: opacity 0.2s; }
+    .news-back__btn:hover { opacity: 0.7; }
+ 
+    /* SLIDERS */
+    .slider-dots { display: flex; justify-content: center; gap: 8px; margin-top: 16px; }
+    .slider-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(100, 70, 32, 0.2); cursor: pointer; transition: background 0.25s, transform 0.2s; border: none; padding: 0; }
+    .slider-dot.is-active { background: var(--accent); transform: scale(1.3); }
+ 
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav__burger { display: flex; }
+      .nav__toggle:checked ~ .nav__burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .nav__toggle:checked ~ .nav__burger span:nth-child(2) { opacity: 0; }
+      .nav__toggle:checked ~ .nav__burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+      .nav__menu { position: absolute; top: 100%; left: 0; right: 0; background: var(--white); border-bottom: 1px solid rgba(26, 18, 8, 0.08); padding: 1rem clamp(1.25rem, 4vw, 2rem) 1.5rem; flex-direction: column; align-items: stretch; gap: 0; display: none; box-shadow: 0 12px 24px rgba(26, 18, 8, 0.06); }
+      .nav__toggle:checked ~ .nav__menu { display: flex; }
+      .nav__links { flex-direction: column; align-items: flex-start; gap: 0; width: 100%; }
+      .nav__links li { width: 100%; border-bottom: 1px solid rgba(26, 18, 8, 0.06); }
+      .nav__links a { display: block; padding: 0.875rem 0; }
+      .nav__menu .btn--nav { width: 100%; margin-top: 1rem; text-align: center; }
+      .nav { position: sticky; }
+      .nav__inner { flex-wrap: wrap; position: relative; }
+      .hero__grid { grid-template-columns: 1fr; }
+      .hero__card { min-height: 300px; order: -1; }
+      .about__grid { grid-template-columns: 1fr; }
+      .directions__header { flex-direction: column; align-items: flex-start; }
+      .directions__sub { text-align: left; }
+      .join__grid { grid-template-columns: 1fr; }
+      .footer__grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; }
+      .news-group__grid { grid-template-columns: 1fr; }
+      #whom-slider .whom-card { flex: 0 0 85%; }
+      #team-leadership-slider .team-card,
+      #team-dept-slider .team-card { flex: 0 0 88%; }
+
+      .inner-2col { grid-template-columns: 1fr; }
+      .feature-cards { grid-template-columns: 1fr; }
+      .icon-cards { grid-template-columns: 1fr; }
+      .community-cards { grid-template-columns: 1fr; }
+    }
+ 
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .news-group__grid { grid-template-columns: repeat(2, 1fr); }
+      .story-card { flex: 0 0 calc(50% - 0.625rem); }
+      #team-leadership-slider .team-card,
+      #team-dept-slider .team-card { flex: 0 0 min(300px, 45vw); }
+    }
+
+    @media (min-width: 769px) {
+      .nav__menu { display: flex; align-items: center; gap: 2rem; }
+      #dir-dots.slider-dots { display: flex !important; }
+      .story-card { flex: 0 0 calc(33.333% - 0.85rem); }
+      #team-leadership-slider .team-card,
+      #team-dept-slider .team-card { flex: 0 0 min(320px, 32vw); }
+      #whom-slider .whom-card { flex: 0 0 min(280px, 24vw); }
+    }
+  </style>
+</head>
+<body>
+ 
+  <header class="nav" id="main-nav">
+    <div class="nav__inner">
+      <div class="nav__brand">
+        <button id="nav-back" class="nav__back" type="button" style="display:none">← Назад</button>
+        <a href="#" class="nav__logo" id="nav-logo">
+          <span class="nav__logo-img"><img src="logo.jpg" alt="Логотип Founder's Hub"></span>
+          <span>Founder's <span class="nav__logo-hub">Hub</span></span>
+        </a>
+      </div>
+      <input type="checkbox" id="nav-toggle" class="nav__toggle" aria-hidden="true">
+      <label for="nav-toggle" class="nav__burger" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </label>
+      <div class="nav__menu">
+        <ul class="nav__links" id="nav-links">
+          <li><a href="#" data-nav="about">О нас</a></li>
+          <li><a href="#" data-nav="news">Новости</a></li>
+          <li><a href="#" data-nav="directions">Направления</a></li>
+          <li><a href="#" data-nav="join">Как вступить</a></li>
+          <li><a href="#" data-nav="team">Команда</a></li>
+        </ul>
+        <a href="#" class="btn btn--primary btn--nav" id="nav-cta" data-nav="join">Вступить в Founder's Hub</a>
+      </div>
+    </div>
+  </header>
+ 
+  <div id="page-home">
+    <section class="hero">
+      <div class="container">
+        <div class="hero__grid">
+          <div class="hero__left">
+            <span class="hero__badge">Студенческая организация Narxoz University</span>
+            <h1>Где студенты становятся <span class="accent-text">основателями</span></h1>
+            <p class="hero__desc">Founder's Hub — пространство, где студенты Narxoz развивают лидерство, запускают проекты и строят сообщество будущих основателей. Присоединяйся к тем, кто не ждёт идеального момента, а создаёт его сам.</p>
+            <div class="hero__actions">
+              <a href="#join" class="btn btn--primary">Вступить в Founder's Hub →</a>
+              <a href="#about" class="btn btn--secondary">Узнать больше</a>
+            </div>
+            <div class="hero__stats">
+              <div class="hero__stat"><span class="hero__stat-num">50+</span><span class="hero__stat-label">Участников</span></div>
+              <div class="hero__stat"><span class="hero__stat-num">6</span><span class="hero__stat-label">Направлений</span></div>
+              <div class="hero__stat"><span class="hero__stat-num">2+</span><span class="hero__stat-label">Года</span></div>
+            </div>
+          </div>
+          <div class="hero__card">
+            <svg class="hero__card-pattern" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <pattern id="geo" width="60" height="60" patternUnits="userSpaceOnUse">
+                  <circle cx="30" cy="30" r="28" fill="none" stroke="white" stroke-width="1"/>
+                  <line x1="0" y1="0" x2="60" y2="60" stroke="white" stroke-width="0.5"/>
+                  <line x1="60" y1="0" x2="0" y2="60" stroke="white" stroke-width="0.5"/>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#geo)"/>
+            </svg>
+            <div class="hero__card-overlay"></div>
+            <div class="hero__card-content">
+              <p class="hero__card-label">Narxoz × Founder's Hub</p>
+              <p class="hero__card-year">2026</p>
+              <p class="hero__card-sub">Набор открыт — присоединяйся</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="about" id="about">
+      <div class="container">
+        <div class="about__grid">
+          <div class="about__left">
+            <span class="section-label">О нас</span>
+            <h2>Что такое Founder's Hub?</h2>
+            <div class="about__logo-card">
+              <p class="about__logo-text">Founder's<br><span class="accent-text">Hub</span></p>
+            </div>
+          </div>
+          <div class="about__paragraphs">
+            <p>Founder's Hub — пространство, где студенты Narxoz развивают лидерские навыки и предпринимательское мышление.</p>
+            <p>Организация объединяет тех, кто хочет не просто учиться, но и создавать проекты, строить сети и расти как профессионал.</p>
+            <p>В первую очередь Founder's Hub для тех, кто готов брать ответственность, действовать и менять среду вокруг себя.</p>
+          </div>
+        </div>
+ 
+        <div class="about__stories">
+          <span class="section-label">Истории успеха</span>
+          <h3 class="about__stories-heading">Участники, которые изменили свою жизнь</h3>
+          <p class="about__stories-sub">Реальные люди. Реальные результаты. Всё началось здесь.</p>
+          <div class="stories-slider" id="stories-slider">
+            <div class="stories-track">
+              <article class="story-card">
+                <div class="story-card__avatar">Р</div>
+                <div class="story-card__body">
+                  <h4 class="story-card__name">Райымбек</h4>
+                  <span class="story-card__tag">Реклама и бизнес</span>
+                  <p class="story-card__text">Получил доступ к спикерам Founder's Hub, стал рекламным лицом факультета ШЭМ Narxoz University и развивает собственный коммерческий проект.</p>
+                </div>
+              </article>
+              <article class="story-card story-card--accent">
+                <div class="story-card__avatar">Н</div>
+                <div class="story-card__body">
+                  <h4 class="story-card__name">Нармина</h4>
+                  <span class="story-card__tag">Forbes 30u30</span>
+                  <p class="story-card__text">Вошла в список Forbes 30 under 30, реализовав свой проект более чем на $5 000. Пример того, как студенческая идея становится реальным бизнесом.</p>
+                </div>
+              </article>
+              <article class="story-card">
+                <div class="story-card__avatar">Т</div>
+                <div class="story-card__body">
+                  <h4 class="story-card__name">Тамерлан</h4>
+                  <span class="story-card__tag">Предпринимательство</span>
+                  <p class="story-card__text">Основатель магазина Darman. Благодаря Founder's Hub получает более глубокий предпринимательский опыт и продолжает развивать своё дело.</p>
+                </div>
+              </article>
+              <article class="story-card story-card--dark">
+                <div class="story-card__avatar">Б</div>
+                <div class="story-card__body">
+                  <h4 class="story-card__name">Богдан</h4>
+                  <span class="story-card__tag">Менеджмент</span>
+                  <p class="story-card__text">Получил управленческий опыт внутри организации и основал собственный образовательный центр. Теперь сам развивает других.</p>
+                </div>
+              </article>
+              <article class="story-card story-card--accent">
+                <div class="story-card__avatar">С</div>
+                <div class="story-card__body">
+                  <h4 class="story-card__name">Сая</h4>
+                  <span class="story-card__tag">Бывший Президент</span>
+                  <p class="story-card__text">Бывший Президент Founder's Hub. Успешно реализовала собственный стартап более чем на $2 500 и продолжает вдохновлять следующее поколение основателей.</p>
+                </div>
+              </article>
+            </div>
+            <div class="stories-nav">
+              <button type="button" class="stories-arrow" id="stories-prev" aria-label="Назад">&#8592;</button>
+              <div class="stories-dots" id="stories-dots"></div>
+              <button type="button" class="stories-arrow" id="stories-next" aria-label="Вперёд">&#8594;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="directions" id="directions">
+      <div class="container">
+        <div class="directions__header">
+          <div>
+            <span class="section-label">Направления</span>
+            <h2>Что предлагает Founder's Hub?</h2>
+          </div>
+          <p class="directions__sub">Шесть направлений для каждого этапа твоего пути.</p>
+        </div>
+        <div class="dir-slider-wrapper" id="dir-slider">
+          <div class="dir-slider-track">
+            <article class="direction-card" data-route="directions/education">
+              <div class="direction-card__visual"><span class="direction-card__num">01</span><span class="direction-card__arrow" aria-hidden="true">↗</span></div>
+              <div class="direction-card__body"><h3 class="direction-card__title">Образование и воркшопы</h3><p class="direction-card__desc">Регулярные сессии, лекции и мастер-классы от практиков и экспертов.</p></div>
+            </article>
+            <article class="direction-card" data-route="directions/projects">
+              <div class="direction-card__visual direction-card__visual--2"><span class="direction-card__num">02</span><span class="direction-card__arrow" aria-hidden="true">↗</span></div>
+              <div class="direction-card__body"><h3 class="direction-card__title">Проектная деятельность</h3><p class="direction-card__desc">Реальные проекты внутри организации: от идеи до готового продукта.</p></div>
+            </article>
+            <article class="direction-card" data-route="directions/network">
+              <div class="direction-card__visual direction-card__visual--3"><span class="direction-card__num">03</span><span class="direction-card__arrow" aria-hidden="true">↗</span></div>
+              <div class="direction-card__body"><h3 class="direction-card__title">Нетворкинг и сообщество</h3><p class="direction-card__desc">Комьюнити студентов, выпускников и менторов для роста и поддержки.</p></div>
+            </article>
+            <article class="direction-card" data-route="directions/marketing">
+              <div class="direction-card__visual direction-card__visual--4"><span class="direction-card__num">04</span><span class="direction-card__arrow" aria-hidden="true">↗</span></div>
+              <div class="direction-card__body"><h3 class="direction-card__title">Маркетинг на практике</h3><p class="direction-card__desc">Учись продвигать идеи, бренды и проекты на реальных задачах внутри организации.</p></div>
+            </article>
+            <article class="direction-card" data-route="directions/hr">
+              <div class="direction-card__visual direction-card__visual--5"><span class="direction-card__num">05</span><span class="direction-card__arrow" aria-hidden="true">↗</span></div>
+              <div class="direction-card__body"><h3 class="direction-card__title">Прикладной HR</h3><p class="direction-card__desc">Изучай управление людьми, найм и развитие команды на практике, а не только в теории.</p></div>
+            </article>
+            <article class="direction-card" data-route="directions/events">
+              <div class="direction-card__visual direction-card__visual--6"><span class="direction-card__num">06</span><span class="direction-card__arrow" aria-hidden="true">↗</span></div>
+              <div class="direction-card__body"><h3 class="direction-card__title">Организация мероприятий</h3><p class="direction-card__desc">Становись лидером и модератором реальных ивентов Founder's Hub от идеи до воплощения.</p></div>
+            </article>
+          </div>
+          <div class="dir-slider-nav">
+            <button type="button" class="dir-arrow dir-arrow--prev" aria-label="Предыдущее направление" disabled>←</button>
+            <div class="slider-dots" id="dir-dots"></div>
+            <button type="button" class="dir-arrow dir-arrow--next" aria-label="Следующее направление">→</button>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="for-whom">
+      <div class="container">
+        <span class="section-label">Для кого</span>
+        <h2>Кому подойдёт?</h2>
+        <div class="for-whom__grid">
+          <div class="slider-wrapper" id="whom-slider">
+            <div class="slider-track">
+              <article class="whom-card"><div class="whom-card__num">01</div><h3 class="whom-card__title">Студентам с амбициями</h3><p class="whom-card__desc">Хочешь расти — мы дадим среду и инструменты.</p></article>
+              <article class="whom-card"><div class="whom-card__num">02</div><h3 class="whom-card__title">Будущим предпринимателям</h3><p class="whom-card__desc">Развивай идею и найди единомышленников внутри университета.</p></article>
+              <article class="whom-card"><div class="whom-card__num">03</div><h3 class="whom-card__title">Лидерам и организаторам</h3><p class="whom-card__desc">Прокачай управленческие навыки на реальных задачах.</p></article>
+              <article class="whom-card"><div class="whom-card__num">04</div><h3 class="whom-card__title">Тем, кто ищет сообщество</h3><p class="whom-card__desc">Найди людей, которые думают так же, как ты.</p></article>
+            </div>
+            <div class="slider-nav">
+              <button type="button" class="slider-arrow" data-slider-prev aria-label="Назад">←</button>
+              <div class="slider-dots">
+                <span class="slider-dot is-active" data-index="0"></span>
+                <span class="slider-dot" data-index="1"></span>
+                <span class="slider-dot" data-index="2"></span>
+                <span class="slider-dot" data-index="3"></span>
+              </div>
+              <button type="button" class="slider-arrow" data-slider-next aria-label="Вперёд">→</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="join" id="join">
+      <div class="container">
+        <span class="section-label section-label--light">Как вступить</span>
+        <div class="join__grid">
+          <div class="join__left">
+            <h2>Как это работает?</h2>
+            <p class="join__desc">Вступление в Founder's Hub — простой и прозрачный процесс. Мы ищем мотивированных студентов, готовых учиться, действовать и развивать организацию вместе с командой.</p>
+            <a href="#join" class="btn btn--primary">Начать сейчас →</a>
+          </div>
+          <div class="join__steps-card">
+            <div class="join__step"><p class="join__step-num">01</p><p class="join__step-title">Заполни анкету</p><p class="join__step-desc">Расскажи о себе и своих целях.</p></div>
+            <div class="join__step"><p class="join__step-num">02</p><p class="join__step-title">Пройди собеседование</p><p class="join__step-desc">Коротко поговори с командой.</p></div>
+            <div class="join__step"><p class="join__step-num">03</p><p class="join__step-title">Вступи в команду</p><p class="join__step-desc">Стань частью Founder's Hub.</p></div>
+            <div class="join__step"><p class="join__step-num">04</p><p class="join__step-title">Развивайся</p><p class="join__step-desc">Участвуй, создавай, расти.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="team" id="team">
+      <div class="container">
+        <span class="section-label">Команда</span>
+        <h2>Команда Founder's Hub</h2>
+        <p class="team__sub">Студенты, которые строят организацию изнутри.</p>
+
+        <div class="team__block">
+          <h3 class="team__block-title">Руководство</h3>
+          <div class="slider-wrapper" id="team-leadership-slider">
+            <div class="slider-track">
+              <article class="team-card">
+                <div class="team-card__photo"></div>
+                <div class="team-card__body">
+                  <p class="team-card__role">Президент</p>
+                  <h3 class="team-card__name">Амиржан Жампеисов</h3>
+                  <p class="team-card__bio">Развивает стратегию и видение организации.</p>
+                  <button type="button" class="team-card__toggle">Читать биографию ↓</button>
+                  <div class="team-card__full-bio"><div><p>Амиржан возглавляет Founder's Hub с момента основания. Отвечает за стратегическое направление, внешние партнёрства и культуру организации. Студент факультета бизнеса Narxoz University, ментор стартап-команд.</p></div></div>
+                </div>
+              </article>
+              <article class="team-card">
+                <div class="team-card__photo team-card__photo--2"></div>
+                <div class="team-card__body">
+                  <p class="team-card__role">Операционный директор</p>
+                  <h3 class="team-card__name">Богдан Навроцки</h3>
+                  <p class="team-card__bio">Отвечает за процессы и команду.</p>
+                  <button type="button" class="team-card__toggle">Читать биографию ↓</button>
+                  <div class="team-card__full-bio"><div><p>Богдан выстраивает внутренние процессы, HR-систему и межотдельную координацию Founder's Hub. Обеспечивает работу организации в соответствии с Уставом и операционными стандартами.</p></div></div>
+                </div>
+              </article>
+              <article class="team-card">
+                <div class="team-card__photo team-card__photo--3"></div>
+                <div class="team-card__body">
+                  <p class="team-card__role">Помощник Президента</p>
+                  <h3 class="team-card__name">Анастасия Артамонова</h3>
+                  <p class="team-card__bio">Координирует работу президента и ключевые инициативы.</p>
+                  <button type="button" class="team-card__toggle">Читать биографию ↓</button>
+                  <div class="team-card__full-bio"><div><p>Анастасия обеспечивает операционную поддержку президента, ведёт протоколы встреч, координирует расписание и помогает реализовывать стратегические решения руководства.</p></div></div>
+                </div>
+              </article>
+            </div>
+            <div class="slider-nav">
+              <button type="button" class="slider-arrow" data-slider-prev aria-label="Назад">←</button>
+              <div class="slider-dots"></div>
+              <button type="button" class="slider-arrow" data-slider-next aria-label="Вперёд">→</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="team__block">
+          <h3 class="team__block-title">Руководители направлений</h3>
+          <div class="slider-wrapper" id="team-dept-slider">
+            <div class="slider-track">
+              <article class="team-card">
+                <div class="team-card__photo team-card__photo--4"></div>
+                <div class="team-card__body">
+                  <p class="team-card__role">HR-директор</p>
+                  <h3 class="team-card__name">Жанель Шайкиева</h3>
+                  <p class="team-card__bio">Развивает команду и HR-процессы организации.</p>
+                  <button type="button" class="team-card__toggle">Читать биографию ↓</button>
+                  <div class="team-card__full-bio"><div><p>Жанель руководит HR-направлением Founder's Hub: рекрутинг, онбординг, развитие участников и формирование корпоративной культуры внутри организации.</p></div></div>
+                </div>
+              </article>
+              <article class="team-card">
+                <div class="team-card__photo team-card__photo--5"></div>
+                <div class="team-card__body">
+                  <p class="team-card__role">Маркетинг-директор</p>
+                  <h3 class="team-card__name">Андрей Хлыстунов</h3>
+                  <p class="team-card__bio">Отвечает за бренд, контент и продвижение Hub.</p>
+                  <button type="button" class="team-card__toggle">Читать биографию ↓</button>
+                  <div class="team-card__full-bio"><div><p>Андрей возглавляет маркетинговое направление: SMM, визуальная коммуникация, продвижение мероприятий и аналитика аудитории Founder's Hub.</p></div></div>
+                </div>
+              </article>
+              <article class="team-card">
+                <div class="team-card__photo team-card__photo--6"></div>
+                <div class="team-card__body">
+                  <p class="team-card__role">Ивент-директор</p>
+                  <h3 class="team-card__name">Айгерим Есетова</h3>
+                  <p class="team-card__bio">Организует мероприятия и управляет ивент-командой.</p>
+                  <button type="button" class="team-card__toggle">Читать биографию ↓</button>
+                  <div class="team-card__full-bio"><div><p>Айгерим курирует ивент-направление: от концепции до проведения мероприятий Founder's Hub — воркшопов, лекций, нетворкингов и праздников команды.</p></div></div>
+                </div>
+              </article>
+              <article class="team-card">
+                <div class="team-card__photo team-card__photo--7"></div>
+                <div class="team-card__body">
+                  <p class="team-card__role">Business Development директор</p>
+                  <h3 class="team-card__name">Султан Ильясулы</h3>
+                  <p class="team-card__bio">Развивает партнёрства и новые возможности для Hub.</p>
+                  <button type="button" class="team-card__toggle">Читать биографию ↓</button>
+                  <div class="team-card__full-bio"><div><p>Султан отвечает за бизнес-развитие Founder's Hub: партнёрства с внешними организациями, спонсорские инициативы и масштабирование проектов организации.</p></div></div>
+                </div>
+              </article>
+            </div>
+            <div class="slider-nav">
+              <button type="button" class="slider-arrow" data-slider-prev aria-label="Назад">←</button>
+              <div class="slider-dots"></div>
+              <button type="button" class="slider-arrow" data-slider-next aria-label="Вперёд">→</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__grid">
+          <div class="footer__brand">
+            <p class="footer__logo">Founder's <span>Hub</span></p>
+            <p class="footer__brand-desc">Студенческая организация Narxoz University. Пространство, где студенты становятся основателями.</p>
+          </div>
+          <div class="footer__col">
+            <p class="footer__col-heading">Социальные сети</p>
+            <ul class="footer__links">
+              <li><a href="https://www.instagram.com/foundershub.kz/" target="_blank" rel="noopener" class="footer__link">Instagram</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <p class="footer__col-heading">Контакты</p>
+            <ul class="footer__links">
+              <li class="footer__contact-item">Narxoz University</li>
+              <li class="footer__contact-item">г. Алматы, Жандосова 55</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <p class="footer__copy">© 2023 Founder's Hub. Все права защищены.</p>
+          <p class="footer__sub">Часть экосистемы Narxoz University</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- NEWS LIST PAGE -->
+  <div id="page-news-list" style="display:none">
+    <div class="inner-hero">
+      <div class="container">
+        <span class="section-label">Новости</span>
+        <h1>Лента событий</h1>
+        <p class="inner-hero__lead">Все новости и события Founder's Hub — собраны по тематическим группам.</p>
+      </div>
+    </div>
+    <section class="news-page">
+      <div class="container">
+        <div class="news-group">
+          <h3 class="news-group__title">Группа 1</h3>
+          <div class="news-group__grid" id="news-group-1"></div>
+        </div>
+        <div class="news-group">
+          <h3 class="news-group__title">Группа 2</h3>
+          <div class="news-group__grid" id="news-group-2"></div>
+        </div>
+        <div class="news-group">
+          <h3 class="news-group__title">Группа 3</h3>
+          <div class="news-group__grid" id="news-group-3"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- PAGE 1: Education -->
+  <div id="page-dir-1" style="display:none">
+    <div class="inner-hero"><div class="container"><span class="section-label">Направление 01</span><h1>Образование и воркшопы</h1><p class="inner-hero__lead">Знания, которые сразу применяются на практике. Мы приглашаем практиков, запускаем воркшопы и создаём среду непрерывного обучения.</p></div></div>
+    <section class="inner-block inner-block--white"><div class="container"><div class="inner-2col"><div><h2>Что это?</h2><p class="inner-text">Founder's Hub организует регулярные образовательные мероприятия для студентов Narxoz. Форматы варьируются от коротких воркшопов до полноценных курсов с сертификацией.</p></div><ol class="numbered-list"><li><span class="numbered-list__num">01</span> Воркшопы от практикующих предпринимателей</li><li><span class="numbered-list__num">02</span> Лекции приглашённых спикеров</li><li><span class="numbered-list__num">03</span> Мини-курсы по hard и soft skills</li><li><span class="numbered-list__num">04</span> Совместные разборы кейсов</li></ol></div></div></section>
+    <section class="inner-block inner-block--surface"><div class="container"><h2>Форматы</h2><div class="feature-cards"><article class="feature-card"><div class="feature-card__icon">✦</div><h3 class="feature-card__title">Воркшоп</h3><p class="feature-card__desc">2–3 часа, практический формат, малая группа</p></article><article class="feature-card"><div class="feature-card__icon">◈</div><h3 class="feature-card__title">Лекция</h3><p class="feature-card__desc">Открытое мероприятие, 60–90 мин, Q&amp;A</p></article><article class="feature-card"><div class="feature-card__icon">❋</div><h3 class="feature-card__title">Курс</h3><p class="feature-card__desc">4–6 недель, домашние задания, итоговый проект</p></article></div></div></section>
+    <section class="inner-block inner-block--white"><div class="container"><h2>Ближайшие мероприятия</h2><div class="timeline"><div class="timeline__item"><span class="timeline__badge">Скоро</span><span class="timeline__title">Воркшоп по публичным выступлениям</span><span class="timeline__status">Анонс</span></div><div class="timeline__item"><span class="timeline__badge">Скоро</span><span class="timeline__title">Лекция: Как построить стартап с нуля</span><span class="timeline__status">Анонс</span></div><div class="timeline__item"><span class="timeline__badge">Скоро</span><span class="timeline__title">Мини-курс по продуктовому мышлению</span><span class="timeline__status">Анонс</span></div></div></div></section>
+    <section class="inner-cta"><div class="container"><h2>Хочешь стать частью этого?</h2><button type="button" class="btn btn--primary" data-home-join>Вступить в Founder's Hub →</button></div></section>
+  </div>
+ 
+  <!-- PAGE 2: Projects -->
+  <div id="page-dir-2" style="display:none">
+    <div class="inner-hero"><div class="container"><span class="section-label">Направление 02</span><h1>Проектная деятельность</h1><p class="inner-hero__lead">От идеи до готового продукта — внутри Founder's Hub. Мы даём структуру, команду и ресурсы для запуска реального проекта.</p></div></div>
+    <section class="inner-block inner-block--white"><div class="container"><div class="inner-2col"><div><h2>Как это устроено?</h2><p class="inner-text">Проектная деятельность — ядро Founder's Hub. Каждая команда проходит полный цикл: от формулировки идеи до создания MVP и первой обратной связи от рынка.</p></div><div class="stepper"><div class="stepper__item"><p class="stepper__num">01</p><p class="stepper__title">Идея</p><p class="stepper__desc">Формулируешь проблему и решение</p></div><div class="stepper__item"><p class="stepper__num">02</p><p class="stepper__title">Команда</p><p class="stepper__desc">Собираешь или находишь единомышленников</p></div><div class="stepper__item"><p class="stepper__num">03</p><p class="stepper__title">MVP</p><p class="stepper__desc">Создаёшь минимальный рабочий продукт</p></div><div class="stepper__item"><p class="stepper__num">04</p><p class="stepper__title">Обратная связь</p><p class="stepper__desc">Тестируешь с реальными пользователями</p></div></div></div></div></section>
+    <section class="inner-block inner-block--surface"><div class="container"><h2>Что получает команда?</h2><div class="icon-cards"><article class="icon-card"><div class="icon-card__icon">◎</div><h3 class="icon-card__title">Менторская поддержка</h3><p class="icon-card__desc">Доступ к опытным наставникам</p></article><article class="icon-card"><div class="icon-card__icon">◈</div><h3 class="icon-card__title">Ресурсы организации</h3><p class="icon-card__desc">Пространство, инструменты, связи</p></article><article class="icon-card"><div class="icon-card__icon">✦</div><h3 class="icon-card__title">Питч-практика</h3><p class="icon-card__desc">Регулярные демо-дни внутри Hub</p></article><article class="icon-card"><div class="icon-card__icon">❋</div><h3 class="icon-card__title">Нетворк</h3><p class="icon-card__desc">Выход на экосистему Narxoz и Technopark</p></article></div></div></section>
+    <section class="inner-block inner-block--white"><div class="container"><h2>Текущие проекты</h2><div class="project-scroll"><article class="project-card"><span class="project-card__tag">В разработке</span><h3 class="project-card__name">Проект #1</h3><p class="project-card__desc">Описание появится в ближайшее время.</p><p class="project-card__team">Команда: 3 чел.</p></article><article class="project-card"><span class="project-card__tag">В разработке</span><h3 class="project-card__name">Проект #2</h3><p class="project-card__desc">Описание появится в ближайшее время.</p><p class="project-card__team">Команда: 3 чел.</p></article><article class="project-card"><span class="project-card__tag">В разработке</span><h3 class="project-card__name">Проект #3</h3><p class="project-card__desc">Описание появится в ближайшее время.</p><p class="project-card__team">Команда: 3 чел.</p></article></div></div></section>
+    <section class="inner-cta"><div class="container"><h2>Хочешь стать частью этого?</h2><button type="button" class="btn btn--primary" data-home-join>Вступить в Founder's Hub →</button></div></section>
+  </div>
+ 
+  <!-- PAGE 3: Network -->
+  <div id="page-dir-3" style="display:none">
+    <div class="inner-hero"><div class="container"><span class="section-label">Направление 03</span><h1>Нетворкинг и сообщество</h1><p class="inner-hero__lead">Люди решают всё. Founder's Hub — это сообщество студентов, выпускников и менторов, объединённых общей целью — расти и создавать.</p></div></div>
+    <section class="inner-block inner-block--white"><div class="container"><h2>Кто в сообществе?</h2><div class="community-cards"><article class="community-card"><div class="community-card__emoji">👤</div><h3 class="community-card__title">Студенты</h3><p class="community-card__desc">Активные участники, которые развиваются вместе</p></article><article class="community-card"><div class="community-card__emoji">🎓</div><h3 class="community-card__title">Выпускники</h3><p class="community-card__desc">Менторы и амбассадоры организации</p></article><article class="community-card"><div class="community-card__emoji">🤝</div><h3 class="community-card__title">Партнёры</h3><p class="community-card__desc">Эксперты и представители бизнеса</p></article></div></div></section>
+    <section class="inner-block inner-block--surface"><div class="container"><div class="inner-2col"><div><h2>Форматы нетворкинга</h2><p class="inner-text">Нетворкинг в Founder's Hub — это не просто обмен визитками. Это совместная работа, дискуссии и реальные проекты, которые рождаются из живого общения.</p></div><ol class="numbered-list"><li><span class="numbered-list__num">01</span> Общие встречи участников (2× в месяц)</li><li><span class="numbered-list__num">02</span> Закрытые чаты и каналы сообщества</li><li><span class="numbered-list__num">03</span> Совместные выезды и неформальные встречи</li><li><span class="numbered-list__num">04</span> Коллаборации с другими студенческими орг.</li></ol></div></div></section>
+    <section class="inner-block inner-block--white"><div class="container"><blockquote class="pull-quote"><p class="pull-quote__mark">"</p><p class="pull-quote__text">Твой следующий партнёр по бизнесу сидит рядом с тобой на паре.</p><cite class="pull-quote__attr">— Founder's Hub, Narxoz University</cite></blockquote></div></section>
+    <section class="inner-cta"><div class="container"><h2>Хочешь стать частью этого?</h2><button type="button" class="btn btn--primary" data-home-join>Вступить в Founder's Hub →</button></div></section>
+  </div>
+ 
+  <!-- PAGE 4: Marketing -->
+  <div id="page-dir-4" style="display:none">
+    <div class="inner-hero"><div class="container"><span class="section-label">Направление 04</span><h1>Маркетинг на практике</h1><p class="inner-hero__lead">Не просто теория — реальные задачи, реальная аудитория, реальный результат. Учись продвигать идеи и проекты прямо внутри Founder's Hub.</p></div></div>
+    <section class="inner-block inner-block--white"><div class="container"><div class="inner-2col"><div><h2>Что это?</h2><p class="inner-text">Маркетинг в Founder's Hub — это не курсовые работы. Участники берутся за реальные задачи: продвижение мероприятий, создание контента, построение бренда организации и анализ аудитории.</p></div><ol class="numbered-list"><li><span class="numbered-list__num">01</span> SMM и контент-маркетинг</li><li><span class="numbered-list__num">02</span> Брендинг и визуальная коммуникация</li><li><span class="numbered-list__num">03</span> Аналитика и работа с аудиторией</li><li><span class="numbered-list__num">04</span> Продвижение мероприятий и проектов</li></ol></div></div></section>
+    <section class="inner-block inner-block--white"><div class="container"><h2>Направления работы</h2><div class="feature-cards"><article class="feature-card"><div class="feature-card__icon">✦</div><h3 class="feature-card__title">Контент</h3><p class="feature-card__desc">Создание постов, сторис и материалов для соцсетей</p></article><article class="feature-card"><div class="feature-card__icon">◈</div><h3 class="feature-card__title">Бренд</h3><p class="feature-card__desc">Работа над айдентикой и позиционированием Hub</p></article><article class="feature-card"><div class="feature-card__icon">❋</div><h3 class="feature-card__title">Аналитика</h3><p class="feature-card__desc">Изучение метрик и эффективности кампаний</p></article></div></div></section>
+    <section class="inner-block inner-block--surface"><div class="container"><h2>Тимлид направления</h2><div class="dept-lead"><div class="dept-lead__avatar">А</div><div><p class="dept-lead__label">Руководитель</p><p class="dept-lead__name">Андрей Хлыстунов</p><p class="dept-lead__role">Маркетинг-директор</p></div></div></div></section>
+    <section class="inner-block inner-block--white"><div class="container"><blockquote class="inner-callout">Твои работы увидит реальная аудитория, а не только преподаватель.</blockquote></div></section>
+    <section class="inner-cta"><div class="container"><h2>Хочешь стать частью этого?</h2><button type="button" class="btn btn--primary" data-home-join>Вступить в Founder's Hub →</button></div></section>
+  </div>
+ 
+  <!-- PAGE 5: HR -->
+  <div id="page-dir-5" style="display:none">
+    <div class="inner-hero"><div class="container"><span class="section-label">Направление 05</span><h1>Прикладной HR</h1><p class="inner-hero__lead">Управление людьми — навык, который нельзя получить из учебника. В Founder's Hub ты работаешь с реальными процессами найма, адаптации и развития команды.</p></div></div>
+    <section class="inner-block inner-block--white"><div class="container"><div class="inner-2col"><div><h2>Как это устроено?</h2><p class="inner-text">HR-направление Founder's Hub даёт возможность изучить управление персоналом изнутри: от написания вакансий до онбординга новых участников и построения системы мотивации.</p></div><div class="stepper"><div class="stepper__item"><p class="stepper__num">01</p><p class="stepper__title">Рекрутинг</p><p class="stepper__desc">Поиск и отбор кандидатов в организацию</p></div><div class="stepper__item"><p class="stepper__num">02</p><p class="stepper__title">Онбординг</p><p class="stepper__desc">Адаптация новых участников</p></div><div class="stepper__item"><p class="stepper__num">03</p><p class="stepper__title">Развитие</p><p class="stepper__desc">Построение треков роста для команды</p></div><div class="stepper__item"><p class="stepper__num">04</p><p class="stepper__title">Культура</p><p class="stepper__desc">Формирование среды и ценностей</p></div></div></div></div></section>
+    <section class="inner-block inner-block--surface"><div class="container"><h2>Что ты освоишь?</h2><div class="feature-cards"><article class="feature-card"><div class="feature-card__icon">✦</div><h3 class="feature-card__title">Найм</h3><p class="feature-card__desc">Практика проведения собеседований</p></article><article class="feature-card"><div class="feature-card__icon">◈</div><h3 class="feature-card__title">Документы</h3><p class="feature-card__desc">Работа с регламентами и процедурами</p></article><article class="feature-card"><div class="feature-card__icon">❋</div><h3 class="feature-card__title">Команда</h3><p class="feature-card__desc">Развитие людей и управление конфликтами</p></article></div></div></section>
+    <section class="inner-block inner-block--white"><div class="container"><h2>Тимлид направления</h2><div class="dept-lead"><div class="dept-lead__avatar">Ж</div><div><p class="dept-lead__label">Руководитель</p><p class="dept-lead__name">Жанель Шайкиева</p><p class="dept-lead__role">HR-директор</p></div></div></div></section>
+    <section class="inner-block inner-block--surface"><div class="container"><blockquote class="inner-callout">HR — это не бумаги. Это люди, процессы и культура, которую ты строишь своими руками.</blockquote></div></section>
+    <section class="inner-cta"><div class="container"><h2>Хочешь стать частью этого?</h2><button type="button" class="btn btn--primary" data-home-join>Вступить в Founder's Hub →</button></div></section>
+  </div>
+ 
+  <!-- PAGE 6: Events -->
+  <div id="page-dir-6" style="display:none">
+    <div class="inner-hero"><div class="container"><span class="section-label">Направление 06</span><h1>Организация мероприятий</h1><p class="inner-hero__lead">От идеи до аплодисментов. В Founder's Hub ты можешь стать организатором, лидером и модератором реальных ивентов — не в симуляции, а по-настоящему.</p></div></div>
+    <section class="inner-block inner-block--white"><div class="container"><div class="inner-2col"><div><h2>Как это устроено?</h2><p class="inner-text">Ивент-направление — одно из самых видимых в Founder's Hub. Участники берут на себя полный цикл организации мероприятий: от концепции и логистики до ведения и разбора результатов.</p></div><ol class="numbered-list"><li><span class="numbered-list__num">01</span> Концепция — придумать формат и цель мероприятия</li><li><span class="numbered-list__num">02</span> Подготовка — логистика, спикеры, площадка, материалы</li><li><span class="numbered-list__num">03</span> Проведение — модерация и управление на месте</li><li><span class="numbered-list__num">04</span> Разбор — анализ результатов и обратная связь</li></ol></div></div></section>
+    <section class="inner-block inner-block--surface"><div class="container"><h2>Что ты получишь?</h2><div class="feature-cards"><article class="feature-card"><div class="feature-card__icon">✦</div><h3 class="feature-card__title">Форматы</h3><p class="feature-card__desc">Воркшопы, лекции, нетворкинг-вечера, питчи</p></article><article class="feature-card"><div class="feature-card__icon">◈</div><h3 class="feature-card__title">Команда</h3><p class="feature-card__desc">Распределение ролей и управление волонтёрами</p></article><article class="feature-card"><div class="feature-card__icon">❋</div><h3 class="feature-card__title">Опыт</h3><p class="feature-card__desc">Портфолио реальных проведённых мероприятий</p></article></div></div></section>
+    <section class="inner-block inner-block--white"><div class="container"><h2>Тимлид направления</h2><div class="dept-lead"><div class="dept-lead__avatar">А</div><div><p class="dept-lead__label">Руководитель</p><p class="dept-lead__name">Айгерим Есетова</p><p class="dept-lead__role">Ивент-директор</p></div></div></div></section>
+    <section class="inner-block inner-block--surface"><div class="container"><blockquote class="inner-callout">Каждое мероприятие Founder's Hub — это твоя точка роста как лидера и организатора.</blockquote></div></section>
+    <section class="inner-cta"><div class="container"><h2>Хочешь стать частью этого?</h2><button type="button" class="btn btn--primary" data-home-join>Вступить в Founder's Hub →</button></div></section>
+  </div>
+ 
+  <!-- NEWS PAGE 1 -->
+  <div id="page-news-1" style="display:none">
+    <div class="inner-hero"><div class="container"><span class="news-hero__tag">Выборы</span><p class="news-hero__date">Май 2026</p><h1>Старт выборов Вице-президента Founder's Hub</h1><p class="inner-hero__lead">Founder's Hub объявляет о начале официального процесса выборов на пост Вице-президента организации.</p></div></div>
+    <section class="news-article"><div class="news-article__inner"><p>Выборы Вице-президента — важный шаг в развитии внутренней демократии Founder's Hub. Пост Вице-президента предполагает активное участие в стратегическом планировании, поддержку Президента и координацию ключевых направлений организации.</p><p>Кандидаты должны быть действующими участниками Founder's Hub, готовыми брать на себя ответственность и действовать в интересах всей команды. Заявки принимаются через официальную анкету.</p><p>Процедура выборов включает: подачу заявки и предвыборной программы, публичную презентацию перед участниками и голосование членов организации. Итоги будут объявлены по завершении голосования.</p><blockquote class="news-callout">Если ты хочешь развивать Founder's Hub и готов нести ответственность — это твой шанс. Выдвигай кандидатуру.</blockquote></div></section>
+    <section class="news-back"><div class="container"><button type="button" class="news-back__btn" data-go-news>← Вернуться к новостям</button></div></section>
+  </div>
+ 
+  <!-- NEWS PAGE 2 -->
+  <div id="page-news-2" style="display:none">
+    <div class="inner-hero"><div class="container"><span class="news-hero__tag">Событие</span><p class="news-hero__date">7 мая 2026</p><h1>Завершение семестра и праздник для мужской команды</h1><p class="inner-hero__lead">Founder's Hub закрыл учебный семестр ярким мероприятием и поздравил мужской коллектив с праздником 7 мая.</p></div></div>
+    <section class="news-article"><div class="news-article__inner"><p>Весенний семестр 2026 года стал насыщенным для Founder's Hub: воркшопы, проектная работа, нетворкинг-встречи и многое другое. Мы завершили его достойно — собравшись всей командой на финальное мероприятие.</p><p>7 мая — особая дата для мужской части нашей команды. В этот день мы поздравили коллег, вручили подарки и сертификаты в знак признания их вклада в развитие организации.</p><p>Это не просто праздник — это момент, когда команда остановилась, чтобы отметить путь, пройденный вместе. Впереди новый сезон, новые проекты и новые победы Founder's Hub.</p><blockquote class="news-callout">Благодарим каждого участника за вклад в этот семестр. До встречи в новом сезоне!</blockquote></div></section>
+    <section class="news-back"><div class="container"><button type="button" class="news-back__btn" data-go-news>← Вернуться к новостям</button></div></section>
+  </div>
+ 
+  <script>
+    /* ─── DATA ─── */
+    const NEWS_DATA = [
+      { id: 'news/1', group: 1, tag: 'Выборы', date: 'Май 2026', title: "Старт выборов Вице-президента Founder's Hub", desc: 'В организации официально открыт приём заявок на пост Вице-президента. Любой активный участник может выдвинуть свою кандидатуру.', visual: 'news-card__visual--1', meta: '#1' },
+      { id: 'news/2', group: 1, tag: 'Событие', date: '7 мая 2026', title: 'Завершение семестра и праздник для мужской команды', desc: "Founder's Hub успешно закрыл учебный семестр. Мужской коллектив поздравили с праздником 7 мая, вручили подарки и сертификаты.", visual: 'news-card__visual--2', meta: '#2' },
+      { id: 'news/3', group: 2, tag: 'Анонс', date: 'Июнь 2026', title: "Летний набор в Founder's Hub", desc: 'Открыт приём заявок от новых участников. Заполни анкету и присоединяйся к команде основателей.', visual: 'news-card__visual--1', meta: '#3' },
+      { id: 'news/4', group: 2, tag: 'Образование', date: 'Июнь 2026', title: 'Серия воркшопов по предпринимательству', desc: 'В июне стартует цикл практических занятий с приглашёнными спикерами из бизнес-среды.', visual: 'news-card__visual--2', meta: '#4' },
+      { id: 'news/5', group: 3, tag: 'Партнёрство', date: 'Лето 2026', title: 'Новые партнёры экосистемы Narxoz', desc: "Founder's Hub расширяет сеть партнёров для поддержки студенческих проектов и стартапов.", visual: 'news-card__visual--1', meta: '#5' },
+      { id: 'news/6', group: 3, tag: 'Проекты', date: 'Лето 2026', title: 'Запуск проектного сезона 2026', desc: 'Команды Hub начинают работу над новыми проектами — от MVP до первых пилотов.', visual: 'news-card__visual--2', meta: '#6' }
+    ];
+
+    /* ─── ROUTING ─── */
+    const ALL_PAGES = ['page-home','page-news-list','page-dir-1','page-dir-2','page-dir-3','page-dir-4','page-dir-5','page-dir-6','page-news-1','page-news-2'];
+    const routes = {
+      'news': 'page-news-list',
+      'directions/education': 'page-dir-1',
+      'directions/projects':  'page-dir-2',
+      'directions/network':   'page-dir-3',
+      'directions/marketing': 'page-dir-4',
+      'directions/hr':        'page-dir-5',
+      'directions/events':    'page-dir-6',
+      'news/1': 'page-news-1',
+      'news/2': 'page-news-2',
+    };
+ 
+    function closeMobileMenu() {
+      const toggle = document.getElementById('nav-toggle');
+      if (toggle) toggle.checked = false;
+    }
+ 
+    function navigate(hash) {
+      ALL_PAGES.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+ 
+      const target = hash ? routes[hash] : null;
+      const pageId = target || 'page-home';
+      const pageEl = document.getElementById(pageId);
+      if (pageEl) pageEl.style.display = 'block';
+ 
+      const nav = document.getElementById('main-nav');
+      const backBtn = document.getElementById('nav-back');
+ 
+      if (target) {
+        nav.classList.add('nav--inner');
+        backBtn.style.display = 'inline-flex';
+      } else {
+        nav.classList.remove('nav--inner');
+        backBtn.style.display = 'none';
+      }
+ 
+      closeMobileMenu();
+      window.scrollTo(0, 0);
+    }
+ 
+    function goTo(hash) {
+      history.pushState(null, '', hash ? '#' + hash : window.location.pathname);
+      navigate(hash);
+    }
+ 
+    window.addEventListener('popstate', () => navigate(location.hash.slice(1)));
+ 
+    /* ─── NEWS PAGE RENDER ─── */
+    function newsCardHTML(n) {
+      return `
+        <article class="news-card" data-route="${n.id}">
+          <div class="news-card__visual ${n.visual}">
+            <span class="news-card__tag">${n.tag}</span>
+          </div>
+          <div class="news-card__body">
+            <span class="news-card__date">${n.date}</span>
+            <h4 class="news-card__title">${n.title}</h4>
+            <p class="news-card__desc">${n.desc}</p>
+            <div class="news-card__footer">
+              <button type="button" class="news-card__read-btn" data-route="${n.id}">Читать →</button>
+              <span class="news-card__meta">${n.meta}</span>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function bindNewsCards(root) {
+      root.querySelectorAll('.news-card[data-route]').forEach(card => {
+        const route = card.dataset.route;
+        if (!routes[route]) {
+          card.style.cursor = 'default';
+          card.querySelector('.news-card__read-btn')?.remove();
+          return;
+        }
+        card.addEventListener('click', () => goTo(route));
+      });
+      root.querySelectorAll('.news-card__read-btn[data-route]').forEach(btn => {
+        btn.addEventListener('click', e => { e.stopPropagation(); goTo(btn.dataset.route); });
+      });
+    }
+
+    function renderNewsPage() {
+      [1, 2, 3].forEach(group => {
+        const grid = document.getElementById('news-group-' + group);
+        if (!grid) return;
+        const items = NEWS_DATA.filter(n => n.group === group);
+        grid.innerHTML = items.length
+          ? items.map(newsCardHTML).join('')
+          : '<p class="news-group__empty">В этой группе пока нет новостей.</p>';
+        if (items.length) bindNewsCards(grid);
+      });
+    }
+
+    /* ─── GENERIC H-SLIDER ─── */
+    function initHSlider(wrapper, cardSelector) {
+      if (!wrapper) return;
+      const track = wrapper.querySelector('.slider-track');
+      const prevBtn = wrapper.querySelector('[data-slider-prev]');
+      const nextBtn = wrapper.querySelector('[data-slider-next]');
+      const dotsBox = wrapper.querySelector('.slider-dots');
+      if (!track) return;
+
+      const cards = track.querySelectorAll(cardSelector);
+      if (dotsBox && dotsBox.children.length === 0) {
+        cards.forEach((_, i) => {
+          const d = document.createElement('span');
+          d.className = 'slider-dot' + (i === 0 ? ' is-active' : '');
+          d.dataset.index = String(i);
+          dotsBox.appendChild(d);
+        });
+      }
+      const dots = dotsBox ? dotsBox.querySelectorAll('.slider-dot') : [];
+
+      function getStep() {
+        const card = cards[0];
+        if (!card) return track.offsetWidth;
+        const gap = parseFloat(getComputedStyle(track).gap) || 20;
+        return card.offsetWidth + gap;
+      }
+
+      function getIndex() {
+        const step = getStep();
+        return step ? Math.round(track.scrollLeft / step) : 0;
+      }
+
+      function update() {
+        const idx = getIndex();
+        dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+        if (prevBtn) prevBtn.disabled = track.scrollLeft <= 2;
+        if (nextBtn) nextBtn.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+      }
+
+      track.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+
+      dots.forEach(d => {
+        d.addEventListener('click', () => {
+          cards[+d.dataset.index]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+        });
+      });
+
+      prevBtn?.addEventListener('click', () => {
+        const idx = Math.max(0, getIndex() - 1);
+        cards[idx]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      });
+      nextBtn?.addEventListener('click', () => {
+        const idx = Math.min(cards.length - 1, getIndex() + 1);
+        cards[idx]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      });
+
+      let down = false, sx = 0, sl = 0;
+      track.addEventListener('mousedown', e => { down = true; sx = e.pageX - track.offsetLeft; sl = track.scrollLeft; });
+      track.addEventListener('mouseleave', () => { down = false; });
+      track.addEventListener('mouseup', () => { down = false; });
+      track.addEventListener('mousemove', e => {
+        if (!down) return;
+        e.preventDefault();
+        track.scrollLeft = sl - (e.pageX - track.offsetLeft - sx) * 1.2;
+      });
+
+      update();
+    }
+ 
+    /* ─── INIT ─── */
+    document.addEventListener('DOMContentLoaded', () => {
+      const hash = location.hash.slice(1);
+      if (routes[hash]) {
+        navigate(hash);
+      } else {
+        navigate('');
+        if (hash && ['about', 'directions', 'join', 'team'].includes(hash)) {
+          setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' }), 50);
+        }
+      }
+
+      renderNewsPage();
+
+      document.querySelectorAll('.direction-card[data-route]').forEach(card => {
+        card.addEventListener('click', () => goTo(card.dataset.route));
+      });
+
+      document.querySelectorAll('[data-nav]').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          const target = link.dataset.nav;
+          if (target === 'news') {
+            goTo('news');
+          } else {
+            goTo('');
+            setTimeout(() => {
+              document.getElementById(target)?.scrollIntoView({ behavior: 'smooth' });
+            }, 50);
+          }
+          closeMobileMenu();
+        });
+      });
+
+      document.querySelectorAll('[data-go-news]').forEach(btn => {
+        btn.addEventListener('click', () => goTo('news'));
+      });
+
+      document.getElementById('nav-back')?.addEventListener('click', () => {
+        if (history.length > 1) { history.back(); } else { goTo(''); }
+      });
+
+      document.getElementById('nav-logo').addEventListener('click', e => {
+        e.preventDefault();
+        goTo('');
+      });
+
+      document.querySelectorAll('[data-home-join]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          goTo('');
+          setTimeout(() => {
+            document.getElementById('join')?.scrollIntoView({ behavior: 'smooth' });
+          }, 50);
+        });
+      });
+
+      document.querySelectorAll('.team-card__toggle').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          const card = btn.closest('.team-card');
+          const full = card.querySelector('.team-card__full-bio');
+          const willOpen = !full.classList.contains('is-open');
+          card.closest('.slider-track')?.querySelectorAll('.team-card__full-bio.is-open').forEach(el => {
+            if (el !== full) {
+              el.classList.remove('is-open');
+              const toggle = el.closest('.team-card__body')?.querySelector('.team-card__toggle');
+              if (toggle) toggle.textContent = 'Читать биографию ↓';
+            }
+          });
+          full.classList.toggle('is-open', willOpen);
+          btn.textContent = willOpen ? 'Свернуть ↑' : 'Читать биографию ↓';
+        });
+      });
+
+      document.querySelectorAll('.nav__links a, .nav__menu .btn').forEach(el => {
+        el.addEventListener('click', closeMobileMenu);
+      });
+
+      initHSlider(document.getElementById('whom-slider'), '.whom-card');
+      initHSlider(document.getElementById('team-leadership-slider'), '.team-card');
+      initHSlider(document.getElementById('team-dept-slider'), '.team-card');
+    });
+ 
+    /* ─── STORIES SLIDER ─── */
+    (function() {
+      const track = document.querySelector('#stories-slider .stories-track');
+      const dotsBox = document.getElementById('stories-dots');
+      const prevBtn = document.getElementById('stories-prev');
+      const nextBtn = document.getElementById('stories-next');
+      if (!track || !dotsBox) return;
+ 
+      const cards = track.querySelectorAll('.story-card');
+      cards.forEach((_, i) => {
+        const d = document.createElement('span');
+        d.className = 'slider-dot' + (i === 0 ? ' is-active' : '');
+        d.dataset.index = i;
+        dotsBox.appendChild(d);
+      });
+      const dots = dotsBox.querySelectorAll('.slider-dot');
+ 
+      function getStep() { return (cards[0]?.offsetWidth || 0) + 20; }
+ 
+      function syncDots() {
+        const idx = Math.round(track.scrollLeft / getStep());
+        dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+        if (prevBtn) prevBtn.disabled = track.scrollLeft <= 1;
+        if (nextBtn) nextBtn.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+      }
+ 
+      track.addEventListener('scroll', syncDots, { passive: true });
+      window.addEventListener('resize', syncDots);
+ 
+      dots.forEach(d => {
+        d.addEventListener('click', () => {
+          cards[+d.dataset.index]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+        });
+      });
+ 
+      prevBtn?.addEventListener('click', () => track.scrollBy({ left: -getStep(), behavior: 'smooth' }));
+      nextBtn?.addEventListener('click', () => track.scrollBy({ left: getStep(), behavior: 'smooth' }));
+ 
+      let down = false, sx = 0, sl = 0;
+      track.addEventListener('mousedown', e => { down = true; sx = e.pageX - track.offsetLeft; sl = track.scrollLeft; });
+      track.addEventListener('mouseleave', () => { down = false; });
+      track.addEventListener('mouseup', () => { down = false; });
+      track.addEventListener('mousemove', e => {
+        if (!down) return;
+        e.preventDefault();
+        track.scrollLeft = sl - (e.pageX - track.offsetLeft - sx) * 1.2;
+      });
+ 
+      syncDots();
+    })();
+ 
+    /* ─── WHOM / TEAM SLIDERS: see initHSlider above ─── */
+
+    /* ─── DIRECTIONS SLIDER ─── */
+    (function() {
+      const wrapper = document.getElementById('dir-slider');
+      const track = wrapper?.querySelector('.dir-slider-track');
+      const dotsContainer = document.getElementById('dir-dots');
+      const prevBtn = wrapper?.querySelector('.dir-arrow--prev');
+      const nextBtn = wrapper?.querySelector('.dir-arrow--next');
+      if (!track || !dotsContainer) return;
+ 
+      const cards = track.querySelectorAll('.direction-card');
+      dotsContainer.innerHTML = '';
+      cards.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.className = 'slider-dot' + (i === 0 ? ' is-active' : '');
+        dot.dataset.index = String(i);
+        dotsContainer.appendChild(dot);
+      });
+ 
+      function getCardStep() {
+        const card = track.querySelector('.direction-card');
+        return card ? card.offsetWidth + 20 : track.offsetWidth;
+      }
+      function getActiveIndex() { return Math.round(track.scrollLeft / getCardStep()); }
+      function isAtStart() { return track.scrollLeft <= 2; }
+      function isAtEnd() { return track.scrollLeft + track.clientWidth >= track.scrollWidth - 2; }
+ 
+      function updateControls() {
+        const index = getActiveIndex();
+        dotsContainer.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('is-active', i === index));
+        if (prevBtn) prevBtn.disabled = isAtStart();
+        if (nextBtn) nextBtn.disabled = isAtEnd();
+      }
+ 
+      track.addEventListener('scroll', updateControls, { passive: true });
+      window.addEventListener('resize', updateControls);
+ 
+      dotsContainer.addEventListener('click', e => {
+        const dot = e.target.closest('.slider-dot');
+        if (!dot) return;
+        cards[+dot.dataset.index]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      });
+ 
+      prevBtn?.addEventListener('click', () => {
+        const target = Math.max(0, getActiveIndex() - 1);
+        cards[target]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      });
+ 
+      nextBtn?.addEventListener('click', () => {
+        const target = Math.min(cards.length - 1, getActiveIndex() + 1);
+        cards[target]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      });
+ 
+      let isDown = false, startX = 0, scrollLeft = 0;
+      track.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft; });
+      track.addEventListener('mouseleave', () => { isDown = false; });
+      track.addEventListener('mouseup', () => { isDown = false; });
+      track.addEventListener('mousemove', e => {
+        if (!isDown) return;
+        e.preventDefault();
+        track.scrollLeft = scrollLeft - (e.pageX - track.offsetLeft - startX) * 1.2;
+      });
+ 
+      updateControls();
+    })();
+  </script>
+</body>
+</html>
