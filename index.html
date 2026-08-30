@@ -3,1659 +3,1213 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Founder's Hub — Narxoz University</title>
+  <meta name="description" content="Founder's Hub Welcome Day 2026 — интерактивное колесо фортуны">
+  <meta name="theme-color" content="#000000">
+  <title>Founder's Hub — Welcome Day 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Unbounded:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --accent: #644620;
-      --accent-hover: #4e3518;
-      --accent-light: #e9dbac;
-      --black: #1a1208;
-      --white: #FDFAF3;
-      --surface: #F5EDD8;
-      --dark-surface: #2a1f0e;
-      --muted: #7a6540;
-      --max-width: 1200px;
-      --section-pad: clamp(3rem, 6vw, 5rem);
-      --radius: 18px;
-      --radius-sm: 12px;
-      --transition: 0.25s ease;
+      --red: #EE2E34;
+      --red-dark: #920001;
+      --black: #000000;
+      --white: #FFFFFF;
+      --grad-red: linear-gradient(135deg, #EE2E34 0%, #920001 100%);
+      --grad-red-radial: radial-gradient(circle at 30% 30%, #EE2E34, #920001);
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --ease-premium: cubic-bezier(0.12, 0.8, 0.18, 1);
+      --wheel-size: clamp(300px, 48vw, 580px);
+      --glass: rgba(255, 255, 255, 0.04);
+      --glass-border: rgba(255, 255, 255, 0.10);
+      --text-muted: rgba(255, 255, 255, 0.55);
+      --text-dim: rgba(255, 255, 255, 0.35);
     }
- 
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     html { scroll-behavior: smooth; }
+
     body {
-      font-family: 'Onest', system-ui, sans-serif;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 1.6;
-      color: var(--black);
-      background: var(--white);
+      font-family: var(--font-body);
+      background: var(--black);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
     }
-    img { max-width: 100%; display: block; }
-    a { color: inherit; text-decoration: none; }
-    button { font-family: inherit; }
- 
-    .container {
-      width: 100%;
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 clamp(1.25rem, 4vw, 2rem);
+
+    /* ── Layered dark background ── */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 20%, rgba(238, 46, 52, 0.12) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(146, 0, 1, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 30% at 10% 60%, rgba(238, 46, 52, 0.05) 0%, transparent 45%),
+        #000000;
     }
- 
-    .section-label {
-      display: block;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1rem;
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 75%);
     }
-    .section-label--light { color: var(--accent-light); }
- 
-    h1, h2, h3, .display {
-      font-family: 'Unbounded', sans-serif;
-      font-weight: 900;
-      line-height: 1.15;
-      color: var(--black);
-    }
-    h2 { font-size: clamp(1.75rem, 4vw, 2.25rem); margin-bottom: 1.5rem; }
-    .accent-text { color: var(--accent); }
- 
-    /* NAV */
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(253, 250, 243, 0.93);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(26, 18, 8, 0.06);
-    }
-    .nav__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-      padding: 1rem clamp(1.25rem, 4vw, 2rem);
-      max-width: var(--max-width);
-      margin: 0 auto;
-    }
-    .nav__brand { display: flex; align-items: center; gap: 0.75rem; }
-    .nav__logo {
-      display: flex;
-      align-items: center;
-      gap: 0.625rem;
-      font-family: 'Unbounded', sans-serif;
-      font-weight: 700;
-      font-size: 1.125rem;
-      white-space: nowrap;
-    }
-    .nav__logo-img {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      background: var(--surface);
-      border: 1.5px dashed rgba(100, 70, 32, 0.35);
+
+    .bg-decor {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
       overflow: hidden;
-      flex-shrink: 0;
+    }
+
+    .bg-decor span {
+      position: absolute;
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--white);
+      opacity: 0.03;
+      letter-spacing: -0.04em;
+      user-select: none;
+    }
+
+    .bg-decor .d-01 { top: 18%; left: 5%; font-size: clamp(4rem, 10vw, 8rem); }
+    .bg-decor .d-fh { bottom: 22%; right: 4%; font-size: clamp(0.65rem, 1.5vw, 0.8rem); letter-spacing: 0.3em; opacity: 0.06; text-transform: uppercase; }
+    .bg-decor .d-tag { top: 42%; left: 3%; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.05; writing-mode: vertical-rl; }
+    .bg-decor .d-line {
+      position: absolute;
+      top: 30%;
+      right: 8%;
+      width: 1px;
+      height: 120px;
+      background: linear-gradient(180deg, transparent, rgba(238,46,52,0.3), transparent);
+    }
+    .bg-decor .d-dot {
+      position: absolute;
+      bottom: 30%;
+      left: 12%;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--red);
+      opacity: 0.25;
+      box-shadow: 0 0 12px rgba(238,46,52,0.4);
+    }
+
+    /* ── Layout ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 4vw, 48px) clamp(48px, 8vh, 80px);
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: clamp(24px, 4vh, 36px) 0 clamp(20px, 3vh, 28px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      animation: fadeDown 0.8s var(--ease-premium) both;
+    }
+
+    .wordmark {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .wordmark .accent {
+      background: var(--grad-red);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-meta {
+      text-align: right;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(0.65rem, 1.6vw, 0.75rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .header-meta .year {
+      display: block;
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: clamp(36px, 6vh, 56px) 0 clamp(28px, 5vh, 44px);
+      animation: fadeUp 0.9s 0.1s var(--ease-premium) both;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2.2rem, 7vw, 4.5rem);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 .line-accent {
+      display: block;
+      background: var(--grad-red);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-top: 0.05em;
+    }
+
+    .hero p {
+      margin-top: clamp(16px, 3vh, 24px);
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      font-weight: 400;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── Wheel section ── */
+    .wheel-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: scaleIn 1s 0.2s var(--ease-premium) both;
+    }
+
+    .wheel-outer {
+      position: relative;
+      width: calc(var(--wheel-size) + 24px);
+      height: calc(var(--wheel-size) + 24px);
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .nav__logo-img img {
+
+    .wheel-glow {
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(238, 46, 52, 0.18) 0%, transparent 65%);
+      filter: blur(24px);
+      opacity: 0.7;
+      transition: opacity 0.4s;
+    }
+
+    .wheel-outer.spinning .wheel-glow {
+      opacity: 1;
+      animation: pulseGlow 1.5s ease-in-out infinite;
+    }
+
+    .wheel-frame {
+      position: relative;
+      width: var(--wheel-size);
+      height: var(--wheel-size);
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.03));
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 24px 64px rgba(0,0,0,0.6),
+        0 0 80px rgba(238,46,52,0.08);
+    }
+
+    .wheel-frame.bounce {
+      animation: wheelBounce 0.55s var(--ease-premium);
+    }
+
+    #wheel {
       width: 100%;
       height: 100%;
-      object-fit: cover;
       display: block;
+      border-radius: 50%;
     }
-    .nav__logo-img:has(img:not([src="" i])) { border-style: solid; border-color: rgba(100, 70, 32, 0.15); }
-    .nav__logo-hub { color: var(--accent); }
-    .nav__back {
-      display: none;
-      align-items: center;
-      font-family: 'Onest', sans-serif;
-      background: transparent;
-      border: none;
-      color: var(--accent);
-      font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      padding: 0;
-      margin-right: 12px;
-      transition: opacity 0.2s;
+
+    .pointer {
+      position: absolute;
+      top: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
     }
-    .nav__back:hover { opacity: 0.7; }
-    .nav__toggle { display: none; }
-    .nav__burger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
+
+    .pointer svg {
+      width: 28px;
+      height: 32px;
     }
-    .nav__burger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--black);
-      transition: var(--transition);
+
+    /* ── Buttons ── */
+    .btn-wrap {
+      margin-top: clamp(28px, 4vh, 40px);
+      animation: fadeUp 0.9s 0.4s var(--ease-premium) both;
     }
-    .nav__links {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      list-style: none;
-    }
-    .nav__links a {
-      font-size: 0.9375rem;
-      font-weight: 500;
-      color: var(--black);
-      transition: color var(--transition);
-    }
-    .nav__links a:hover { color: var(--accent); }
- 
-    /* Hide nav links/cta on inner pages via class (not inline style) */
-    .nav--inner .nav__links,
-    .nav--inner .btn--nav { display: none !important; }
- 
+
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.35rem;
-      font-family: 'Onest', sans-serif;
+      font-family: var(--font-display);
       font-weight: 600;
-      font-size: 0.9375rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      transition: background var(--transition), color var(--transition), transform var(--transition), box-shadow var(--transition);
-    }
-    .btn:active { transform: scale(0.98); }
-    .btn--primary { background: var(--accent); color: var(--white); }
-    .btn--primary:hover { background: var(--accent-hover); box-shadow: 0 8px 24px rgba(100, 70, 32, 0.35); }
-    .btn--secondary { background: transparent; color: var(--black); border: 1.5px solid rgba(26, 18, 8, 0.15); }
-    .btn--secondary:hover { border-color: var(--black); background: var(--surface); }
-    .btn--nav { padding: 0.625rem 1.25rem; font-size: 0.875rem; }
- 
-    /* HERO */
-    .hero { padding: var(--section-pad) 0; }
-    .hero__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(2rem, 5vw, 4rem);
-      align-items: center;
-    }
-    .hero__badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8125rem;
-      font-weight: 500;
-      color: var(--muted);
-      padding: 0.5rem 1rem;
-      border: 1.5px solid rgba(26, 18, 8, 0.12);
-      border-radius: 999px;
-      margin-bottom: 1.5rem;
-    }
-    .hero__badge::before { content: '•'; color: var(--accent); font-weight: 700; }
-    .hero h1 { font-size: clamp(2rem, 4.5vw, 3rem); margin-bottom: 1.25rem; }
-    .hero__desc { font-size: 15px; color: var(--muted); max-width: 32rem; margin-bottom: 2rem; line-height: 1.7; }
-    .hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2.5rem; }
-    .hero__stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem 2.5rem;
-      padding-top: 1.75rem;
-      border-top: 1px solid rgba(26, 18, 8, 0.1);
-    }
-    .hero__stat { display: flex; flex-direction: column; gap: 0.15rem; }
-    .hero__stat-num { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1.25rem; color: var(--black); }
-    .hero__stat-label { font-size: 10px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); }
-    .hero__card {
-      position: relative;
-      background: linear-gradient(135deg, #644620 0%, #3d2910 50%, #1a1208 100%);
-      border-radius: var(--radius);
-      min-height: 380px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 2rem;
-      transition: transform var(--transition), box-shadow var(--transition);
-    }
-    .hero__card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px rgba(100, 70, 32, 0.3); }
-    .hero__card-pattern { position: absolute; inset: 0; opacity: 0.1; pointer-events: none; }
-    .hero__card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent 30%, rgba(26, 18, 8, 0.45) 100%);
-      pointer-events: none;
-    }
-    .hero__card-content { position: relative; z-index: 1; color: var(--white); }
-    .hero__card-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.85; margin-bottom: 0.75rem; }
-    .hero__card-year { font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: clamp(3rem, 8vw, 3.75rem); line-height: 1; margin-bottom: 0.5rem; }
-    .hero__card-sub { font-size: 1rem; font-weight: 500; opacity: 0.9; }
- 
-    /* ABOUT */
-    .about { padding: var(--section-pad) 0; }
-    .about__grid {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: clamp(2rem, 5vw, 4rem);
-      align-items: start;
-    }
-    .about__left h2 { margin-bottom: 2rem; }
-    .about__logo-card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      padding: 3rem 2rem;
-      text-align: center;
-      transition: box-shadow var(--transition);
-    }
-    .about__logo-card:hover { box-shadow: 0 12px 40px rgba(26, 18, 8, 0.08); }
-    .about__logo-text { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1.5rem; line-height: 1.4; }
-    .about__paragraphs { display: flex; flex-direction: column; gap: 1.25rem; }
-    .about__paragraphs p { font-size: 1rem; color: var(--black); line-height: 1.75; }
- 
-    /* NEWS CARD */
-    .news-card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      overflow: hidden;
-      cursor: pointer;
-      border: 1.5px solid rgba(100, 70, 32, 0.12);
-      transition: transform 0.25s, box-shadow 0.25s;
-      display: flex;
-      flex-direction: column;
-    }
-    .news-card:hover { transform: translateY(-5px); box-shadow: 0 14px 36px rgba(100, 70, 32, 0.15); }
-    .news-card__visual { position: relative; height: 120px; }
-    .news-card__visual--1 { background: linear-gradient(135deg, #644620 0%, #8a6030 60%, #e9dbac 100%); }
-    .news-card__visual--2 { background: linear-gradient(135deg, #3d2910 0%, #644620 50%, #8a6030 100%); }
-    .news-card__tag {
-      position: absolute;
-      bottom: 12px;
-      left: 14px;
-      background: rgba(233, 219, 172, 0.25);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 1.2px;
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 999px;
-      backdrop-filter: blur(4px);
-    }
-    .news-card__body { padding: 1.25rem 1.5rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
-    .news-card__date { font-size: 11px; color: var(--muted); font-weight: 500; }
-    .news-card__title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.9375rem; color: var(--black); line-height: 1.35; }
-    .news-card__desc { font-size: 0.8125rem; color: var(--muted); line-height: 1.6; flex: 1; }
-    .news-card__footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 0.875rem;
-      border-top: 1px solid rgba(100, 70, 32, 0.1);
-      margin-top: 0.5rem;
-    }
-    .news-card__read-btn {
-      background: var(--accent);
-      color: var(--white);
       border: none;
-      font-family: 'Onest', sans-serif;
-      font-weight: 600;
-      font-size: 12px;
-      padding: 7px 16px;
-      border-radius: 999px;
       cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
+      border-radius: 100px;
+      transition: transform 0.3s var(--ease-premium), box-shadow 0.3s, opacity 0.3s, filter 0.3s;
     }
-    .news-card__read-btn:hover { background: var(--accent-hover); }
-    .news-card__read-btn:active { transform: scale(0.98); }
-    .news-card__meta { font-size: 11px; color: var(--muted); }
- 
-    /* DIRECTIONS */
-    .directions { padding: var(--section-pad) 0; background: var(--surface); }
-    .directions__header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
+
+    .btn:focus-visible {
+      outline: 2px solid var(--red);
+      outline-offset: 3px;
     }
-    .directions__sub { font-size: 0.9375rem; color: var(--muted); max-width: 280px; text-align: right; }
-    .dir-slider-wrapper { width: 100%; overflow: hidden; }
-    .dir-slider-track {
-      display: flex;
-      gap: 1.25rem;
-      overflow-x: scroll;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      padding-bottom: 4px;
-      cursor: grab;
+
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+      transform: none !important;
+      filter: none !important;
     }
-    .dir-slider-track::-webkit-scrollbar { display: none; }
-    .dir-slider-track:active { cursor: grabbing; }
-    .dir-slider-track .direction-card {
-      flex: 0 0 calc(33.333% - 0.85rem);
-      scroll-snap-align: start;
-      min-width: 0;
-    }
-    @media (max-width: 900px) {
-      .dir-slider-track .direction-card { flex: 0 0 calc(50% - 0.625rem); }
-    }
-    @media (max-width: 600px) {
-      .dir-slider-track .direction-card { flex: 0 0 85%; }
-    }
-    .dir-slider-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 20px; }
-    #dir-dots { display: flex; justify-content: center; gap: 8px; margin-top: 0; }
-    .dir-arrow {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(100, 70, 32, 0.2);
-      background: var(--white);
-      color: var(--accent);
-      font-size: 1.125rem;
-      line-height: 1;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: background 0.2s, opacity 0.2s, border-color 0.2s, transform 0.15s;
-    }
-    .dir-arrow:hover:not(:disabled) { background: var(--surface); border-color: var(--accent); }
-    .dir-arrow:active:not(:disabled) { transform: scale(0.95); }
-    .dir-arrow:disabled { opacity: 0.35; cursor: not-allowed; }
- 
-    .direction-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform var(--transition), box-shadow var(--transition);
-    }
-    .direction-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(26, 18, 8, 0.1); }
-    .direction-card__visual {
-      position: relative;
-      height: 160px;
-      background: linear-gradient(135deg, #644620 0%, #8a6030 50%, #1a1208 100%);
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      padding: 1.25rem;
-    }
-    .direction-card__visual--2 { background: linear-gradient(135deg, #1a1208 0%, #644620 60%, #8a6030 100%); }
-    .direction-card__visual--3 { background: linear-gradient(135deg, #8a6030 0%, #644620 40%, #1a1208 100%); }
-    .direction-card__visual--4 { background: linear-gradient(135deg, #8a6030 0%, #644620 40%, #3d2910 100%); }
-    .direction-card__visual--5 { background: linear-gradient(135deg, #3d2910 0%, #8a6030 50%, #644620 100%); }
-    .direction-card__visual--6 { background: linear-gradient(135deg, #644620 0%, #1a1208 50%, #8a6030 100%); }
-    .direction-card__num { font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: 2.5rem; color: rgba(253, 250, 243, 0.25); line-height: 1; }
-    .direction-card__arrow {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(253, 250, 243, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+
+    .btn-spin {
+      background: var(--grad-red);
       color: var(--white);
-      font-size: 1.25rem;
-      flex-shrink: 0;
-      transition: background var(--transition), transform var(--transition), color var(--transition);
+      padding: 18px 52px;
+      min-width: 280px;
+      box-shadow:
+        0 4px 24px rgba(238, 46, 52, 0.35),
+        inset 0 1px 0 rgba(255,255,255,0.15);
     }
-    .direction-card:hover .direction-card__arrow { background: var(--white); color: var(--accent); transform: rotate(-45deg); }
-    .direction-card__body { padding: 1.5rem; }
-    .direction-card__title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; color: var(--black); }
-    .direction-card__desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
- 
-    /* FOR WHOM */
-    .for-whom { padding: var(--section-pad) 0; }
-    .for-whom__grid { margin-top: 2rem; }
-    #whom-slider .whom-card {
-      flex: 0 0 min(280px, 85vw);
-      scroll-snap-align: start;
-      align-self: flex-start;
+
+    .btn-spin:not(:disabled):hover {
+      transform: translateY(-3px);
+      filter: brightness(1.1);
+      box-shadow:
+        0 8px 32px rgba(238, 46, 52, 0.45),
+        inset 0 1px 0 rgba(255,255,255,0.2);
     }
-    .whom-card {
-      background: var(--surface);
-      border-radius: var(--radius-sm);
-      padding: 1.75rem 1.5rem;
-      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+
+    .btn-spin:not(:disabled):active {
+      transform: translateY(-1px) scale(0.98);
     }
-    .whom-card:hover { background: var(--white); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26, 18, 8, 0.08); }
-    .whom-card__num {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: 2px solid var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Unbounded', sans-serif;
-      font-weight: 700;
-      font-size: 0.875rem;
-      color: var(--accent);
-      margin-bottom: 1.25rem;
+
+    .btn-glass {
+      background: var(--glass);
+      color: var(--white);
+      border: 1px solid rgba(238, 46, 52, 0.4);
+      padding: 14px 36px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      margin-top: 28px;
     }
-    .whom-card__title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.9375rem; margin-bottom: 0.5rem; line-height: 1.35; }
-    .whom-card__desc { font-size: 0.875rem; color: var(--muted); line-height: 1.55; }
- 
-    /* HOW TO JOIN */
-    .join { padding: var(--section-pad) 0; background: #1a1208; color: var(--white); }
-    .join h2 { color: var(--white); }
-    .join__grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
-    .join__desc { font-size: 1rem; color: rgba(253, 250, 243, 0.65); line-height: 1.75; margin-bottom: 2rem; max-width: 28rem; }
-    .join__steps-card { background: var(--dark-surface); border-radius: var(--radius); padding: 2rem; }
-    .join__step { position: relative; padding-left: 1.25rem; padding-bottom: 1.75rem; border-left: 3px solid var(--accent); margin-left: 0.25rem; }
-    .join__step:last-child { padding-bottom: 0; }
-    .join__step-num { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.75rem; color: var(--accent-light); margin-bottom: 0.35rem; }
-    .join__step-title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1rem; color: var(--white); margin-bottom: 0.35rem; }
-    .join__step-desc { font-size: 0.875rem; color: rgba(253, 250, 243, 0.55); line-height: 1.55; }
- 
-    /* TEAM */
-    .team { padding: var(--section-pad) 0; }
-    .team__sub { font-size: 0.9375rem; color: var(--muted); margin-top: -0.75rem; margin-bottom: 2rem; }
-    .team__block { margin-bottom: 2.5rem; }
-    .team__block:last-child { margin-bottom: 0; }
-    .team__block-title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 1.25rem; color: var(--black); }
-    .team-card {
-      flex: 0 0 min(320px, 88vw);
-      scroll-snap-align: start;
-      align-self: flex-start;
-      border-radius: var(--radius);
-      background: var(--surface);
-      transition: transform var(--transition), box-shadow var(--transition);
+
+    .btn-glass:not(:disabled):hover {
+      background: rgba(238, 46, 52, 0.12);
+      border-color: var(--red);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(238, 46, 52, 0.15);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 14px 36px;
+      margin-top: 24px;
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-outline:not(:disabled):hover {
+      border-color: rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.04);
+      transform: translateY(-2px);
+    }
+
+    /* ── Question card ── */
+    .card-zone {
+      margin-top: clamp(32px, 5vh, 52px);
+      width: 100%;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .q-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      padding: clamp(28px, 5vw, 44px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow:
+        0 24px 48px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(255,255,255,0.03) inset,
+        0 0 60px rgba(238, 46, 52, 0.06);
+      opacity: 0;
+      transform: translateY(24px);
+      pointer-events: none;
+      transition: opacity 0.55s var(--ease-premium), transform 0.55s var(--ease-premium);
+    }
+
+    .q-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .q-progress {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+    }
+
+    .q-label {
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+    }
+
+    .q-text {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 3.2vw, 1.65rem);
+      font-weight: 600;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+    }
+
+    .a-block {
+      margin-top: 28px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      opacity: 0;
+      transform: translateY(12px);
+      max-height: 0;
       overflow: hidden;
+      transition:
+        opacity 0.5s var(--ease-premium),
+        transform 0.5s var(--ease-premium),
+        max-height 0.55s var(--ease-premium);
     }
-    .team-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(26, 18, 8, 0.1); }
-    .team-card__photo { height: 200px; border-radius: var(--radius) var(--radius) 0 0; overflow: hidden; background: linear-gradient(145deg, #644620 0%, #1a1208 70%); }
-    .team-card__photo--2 { background: linear-gradient(145deg, #1a1208 0%, #644620 50%); }
-    .team-card__photo--3 { background: linear-gradient(145deg, #8a6030 0%, #644620 50%); }
-    .team-card__photo--4 { background: linear-gradient(145deg, #644620 0%, #3d2910 60%); }
-    .team-card__photo--5 { background: linear-gradient(145deg, #3d2910 0%, #8a6030 100%); }
-    .team-card__photo--6 { background: linear-gradient(145deg, #1a1208 0%, #8a6030 70%); }
-    .team-card__photo--7 { background: linear-gradient(145deg, #644620 0%, #1a1208 40%, #8a6030 100%); }
-    .team-card__body { padding: 1.5rem; }
-    .team-card__role { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
-    .team-card__name { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1.0625rem; margin-bottom: 0.5rem; line-height: 1.3; }
-    .team-card__bio { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
-    .team-card__full-bio {
-      display: grid;
-      grid-template-rows: 0fr;
-      transition: grid-template-rows 0.35s ease;
-      font-size: 0.875rem;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-    .team-card__full-bio > div { overflow: hidden; }
-    .team-card__full-bio.is-open {
-      grid-template-rows: 1fr;
-      margin-top: 0.75rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid var(--accent-light);
-    }
-    .team-card__toggle { display: block; font-family: 'Onest', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; color: var(--accent); background: transparent; border: none; cursor: pointer; padding: 10px 0 0; transition: opacity var(--transition); }
-    .team-card__toggle:hover { opacity: 0.7; }
 
-    /* UNIFIED HORIZONTAL SLIDER */
-    .slider-wrapper { width: 100%; overflow: hidden; }
-    .slider-track {
-      display: flex;
-      gap: 1.25rem;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      align-items: flex-start;
-      cursor: grab;
-      padding-bottom: 4px;
+    .a-block.visible {
+      opacity: 1;
+      transform: translateY(0);
+      max-height: 500px;
     }
-    .slider-track::-webkit-scrollbar { display: none; }
-    .slider-track:active { cursor: grabbing; }
-    .slider-nav {
+
+    .a-block.open .a-label {
+      color: var(--red);
+    }
+
+    .a-label {
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+
+    .a-text {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      font-weight: 400;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.55;
+      padding-left: 16px;
+      border-left: 2px solid;
+      border-image: var(--grad-red) 1;
+    }
+
+    /* ── Completion ── */
+    .complete-card {
+      text-align: center;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      padding: clamp(40px, 6vw, 56px) clamp(28px, 5vw, 44px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.4), 0 0 80px rgba(238,46,52,0.08);
+      opacity: 0;
+      transform: translateY(24px);
+      pointer-events: none;
+      transition: opacity 0.55s var(--ease-premium), transform 0.55s var(--ease-premium);
+    }
+
+    .complete-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .complete-card h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 4vw, 1.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .complete-card p {
+      margin-top: 14px;
+      color: var(--text-muted);
+      font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+    }
+
+    .complete-card .btn-spin {
+      margin-top: 32px;
+    }
+
+    /* ── Footer strip ── */
+    .footer-strip {
+      margin-top: clamp(48px, 8vh, 72px);
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1.25rem;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      animation: fadeUp 1s 0.6s var(--ease-premium) both;
     }
-    .slider-arrow {
-      width: 40px;
-      height: 40px;
+
+    .footer-strip .sep { color: var(--red); opacity: 0.5; }
+
+    /* ── Mute ── */
+    .mute-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 200;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
-      border: 1.5px solid rgba(100, 70, 32, 0.25);
-      background: var(--white);
-      color: var(--accent);
-      font-size: 1rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(12px);
+      color: var(--white);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-      transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
-    }
-    .slider-arrow:hover:not(:disabled) { background: var(--accent); color: var(--white); border-color: var(--accent); box-shadow: 0 6px 18px rgba(100, 70, 32, 0.3); }
-    .slider-arrow:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
-
-    /* DEPT LEAD (direction pages) */
-    .dept-lead {
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-      background: var(--surface);
-      border-radius: var(--radius-sm);
-      padding: 1.5rem;
-      max-width: 520px;
-    }
-    .dept-lead__avatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: linear-gradient(145deg, #644620 0%, #1a1208 70%);
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Unbounded', sans-serif;
-      font-weight: 700;
-      font-size: 1.25rem;
-      color: var(--accent-light);
-    }
-    .dept-lead__label { font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.25rem; }
-    .dept-lead__name { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.15rem; }
-    .dept-lead__role { font-size: 0.875rem; color: var(--muted); }
- 
-    /* SUCCESS STORIES */
-    .about__stories { margin-top: clamp(2.5rem, 5vw, 4rem); }
-    .about__stories-heading { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1.25rem; color: var(--black); margin-bottom: 0.5rem; }
-    .about__stories-sub { font-size: 0.9375rem; color: var(--muted); margin-bottom: 1.75rem; }
-    .stories-slider { width: 100%; }
-    .stories-track {
-      display: flex;
-      gap: 1.25rem;
-      overflow-x: scroll;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      cursor: grab;
-      padding-bottom: 4px;
-    }
-    .stories-track::-webkit-scrollbar { display: none; }
-    .stories-track:active { cursor: grabbing; }
-    .story-card {
-      flex: 0 0 calc(33.333% - 0.85rem);
-      scroll-snap-align: start;
-      min-width: 260px;
-      background: var(--surface);
-      border-radius: var(--radius);
-      padding: 1.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      transition: transform 0.25s, box-shadow 0.25s;
-      border: 1.5px solid rgba(100, 70, 32, 0.1);
-    }
-    .story-card:hover { transform: translateY(-5px); box-shadow: 0 14px 36px rgba(100, 70, 32, 0.13); }
-    .story-card--accent { background: var(--accent); }
-    .story-card--accent .story-card__name, .story-card--accent .story-card__text { color: var(--white); }
-    .story-card--accent .story-card__tag { background: rgba(233, 219, 172, 0.25); color: var(--accent-light); }
-    .story-card--accent .story-card__avatar { background: rgba(233, 219, 172, 0.2); color: var(--accent-light); border-color: rgba(233, 219, 172, 0.3); }
-    .story-card--dark { background: #1a1208; }
-    .story-card--dark .story-card__name, .story-card--dark .story-card__text { color: var(--white); }
-    .story-card--dark .story-card__tag { background: rgba(100, 70, 32, 0.4); color: var(--accent-light); }
-    .story-card--dark .story-card__avatar { background: rgba(100, 70, 32, 0.3); color: var(--accent-light); border-color: rgba(100, 70, 32, 0.4); }
-    .story-card__avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--accent-light);
-      color: var(--accent);
-      border: 2px solid rgba(100, 70, 32, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Unbounded', sans-serif;
-      font-weight: 700;
-      font-size: 1.125rem;
-      flex-shrink: 0;
-    }
-    .story-card__name { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1rem; color: var(--black); margin-bottom: 0.35rem; }
-    .story-card__tag { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: rgba(100, 70, 32, 0.1); color: var(--accent); margin-bottom: 0.5rem; }
-    .story-card__text { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
-    .stories-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
-    .stories-arrow {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(100, 70, 32, 0.25);
-      background: var(--white);
-      color: var(--accent);
-      font-size: 16px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
-      flex-shrink: 0;
-    }
-    .stories-arrow:hover { background: var(--accent); color: var(--white); border-color: var(--accent); box-shadow: 0 6px 18px rgba(100, 70, 32, 0.3); transform: scale(1.07); }
-    .stories-arrow:disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
-    .stories-dots { display: flex; gap: 7px; align-items: center; }
- 
-    @media (max-width: 768px) {
-      .story-card { flex: 0 0 85%; min-width: 0; }
-    }
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .story-card { flex: 0 0 calc(50% - 0.625rem); }
-    }
- 
-    /* NEWS PAGE */
-    .news-page { padding: var(--section-pad) 0; background: var(--white); }
-    .news-group { margin-bottom: 3rem; }
-    .news-group:last-child { margin-bottom: 0; }
-    .news-group__title {
-      font-family: 'Unbounded', sans-serif;
-      font-weight: 700;
-      font-size: 1.125rem;
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 2px solid var(--accent-light);
-    }
-    .news-group__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-    .news-group__empty { font-size: 0.9375rem; color: var(--muted); padding: 1.5rem; background: var(--surface); border-radius: var(--radius-sm); }
- 
-    /* FOOTER */
-    .footer { background: #1a1208; color: var(--white); padding: clamp(3rem, 6vw, 4.5rem) 0 0; }
-    .footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); padding-bottom: clamp(2.5rem, 5vw, 3.5rem); border-bottom: 1px solid rgba(253, 250, 243, 0.08); }
-    .footer__logo { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1.25rem; margin-bottom: 1rem; color: var(--white); }
-    .footer__logo span { color: var(--accent-light); }
-    .footer__brand-desc { font-size: 0.875rem; color: rgba(253, 250, 243, 0.5); line-height: 1.7; max-width: 260px; }
-    .footer__col-heading { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(253, 250, 243, 0.45); margin-bottom: 1.25rem; }
-    .footer__links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
-    .footer__link { font-size: 0.9375rem; color: rgba(253, 250, 243, 0.85); text-decoration: none; transition: color 0.2s; display: inline-flex; align-items: center; gap: 0.4rem; }
-    .footer__link:hover { color: var(--accent-light); }
-    .footer__link::before { content: '→'; font-size: 12px; opacity: 0.6; }
-    .footer__contact-item { font-size: 0.9375rem; color: rgba(253, 250, 243, 0.85); line-height: 1.6; }
-    .footer__bottom { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; flex-wrap: wrap; gap: 0.5rem; }
-    .footer__copy { font-size: 0.8125rem; color: rgba(253, 250, 243, 0.35); }
-    .footer__sub { font-size: 0.8125rem; color: rgba(253, 250, 243, 0.35); }
- 
-    /* INNER PAGES */
-    .inner-hero { background: var(--accent-light); padding: clamp(2.5rem, 5vw, 4rem) 0; }
-    .inner-hero h1 { font-size: clamp(2rem, 4.5vw, 2.75rem); margin-bottom: 1rem; }
-    .inner-hero__lead { font-size: 1.0625rem; color: var(--muted); max-width: 42rem; line-height: 1.75; }
-    .inner-block { padding: var(--section-pad) 0; }
-    .inner-block--white { background: var(--white); }
-    .inner-block--surface { background: var(--surface); }
-    .inner-block h2 { font-size: clamp(1.35rem, 3vw, 1.75rem); margin-bottom: 1.25rem; }
-    .inner-2col { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 4vw, 3.5rem); align-items: start; }
-    .inner-text { font-size: 1rem; line-height: 1.75; color: var(--black); }
-    .numbered-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
-    .numbered-list li { display: flex; gap: 1rem; align-items: flex-start; font-size: 0.9375rem; line-height: 1.55; }
-    .numbered-list__num { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.875rem; color: var(--accent); flex-shrink: 0; min-width: 1.75rem; }
-    .feature-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-    .feature-card { background: var(--white); border-radius: var(--radius-sm); padding: 1.75rem 1.5rem; transition: transform var(--transition), box-shadow var(--transition); }
-    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26, 18, 8, 0.08); }
-    .feature-card__icon { font-size: 1.5rem; color: var(--accent); margin-bottom: 1rem; }
-    .feature-card__title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.9375rem; margin-bottom: 0.5rem; }
-    .feature-card__desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
-    .timeline { display: flex; flex-direction: column; gap: 1.25rem; }
-    .timeline__item { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; padding-left: 1.25rem; border-left: 3px solid var(--accent); }
-    .timeline__badge { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 0.35rem 0.75rem; border-radius: 999px; background: var(--accent-light); color: var(--accent); }
-    .timeline__title { font-weight: 600; font-size: 0.9375rem; flex: 1; min-width: 200px; }
-    .timeline__status { font-size: 12px; font-weight: 600; color: var(--muted); padding: 0.25rem 0.625rem; border-radius: 999px; background: var(--surface); }
-    .stepper { display: flex; flex-direction: column; gap: 0; }
-    .stepper__item { padding-left: 1.25rem; padding-bottom: 1.5rem; border-left: 3px solid var(--accent); margin-left: 0.25rem; }
-    .stepper__item:last-child { padding-bottom: 0; }
-    .stepper__num { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.75rem; color: var(--accent); margin-bottom: 0.25rem; }
-    .stepper__title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.9375rem; margin-bottom: 0.25rem; }
-    .stepper__desc { font-size: 0.875rem; color: var(--muted); line-height: 1.55; }
-    .icon-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-    .icon-card { background: var(--white); border-radius: var(--radius-sm); padding: 1.5rem; transition: transform var(--transition), box-shadow var(--transition); }
-    .icon-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(26, 18, 8, 0.08); }
-    .icon-card__icon { font-size: 1.35rem; color: var(--accent); margin-bottom: 0.75rem; }
-    .icon-card__title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.875rem; margin-bottom: 0.35rem; }
-    .icon-card__desc { font-size: 0.8125rem; color: var(--muted); line-height: 1.5; }
-    .project-scroll { display: flex; gap: 1.25rem; overflow-x: auto; padding-bottom: 0.5rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
-    .project-scroll::-webkit-scrollbar { height: 6px; }
-    .project-scroll::-webkit-scrollbar-thumb { background: var(--accent-light); border-radius: 3px; }
-    .project-card { flex: 0 0 min(300px, 85vw); scroll-snap-align: start; border-radius: var(--radius); padding: 1.75rem; background: linear-gradient(145deg, #644620 0%, #3d2910 50%, #1a1208 100%); color: var(--white); transition: transform var(--transition); }
-    .project-card:hover { transform: translateY(-4px); }
-    .project-card__tag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 0.3rem 0.65rem; border-radius: 999px; background: rgba(233, 219, 172, 0.2); color: var(--accent-light); margin-bottom: 0.75rem; }
-    .project-card__name { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1.125rem; margin-bottom: 0.5rem; }
-    .project-card__desc { font-size: 0.875rem; opacity: 0.8; line-height: 1.55; margin-bottom: 1rem; }
-    .project-card__team { font-size: 12px; font-weight: 600; opacity: 0.65; }
-    .community-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-    .community-card { background: var(--surface); border-radius: var(--radius-sm); padding: 1.75rem 1.5rem; transition: transform var(--transition), box-shadow var(--transition); }
-    .community-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26, 18, 8, 0.08); }
-    .community-card__emoji { font-size: 1.75rem; margin-bottom: 1rem; }
-    .community-card__title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.9375rem; margin-bottom: 0.5rem; }
-    .community-card__desc { font-size: 0.875rem; color: var(--muted); line-height: 1.55; }
-    .pull-quote { position: relative; max-width: 720px; margin: 0 auto; text-align: center; padding: 2rem 1rem; }
-    .pull-quote__mark { font-family: 'Unbounded', sans-serif; font-size: 5rem; line-height: 1; color: var(--accent-light); margin-bottom: 0.5rem; }
-    .pull-quote__text { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: clamp(1.25rem, 3vw, 1.625rem); line-height: 1.45; margin-bottom: 1.25rem; }
-    .pull-quote__attr { font-size: 0.875rem; color: var(--muted); }
-    .inner-cta { background: #1a1208; padding: clamp(2.5rem, 5vw, 3.5rem) 0; text-align: center; }
-    .inner-cta h2 { color: var(--white); font-size: clamp(1.35rem, 3vw, 1.75rem); margin-bottom: 1.5rem; }
-    .news-hero__tag { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; background: rgba(100, 70, 32, 0.15); color: var(--accent); margin-bottom: 0.75rem; }
-    .news-hero__date { font-size: 0.8125rem; color: var(--muted); margin-bottom: 1rem; }
-    .news-article { background: var(--white); padding: 3rem clamp(1.25rem, 4vw, 1.5rem); }
-    .news-article__inner { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.25rem; }
-    .news-article__inner p { font-size: 1rem; line-height: 1.75; color: var(--black); }
-    .news-callout, .inner-callout { background: var(--surface); border-left: 3px solid var(--accent); padding: 1.25rem; font-size: 0.9375rem; line-height: 1.65; color: var(--black); font-style: italic; }
-    .news-back { background: var(--surface); padding: 2rem 0; text-align: center; }
-    .news-back__btn { font-family: 'Onest', sans-serif; background: transparent; border: none; color: var(--accent); font-weight: 600; font-size: 0.9375rem; cursor: pointer; transition: opacity 0.2s; }
-    .news-back__btn:hover { opacity: 0.7; }
- 
-    /* SLIDERS */
-    .slider-dots { display: flex; justify-content: center; gap: 8px; margin-top: 16px; }
-    .slider-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(100, 70, 32, 0.2); cursor: pointer; transition: background 0.25s, transform 0.2s; border: none; padding: 0; }
-    .slider-dot.is-active { background: var(--accent); transform: scale(1.3); }
- 
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      .nav__burger { display: flex; }
-      .nav__toggle:checked ~ .nav__burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-      .nav__toggle:checked ~ .nav__burger span:nth-child(2) { opacity: 0; }
-      .nav__toggle:checked ~ .nav__burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-      .nav__menu { position: absolute; top: 100%; left: 0; right: 0; background: var(--white); border-bottom: 1px solid rgba(26, 18, 8, 0.08); padding: 1rem clamp(1.25rem, 4vw, 2rem) 1.5rem; flex-direction: column; align-items: stretch; gap: 0; display: none; box-shadow: 0 12px 24px rgba(26, 18, 8, 0.06); }
-      .nav__toggle:checked ~ .nav__menu { display: flex; }
-      .nav__links { flex-direction: column; align-items: flex-start; gap: 0; width: 100%; }
-      .nav__links li { width: 100%; border-bottom: 1px solid rgba(26, 18, 8, 0.06); }
-      .nav__links a { display: block; padding: 0.875rem 0; }
-      .nav__menu .btn--nav { width: 100%; margin-top: 1rem; text-align: center; }
-      .nav { position: sticky; }
-      .nav__inner { flex-wrap: wrap; position: relative; }
-      .hero__grid { grid-template-columns: 1fr; }
-      .hero__card { min-height: 300px; order: -1; }
-      .about__grid { grid-template-columns: 1fr; }
-      .directions__header { flex-direction: column; align-items: flex-start; }
-      .directions__sub { text-align: left; }
-      .join__grid { grid-template-columns: 1fr; }
-      .footer__grid { grid-template-columns: 1fr; gap: 2rem; }
-      .footer__bottom { flex-direction: column; align-items: flex-start; }
-      .news-group__grid { grid-template-columns: 1fr; }
-      #whom-slider .whom-card { flex: 0 0 85%; }
-      #team-leadership-slider .team-card,
-      #team-dept-slider .team-card { flex: 0 0 88%; }
-
-      .inner-2col { grid-template-columns: 1fr; }
-      .feature-cards { grid-template-columns: 1fr; }
-      .icon-cards { grid-template-columns: 1fr; }
-      .community-cards { grid-template-columns: 1fr; }
-    }
- 
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .news-group__grid { grid-template-columns: repeat(2, 1fr); }
-      .story-card { flex: 0 0 calc(50% - 0.625rem); }
-      #team-leadership-slider .team-card,
-      #team-dept-slider .team-card { flex: 0 0 min(300px, 45vw); }
+      font-size: 0.95rem;
+      transition: border-color 0.2s, background 0.2s;
     }
 
-    @media (min-width: 769px) {
-      .nav__menu { display: flex; align-items: center; gap: 2rem; }
-      #dir-dots.slider-dots { display: flex !important; }
-      .story-card { flex: 0 0 calc(33.333% - 0.85rem); }
-      #team-leadership-slider .team-card,
-      #team-dept-slider .team-card { flex: 0 0 min(320px, 32vw); }
-      #whom-slider .whom-card { flex: 0 0 min(280px, 24vw); }
+    .mute-btn:hover { border-color: rgba(238,46,52,0.5); background: rgba(238,46,52,0.1); }
+    .mute-btn:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+    #confetti {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    [hidden] { display: none !important; }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.94); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes wheelBounce {
+      0% { transform: scale(1); }
+      35% { transform: scale(1.015); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+
+    @media (max-width: 600px) {
+      .header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .header-meta { text-align: left; }
+      .btn-spin, .btn-glass, .btn-outline { width: 100%; min-width: unset; }
+      .mute-btn { top: 12px; right: 12px; width: 38px; height: 38px; }
+      .bg-decor .d-tag, .bg-decor .d-line { display: none; }
     }
   </style>
 </head>
 <body>
- 
-  <header class="nav" id="main-nav">
-    <div class="nav__inner">
-      <div class="nav__brand">
-        <button id="nav-back" class="nav__back" type="button" style="display:none">← Назад</button>
-        <a href="#" class="nav__logo" id="nav-logo">
-          <span class="nav__logo-img"><img src="logo.jpg" alt="Логотип Founder's Hub"></span>
-          <span>Founder's <span class="nav__logo-hub">Hub</span></span>
-        </a>
+  <div class="bg-layer" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-decor" aria-hidden="true">
+    <span class="d-01">01</span>
+    <span class="d-fh">FH / 26</span>
+    <span class="d-tag">Business • Startups • People</span>
+    <div class="d-line"></div>
+    <div class="d-dot"></div>
+  </div>
+
+  <button class="mute-btn" id="muteBtn" type="button" aria-label="Включить звук" title="Звук">🔇</button>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <div class="page">
+    <header class="header">
+      <div class="wordmark">FOUNDER'S <span class="accent">HUB</span></div>
+      <div class="header-meta">
+        Welcome Day
+        <span class="year">2026</span>
       </div>
-      <input type="checkbox" id="nav-toggle" class="nav__toggle" aria-hidden="true">
-      <label for="nav-toggle" class="nav__burger" aria-label="Меню">
-        <span></span><span></span><span></span>
-      </label>
-      <div class="nav__menu">
-        <ul class="nav__links" id="nav-links">
-          <li><a href="#" data-nav="about">О нас</a></li>
-          <li><a href="#" data-nav="news">Новости</a></li>
-          <li><a href="#" data-nav="directions">Направления</a></li>
-          <li><a href="#" data-nav="join">Как вступить</a></li>
-          <li><a href="#" data-nav="team">Команда</a></li>
-        </ul>
-        <a href="#" class="btn btn--primary btn--nav" id="nav-cta" data-nav="join">Вступить в Founder's Hub</a>
+    </header>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title">
+        ОТВЕТЬ НА ВОПРОС
+        <span class="line-accent">ПОЛУЧИ ПРИЗ</span>
+      </h1>
+      <p>крути колесо, отвечай на вопросы о бизнесе, стартапах и предпринимательстве</p>
+    </section>
+
+    <section class="wheel-section" aria-label="Колесо фортуны">
+      <div class="wheel-outer" id="wheelOuter">
+        <div class="wheel-glow" aria-hidden="true"></div>
+        <div class="pointer" aria-hidden="true">
+          <svg viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 32L2 6C2 4.9 2.9 4 4 4H24C25.1 4 26 4.9 26 6L14 32Z" fill="#000"/>
+            <path d="M14 28L5 8H23L14 28Z" fill="url(#ptrGrad)"/>
+            <defs>
+              <linearGradient id="ptrGrad" x1="14" y1="8" x2="14" y2="28" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#EE2E34"/>
+                <stop offset="1" stop-color="#920001"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="wheel-frame" id="wheelFrame">
+          <canvas id="wheel" role="img" aria-label="Интерактивное колесо с 12 секторами"></canvas>
+        </div>
       </div>
+
+      <div class="btn-wrap">
+        <button class="btn btn-spin" id="spinBtn" type="button">КРУТИТЬ КОЛЕСО</button>
+      </div>
+    </section>
+
+    <div class="card-zone">
+      <article class="q-card" id="qCard" hidden>
+        <div class="q-progress" id="qProgress">ВОПРОС 01 / 35</div>
+        <div class="q-label">Вопрос</div>
+        <p class="q-text" id="qText"></p>
+        <button class="btn btn-glass" id="revealBtn" type="button">ПОКАЗАТЬ ОТВЕТ</button>
+        <div class="a-block" id="aBlock">
+          <div class="a-label" id="aLabel">ОТВЕТ</div>
+          <p class="a-text" id="aText"></p>
+          <button class="btn btn-outline" id="spinAgainBtn" type="button">КРУТИТЬ ЕЩЁ РАЗ</button>
+        </div>
+      </article>
+
+      <article class="complete-card" id="completeCard" hidden>
+        <h2>ВСЕ 35 ВОПРОСОВ ПРОЙДЕНЫ</h2>
+        <p>время создавать свой бизнес.</p>
+        <button class="btn btn-spin" id="resetBtn" type="button">НАЧАТЬ ЗАНОВО</button>
+      </article>
     </div>
-  </header>
- 
-  <div id="page-home">
-    <section class="hero">
-      <div class="container">
-        <div class="hero__grid">
-          <div class="hero__left">
-            <span class="hero__badge">Студенческая организация Narxoz University</span>
-            <h1>Где студенты становятся <span class="accent-text">основателями</span></h1>
-            <p class="hero__desc">Founder's Hub — пространство, где студенты Narxoz развивают лидерство, запускают проекты и строят сообщество будущих основателей. Присоединяйся к тем, кто не ждёт идеального момента, а создаёт его сам.</p>
-            <div class="hero__actions">
-              <a href="#join" class="btn btn--primary">Вступить в Founder's Hub →</a>
-              <a href="#about" class="btn btn--secondary">Узнать больше</a>
-            </div>
-            <div class="hero__stats">
-              <div class="hero__stat"><span class="hero__stat-num">50+</span><span class="hero__stat-label">Участников</span></div>
-              <div class="hero__stat"><span class="hero__stat-num">6</span><span class="hero__stat-label">Направлений</span></div>
-              <div class="hero__stat"><span class="hero__stat-num">2+</span><span class="hero__stat-label">Года</span></div>
-            </div>
-          </div>
-          <div class="hero__card">
-            <svg class="hero__card-pattern" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
-              <defs>
-                <pattern id="geo" width="60" height="60" patternUnits="userSpaceOnUse">
-                  <circle cx="30" cy="30" r="28" fill="none" stroke="white" stroke-width="1"/>
-                  <line x1="0" y1="0" x2="60" y2="60" stroke="white" stroke-width="0.5"/>
-                  <line x1="60" y1="0" x2="0" y2="60" stroke="white" stroke-width="0.5"/>
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#geo)"/>
-            </svg>
-            <div class="hero__card-overlay"></div>
-            <div class="hero__card-content">
-              <p class="hero__card-label">Narxoz × Founder's Hub</p>
-              <p class="hero__card-year">2026</p>
-              <p class="hero__card-sub">Набор открыт — присоединяйся</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
- 
-    <section class="about" id="about">
-      <div class="container">
-        <div class="about__grid">
-          <div class="about__left">
-            <span class="section-label">О нас</span>
-            <h2>Что такое Founder's Hub?</h2>
-            <div class="about__logo-card">
-              <p class="about__logo-text">Founder's<br><span class="accent-text">Hub</span></p>
-            </div>
-          </div>
-          <div class="about__paragraphs">
-            <p>Founder's Hub — пространство, где студенты Narxoz развивают лидерские навыки и предпринимательское мышление.</p>
-            <p>Организация объединяет тех, кто хочет не просто учиться, но и создавать проекты, строить сети и расти как профессионал.</p>
-            <p>В первую очередь Founder's Hub для тех, кто готов брать ответственность, действовать и менять среду вокруг себя.</p>
-          </div>
-        </div>
- 
-        <div class="about__stories">
-          <span class="section-label">Истории успеха</span>
-          <h3 class="about__stories-heading">Участники, которые изменили свою жизнь</h3>
-          <p class="about__stories-sub">Реальные люди. Реальные результаты. Всё началось здесь.</p>
-          <div class="stories-slider" id="stories-slider">
-            <div class="stories-track">
-              <article class="story-card">
-                <div class="story-card__avatar">Р</div>
-                <div class="story-card__body">
-                  <h4 class="story-card__name">Райымбек</h4>
-                  <span class="story-card__tag">Реклама и бизнес</span>
-                  <p class="story-card__text">Получил доступ к спикерам Founder's Hub, стал рекламным лицом факультета ШЭМ Narxoz University и развивает собственный коммерческий проект.</p>
-                </div>
-              </article>
-              <article class="story-card story-card--accent">
-                <div class="story-card__avatar">Н</div>
-                <div class="story-card__body">
-                  <h4 class="story-card__name">Нармина</h4>
-                  <span class="story-card__tag">Forbes 30u30</span>
-                  <p class="story-card__text">Вошла в список Forbes 30 under 30, реализовав свой проект более чем на $5 000. Пример того, как студенческая идея становится реальным бизнесом.</p>
-                </div>
-              </article>
-              <article class="story-card">
-                <div class="story-card__avatar">Т</div>
-                <div class="story-card__body">
-                  <h4 class="story-card__name">Тамерлан</h4>
-                  <span class="story-card__tag">Предпринимательство</span>
-                  <p class="story-card__text">Основатель магазина Darman. Благодаря Founder's Hub получает более глубокий предпринимательский опыт и продолжает развивать своё дело.</p>
-                </div>
-              </article>
-              <article class="story-card story-card--dark">
-                <div class="story-card__avatar">Б</div>
-                <div class="story-card__body">
-                  <h4 class="story-card__name">Богдан</h4>
-                  <span class="story-card__tag">Менеджмент</span>
-                  <p class="story-card__text">Получил управленческий опыт внутри организации и основал собственный образовательный центр. Теперь сам развивает других.</p>
-                </div>
-              </article>
-              <article class="story-card story-card--accent">
-                <div class="story-card__avatar">С</div>
-                <div class="story-card__body">
-                  <h4 class="story-card__name">Сая</h4>
-                  <span class="story-card__tag">Бывший Президент</span>
-                  <p class="story-card__text">Бывший Президент Founder's Hub. Успешно реализовала собственный стартап более чем на $2 500 и продолжает вдохновлять следующее поколение основателей.</p>
-                </div>
-              </article>
-            </div>
-            <div class="stories-nav">
-              <button type="button" class="stories-arrow" id="stories-prev" aria-label="Назад">&#8592;</button>
-              <div class="stories-dots" id="stories-dots"></div>
-              <button type="button" class="stories-arrow" id="stories-next" aria-label="Вперёд">&#8594;</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="directions" id="directions">
-      <div class="container">
-        <div class="directions__header">
-          <div>
-            <span class="section-label">Направления</span>
-            <h2>Что предлагает Founder's Hub?</h2>
-          </div>
-          <p class="directions__sub">Шесть направлений для каждого этапа твоего пути.</p>
-        </div>
-        <div class="dir-slider-wrapper" id="dir-slider">
-          <div class="dir-slider-track">
-            <article class="direction-card" data-route="directions/education">
-              <div class="direction-card__visual"><span class="direction-card__num">01</span><span class="direction-card__arrow" aria-hidden="true">↗</span></div>
-              <div class="direction-card__body"><h3 class="direction-card__title">Образование и воркшопы</h3><p class="direction-card__desc">Регулярные сессии, лекции и мастер-классы от практиков и экспертов.</p></div>
-            </article>
-            <article class="direction-card" data-route="directions/projects">
-              <div class="direction-card__visual direction-card__visual--2"><span class="direction-card__num">02</span><span class="direction-card__arrow" aria-hidden="true">↗</span></div>
-              <div class="direction-card__body"><h3 class="direction-card__title">Проектная деятельность</h3><p class="direction-card__desc">Реальные проекты внутри организации: от идеи до готового продукта.</p></div>
-            </article>
-            <article class="direction-card" data-route="directions/network">
-              <div class="direction-card__visual direction-card__visual--3"><span class="direction-card__num">03</span><span class="direction-card__arrow" aria-hidden="true">↗</span></div>
-              <div class="direction-card__body"><h3 class="direction-card__title">Нетворкинг и сообщество</h3><p class="direction-card__desc">Комьюнити студентов, выпускников и менторов для роста и поддержки.</p></div>
-            </article>
-            <article class="direction-card" data-route="directions/marketing">
-              <div class="direction-card__visual direction-card__visual--4"><span class="direction-card__num">04</span><span class="direction-card__arrow" aria-hidden="true">↗</span></div>
-              <div class="direction-card__body"><h3 class="direction-card__title">Маркетинг на практике</h3><p class="direction-card__desc">Учись продвигать идеи, бренды и проекты на реальных задачах внутри организации.</p></div>
-            </article>
-            <article class="direction-card" data-route="directions/hr">
-              <div class="direction-card__visual direction-card__visual--5"><span class="direction-card__num">05</span><span class="direction-card__arrow" aria-hidden="true">↗</span></div>
-              <div class="direction-card__body"><h3 class="direction-card__title">Прикладной HR</h3><p class="direction-card__desc">Изучай управление людьми, найм и развитие команды на практике, а не только в теории.</p></div>
-            </article>
-            <article class="direction-card" data-route="directions/events">
-              <div class="direction-card__visual direction-card__visual--6"><span class="direction-card__num">06</span><span class="direction-card__arrow" aria-hidden="true">↗</span></div>
-              <div class="direction-card__body"><h3 class="direction-card__title">Организация мероприятий</h3><p class="direction-card__desc">Становись лидером и модератором реальных ивентов Founder's Hub от идеи до воплощения.</p></div>
-            </article>
-          </div>
-          <div class="dir-slider-nav">
-            <button type="button" class="dir-arrow dir-arrow--prev" aria-label="Предыдущее направление" disabled>←</button>
-            <div class="slider-dots" id="dir-dots"></div>
-            <button type="button" class="dir-arrow dir-arrow--next" aria-label="Следующее направление">→</button>
-          </div>
-        </div>
-      </div>
-    </section>
- 
-    <section class="for-whom">
-      <div class="container">
-        <span class="section-label">Для кого</span>
-        <h2>Кому подойдёт?</h2>
-        <div class="for-whom__grid">
-          <div class="slider-wrapper" id="whom-slider">
-            <div class="slider-track">
-              <article class="whom-card"><div class="whom-card__num">01</div><h3 class="whom-card__title">Студентам с амбициями</h3><p class="whom-card__desc">Хочешь расти — мы дадим среду и инструменты.</p></article>
-              <article class="whom-card"><div class="whom-card__num">02</div><h3 class="whom-card__title">Будущим предпринимателям</h3><p class="whom-card__desc">Развивай идею и найди единомышленников внутри университета.</p></article>
-              <article class="whom-card"><div class="whom-card__num">03</div><h3 class="whom-card__title">Лидерам и организаторам</h3><p class="whom-card__desc">Прокачай управленческие навыки на реальных задачах.</p></article>
-              <article class="whom-card"><div class="whom-card__num">04</div><h3 class="whom-card__title">Тем, кто ищет сообщество</h3><p class="whom-card__desc">Найди людей, которые думают так же, как ты.</p></article>
-            </div>
-            <div class="slider-nav">
-              <button type="button" class="slider-arrow" data-slider-prev aria-label="Назад">←</button>
-              <div class="slider-dots">
-                <span class="slider-dot is-active" data-index="0"></span>
-                <span class="slider-dot" data-index="1"></span>
-                <span class="slider-dot" data-index="2"></span>
-                <span class="slider-dot" data-index="3"></span>
-              </div>
-              <button type="button" class="slider-arrow" data-slider-next aria-label="Вперёд">→</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="join" id="join">
-      <div class="container">
-        <span class="section-label section-label--light">Как вступить</span>
-        <div class="join__grid">
-          <div class="join__left">
-            <h2>Как это работает?</h2>
-            <p class="join__desc">Вступление в Founder's Hub — простой и прозрачный процесс. Мы ищем мотивированных студентов, готовых учиться, действовать и развивать организацию вместе с командой.</p>
-            <a href="#join" class="btn btn--primary">Начать сейчас →</a>
-          </div>
-          <div class="join__steps-card">
-            <div class="join__step"><p class="join__step-num">01</p><p class="join__step-title">Заполни анкету</p><p class="join__step-desc">Расскажи о себе и своих целях.</p></div>
-            <div class="join__step"><p class="join__step-num">02</p><p class="join__step-title">Пройди собеседование</p><p class="join__step-desc">Коротко поговори с командой.</p></div>
-            <div class="join__step"><p class="join__step-num">03</p><p class="join__step-title">Вступи в команду</p><p class="join__step-desc">Стань частью Founder's Hub.</p></div>
-            <div class="join__step"><p class="join__step-num">04</p><p class="join__step-title">Развивайся</p><p class="join__step-desc">Участвуй, создавай, расти.</p></div>
-          </div>
-        </div>
-      </div>
-    </section>
- 
-    <section class="team" id="team">
-      <div class="container">
-        <span class="section-label">Команда</span>
-        <h2>Команда Founder's Hub</h2>
-        <p class="team__sub">Студенты, которые строят организацию изнутри.</p>
-
-        <div class="team__block">
-          <h3 class="team__block-title">Руководство</h3>
-          <div class="slider-wrapper" id="team-leadership-slider">
-            <div class="slider-track">
-              <article class="team-card">
-                <div class="team-card__photo"></div>
-                <div class="team-card__body">
-                  <p class="team-card__role">Президент</p>
-                  <h3 class="team-card__name">Амиржан Жампеисов</h3>
-                  <p class="team-card__bio">Развивает стратегию и видение организации.</p>
-                  <button type="button" class="team-card__toggle">Читать биографию ↓</button>
-                  <div class="team-card__full-bio"><div><p>Амиржан возглавляет Founder's Hub с момента основания. Отвечает за стратегическое направление, внешние партнёрства и культуру организации. Студент факультета бизнеса Narxoz University, ментор стартап-команд.</p></div></div>
-                </div>
-              </article>
-              <article class="team-card">
-                <div class="team-card__photo team-card__photo--2"></div>
-                <div class="team-card__body">
-                  <p class="team-card__role">Операционный директор</p>
-                  <h3 class="team-card__name">Богдан Навроцки</h3>
-                  <p class="team-card__bio">Отвечает за процессы и команду.</p>
-                  <button type="button" class="team-card__toggle">Читать биографию ↓</button>
-                  <div class="team-card__full-bio"><div><p>Богдан выстраивает внутренние процессы, HR-систему и межотдельную координацию Founder's Hub. Обеспечивает работу организации в соответствии с Уставом и операционными стандартами.</p></div></div>
-                </div>
-              </article>
-              <article class="team-card">
-                <div class="team-card__photo team-card__photo--3"></div>
-                <div class="team-card__body">
-                  <p class="team-card__role">Помощник Президента</p>
-                  <h3 class="team-card__name">Анастасия Артамонова</h3>
-                  <p class="team-card__bio">Координирует работу президента и ключевые инициативы.</p>
-                  <button type="button" class="team-card__toggle">Читать биографию ↓</button>
-                  <div class="team-card__full-bio"><div><p>Анастасия обеспечивает операционную поддержку президента, ведёт протоколы встреч, координирует расписание и помогает реализовывать стратегические решения руководства.</p></div></div>
-                </div>
-              </article>
-            </div>
-            <div class="slider-nav">
-              <button type="button" class="slider-arrow" data-slider-prev aria-label="Назад">←</button>
-              <div class="slider-dots"></div>
-              <button type="button" class="slider-arrow" data-slider-next aria-label="Вперёд">→</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="team__block">
-          <h3 class="team__block-title">Руководители направлений</h3>
-          <div class="slider-wrapper" id="team-dept-slider">
-            <div class="slider-track">
-              <article class="team-card">
-                <div class="team-card__photo team-card__photo--4"></div>
-                <div class="team-card__body">
-                  <p class="team-card__role">HR-директор</p>
-                  <h3 class="team-card__name">Жанель Шайкиева</h3>
-                  <p class="team-card__bio">Развивает команду и HR-процессы организации.</p>
-                  <button type="button" class="team-card__toggle">Читать биографию ↓</button>
-                  <div class="team-card__full-bio"><div><p>Жанель руководит HR-направлением Founder's Hub: рекрутинг, онбординг, развитие участников и формирование корпоративной культуры внутри организации.</p></div></div>
-                </div>
-              </article>
-              <article class="team-card">
-                <div class="team-card__photo team-card__photo--5"></div>
-                <div class="team-card__body">
-                  <p class="team-card__role">Маркетинг-директор</p>
-                  <h3 class="team-card__name">Андрей Хлыстунов</h3>
-                  <p class="team-card__bio">Отвечает за бренд, контент и продвижение Hub.</p>
-                  <button type="button" class="team-card__toggle">Читать биографию ↓</button>
-                  <div class="team-card__full-bio"><div><p>Андрей возглавляет маркетинговое направление: SMM, визуальная коммуникация, продвижение мероприятий и аналитика аудитории Founder's Hub.</p></div></div>
-                </div>
-              </article>
-              <article class="team-card">
-                <div class="team-card__photo team-card__photo--6"></div>
-                <div class="team-card__body">
-                  <p class="team-card__role">Ивент-директор</p>
-                  <h3 class="team-card__name">Айгерим Есетова</h3>
-                  <p class="team-card__bio">Организует мероприятия и управляет ивент-командой.</p>
-                  <button type="button" class="team-card__toggle">Читать биографию ↓</button>
-                  <div class="team-card__full-bio"><div><p>Айгерим курирует ивент-направление: от концепции до проведения мероприятий Founder's Hub — воркшопов, лекций, нетворкингов и праздников команды.</p></div></div>
-                </div>
-              </article>
-              <article class="team-card">
-                <div class="team-card__photo team-card__photo--7"></div>
-                <div class="team-card__body">
-                  <p class="team-card__role">Business Development директор</p>
-                  <h3 class="team-card__name">Султан Ильясулы</h3>
-                  <p class="team-card__bio">Развивает партнёрства и новые возможности для Hub.</p>
-                  <button type="button" class="team-card__toggle">Читать биографию ↓</button>
-                  <div class="team-card__full-bio"><div><p>Султан отвечает за бизнес-развитие Founder's Hub: партнёрства с внешними организациями, спонсорские инициативы и масштабирование проектов организации.</p></div></div>
-                </div>
-              </article>
-            </div>
-            <div class="slider-nav">
-              <button type="button" class="slider-arrow" data-slider-prev aria-label="Назад">←</button>
-              <div class="slider-dots"></div>
-              <button type="button" class="slider-arrow" data-slider-next aria-label="Вперёд">→</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
- 
-    <footer class="footer">
-      <div class="container">
-        <div class="footer__grid">
-          <div class="footer__brand">
-            <p class="footer__logo">Founder's <span>Hub</span></p>
-            <p class="footer__brand-desc">Студенческая организация Narxoz University. Пространство, где студенты становятся основателями.</p>
-          </div>
-          <div class="footer__col">
-            <p class="footer__col-heading">Социальные сети</p>
-            <ul class="footer__links">
-              <li><a href="https://www.instagram.com/foundershub.kz/" target="_blank" rel="noopener" class="footer__link">Instagram</a></li>
-            </ul>
-          </div>
-          <div class="footer__col">
-            <p class="footer__col-heading">Контакты</p>
-            <ul class="footer__links">
-              <li class="footer__contact-item">Narxoz University</li>
-              <li class="footer__contact-item">г. Алматы, Жандосова 55</li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer__bottom">
-          <p class="footer__copy">© 2023 Founder's Hub. Все права защищены.</p>
-          <p class="footer__sub">Часть экосистемы Narxoz University</p>
-        </div>
-      </div>
+    <footer class="footer-strip">
+      <span>Founder's Hub <span class="sep">/</span> 2026</span>
+      <span>Business <span class="sep">•</span> Startups <span class="sep">•</span> People</span>
     </footer>
   </div>
 
-  <!-- NEWS LIST PAGE -->
-  <div id="page-news-list" style="display:none">
-    <div class="inner-hero">
-      <div class="container">
-        <span class="section-label">Новости</span>
-        <h1>Лента событий</h1>
-        <p class="inner-hero__lead">Все новости и события Founder's Hub — собраны по тематическим группам.</p>
-      </div>
-    </div>
-    <section class="news-page">
-      <div class="container">
-        <div class="news-group">
-          <h3 class="news-group__title">Группа 1</h3>
-          <div class="news-group__grid" id="news-group-1"></div>
-        </div>
-        <div class="news-group">
-          <h3 class="news-group__title">Группа 2</h3>
-          <div class="news-group__grid" id="news-group-2"></div>
-        </div>
-        <div class="news-group">
-          <h3 class="news-group__title">Группа 3</h3>
-          <div class="news-group__grid" id="news-group-3"></div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- PAGE 1: Education -->
-  <div id="page-dir-1" style="display:none">
-    <div class="inner-hero"><div class="container"><span class="section-label">Направление 01</span><h1>Образование и воркшопы</h1><p class="inner-hero__lead">Знания, которые сразу применяются на практике. Мы приглашаем практиков, запускаем воркшопы и создаём среду непрерывного обучения.</p></div></div>
-    <section class="inner-block inner-block--white"><div class="container"><div class="inner-2col"><div><h2>Что это?</h2><p class="inner-text">Founder's Hub организует регулярные образовательные мероприятия для студентов Narxoz. Форматы варьируются от коротких воркшопов до полноценных курсов с сертификацией.</p></div><ol class="numbered-list"><li><span class="numbered-list__num">01</span> Воркшопы от практикующих предпринимателей</li><li><span class="numbered-list__num">02</span> Лекции приглашённых спикеров</li><li><span class="numbered-list__num">03</span> Мини-курсы по hard и soft skills</li><li><span class="numbered-list__num">04</span> Совместные разборы кейсов</li></ol></div></div></section>
-    <section class="inner-block inner-block--surface"><div class="container"><h2>Форматы</h2><div class="feature-cards"><article class="feature-card"><div class="feature-card__icon">✦</div><h3 class="feature-card__title">Воркшоп</h3><p class="feature-card__desc">2–3 часа, практический формат, малая группа</p></article><article class="feature-card"><div class="feature-card__icon">◈</div><h3 class="feature-card__title">Лекция</h3><p class="feature-card__desc">Открытое мероприятие, 60–90 мин, Q&amp;A</p></article><article class="feature-card"><div class="feature-card__icon">❋</div><h3 class="feature-card__title">Курс</h3><p class="feature-card__desc">4–6 недель, домашние задания, итоговый проект</p></article></div></div></section>
-    <section class="inner-block inner-block--white"><div class="container"><h2>Ближайшие мероприятия</h2><div class="timeline"><div class="timeline__item"><span class="timeline__badge">Скоро</span><span class="timeline__title">Воркшоп по публичным выступлениям</span><span class="timeline__status">Анонс</span></div><div class="timeline__item"><span class="timeline__badge">Скоро</span><span class="timeline__title">Лекция: Как построить стартап с нуля</span><span class="timeline__status">Анонс</span></div><div class="timeline__item"><span class="timeline__badge">Скоро</span><span class="timeline__title">Мини-курс по продуктовому мышлению</span><span class="timeline__status">Анонс</span></div></div></div></section>
-    <section class="inner-cta"><div class="container"><h2>Хочешь стать частью этого?</h2><button type="button" class="btn btn--primary" data-home-join>Вступить в Founder's Hub →</button></div></section>
-  </div>
- 
-  <!-- PAGE 2: Projects -->
-  <div id="page-dir-2" style="display:none">
-    <div class="inner-hero"><div class="container"><span class="section-label">Направление 02</span><h1>Проектная деятельность</h1><p class="inner-hero__lead">От идеи до готового продукта — внутри Founder's Hub. Мы даём структуру, команду и ресурсы для запуска реального проекта.</p></div></div>
-    <section class="inner-block inner-block--white"><div class="container"><div class="inner-2col"><div><h2>Как это устроено?</h2><p class="inner-text">Проектная деятельность — ядро Founder's Hub. Каждая команда проходит полный цикл: от формулировки идеи до создания MVP и первой обратной связи от рынка.</p></div><div class="stepper"><div class="stepper__item"><p class="stepper__num">01</p><p class="stepper__title">Идея</p><p class="stepper__desc">Формулируешь проблему и решение</p></div><div class="stepper__item"><p class="stepper__num">02</p><p class="stepper__title">Команда</p><p class="stepper__desc">Собираешь или находишь единомышленников</p></div><div class="stepper__item"><p class="stepper__num">03</p><p class="stepper__title">MVP</p><p class="stepper__desc">Создаёшь минимальный рабочий продукт</p></div><div class="stepper__item"><p class="stepper__num">04</p><p class="stepper__title">Обратная связь</p><p class="stepper__desc">Тестируешь с реальными пользователями</p></div></div></div></div></section>
-    <section class="inner-block inner-block--surface"><div class="container"><h2>Что получает команда?</h2><div class="icon-cards"><article class="icon-card"><div class="icon-card__icon">◎</div><h3 class="icon-card__title">Менторская поддержка</h3><p class="icon-card__desc">Доступ к опытным наставникам</p></article><article class="icon-card"><div class="icon-card__icon">◈</div><h3 class="icon-card__title">Ресурсы организации</h3><p class="icon-card__desc">Пространство, инструменты, связи</p></article><article class="icon-card"><div class="icon-card__icon">✦</div><h3 class="icon-card__title">Питч-практика</h3><p class="icon-card__desc">Регулярные демо-дни внутри Hub</p></article><article class="icon-card"><div class="icon-card__icon">❋</div><h3 class="icon-card__title">Нетворк</h3><p class="icon-card__desc">Выход на экосистему Narxoz и Technopark</p></article></div></div></section>
-    <section class="inner-block inner-block--white"><div class="container"><h2>Текущие проекты</h2><div class="project-scroll"><article class="project-card"><span class="project-card__tag">В разработке</span><h3 class="project-card__name">Проект #1</h3><p class="project-card__desc">Описание появится в ближайшее время.</p><p class="project-card__team">Команда: 3 чел.</p></article><article class="project-card"><span class="project-card__tag">В разработке</span><h3 class="project-card__name">Проект #2</h3><p class="project-card__desc">Описание появится в ближайшее время.</p><p class="project-card__team">Команда: 3 чел.</p></article><article class="project-card"><span class="project-card__tag">В разработке</span><h3 class="project-card__name">Проект #3</h3><p class="project-card__desc">Описание появится в ближайшее время.</p><p class="project-card__team">Команда: 3 чел.</p></article></div></div></section>
-    <section class="inner-cta"><div class="container"><h2>Хочешь стать частью этого?</h2><button type="button" class="btn btn--primary" data-home-join>Вступить в Founder's Hub →</button></div></section>
-  </div>
- 
-  <!-- PAGE 3: Network -->
-  <div id="page-dir-3" style="display:none">
-    <div class="inner-hero"><div class="container"><span class="section-label">Направление 03</span><h1>Нетворкинг и сообщество</h1><p class="inner-hero__lead">Люди решают всё. Founder's Hub — это сообщество студентов, выпускников и менторов, объединённых общей целью — расти и создавать.</p></div></div>
-    <section class="inner-block inner-block--white"><div class="container"><h2>Кто в сообществе?</h2><div class="community-cards"><article class="community-card"><div class="community-card__emoji">👤</div><h3 class="community-card__title">Студенты</h3><p class="community-card__desc">Активные участники, которые развиваются вместе</p></article><article class="community-card"><div class="community-card__emoji">🎓</div><h3 class="community-card__title">Выпускники</h3><p class="community-card__desc">Менторы и амбассадоры организации</p></article><article class="community-card"><div class="community-card__emoji">🤝</div><h3 class="community-card__title">Партнёры</h3><p class="community-card__desc">Эксперты и представители бизнеса</p></article></div></div></section>
-    <section class="inner-block inner-block--surface"><div class="container"><div class="inner-2col"><div><h2>Форматы нетворкинга</h2><p class="inner-text">Нетворкинг в Founder's Hub — это не просто обмен визитками. Это совместная работа, дискуссии и реальные проекты, которые рождаются из живого общения.</p></div><ol class="numbered-list"><li><span class="numbered-list__num">01</span> Общие встречи участников (2× в месяц)</li><li><span class="numbered-list__num">02</span> Закрытые чаты и каналы сообщества</li><li><span class="numbered-list__num">03</span> Совместные выезды и неформальные встречи</li><li><span class="numbered-list__num">04</span> Коллаборации с другими студенческими орг.</li></ol></div></div></section>
-    <section class="inner-block inner-block--white"><div class="container"><blockquote class="pull-quote"><p class="pull-quote__mark">"</p><p class="pull-quote__text">Твой следующий партнёр по бизнесу сидит рядом с тобой на паре.</p><cite class="pull-quote__attr">— Founder's Hub, Narxoz University</cite></blockquote></div></section>
-    <section class="inner-cta"><div class="container"><h2>Хочешь стать частью этого?</h2><button type="button" class="btn btn--primary" data-home-join>Вступить в Founder's Hub →</button></div></section>
-  </div>
- 
-  <!-- PAGE 4: Marketing -->
-  <div id="page-dir-4" style="display:none">
-    <div class="inner-hero"><div class="container"><span class="section-label">Направление 04</span><h1>Маркетинг на практике</h1><p class="inner-hero__lead">Не просто теория — реальные задачи, реальная аудитория, реальный результат. Учись продвигать идеи и проекты прямо внутри Founder's Hub.</p></div></div>
-    <section class="inner-block inner-block--white"><div class="container"><div class="inner-2col"><div><h2>Что это?</h2><p class="inner-text">Маркетинг в Founder's Hub — это не курсовые работы. Участники берутся за реальные задачи: продвижение мероприятий, создание контента, построение бренда организации и анализ аудитории.</p></div><ol class="numbered-list"><li><span class="numbered-list__num">01</span> SMM и контент-маркетинг</li><li><span class="numbered-list__num">02</span> Брендинг и визуальная коммуникация</li><li><span class="numbered-list__num">03</span> Аналитика и работа с аудиторией</li><li><span class="numbered-list__num">04</span> Продвижение мероприятий и проектов</li></ol></div></div></section>
-    <section class="inner-block inner-block--white"><div class="container"><h2>Направления работы</h2><div class="feature-cards"><article class="feature-card"><div class="feature-card__icon">✦</div><h3 class="feature-card__title">Контент</h3><p class="feature-card__desc">Создание постов, сторис и материалов для соцсетей</p></article><article class="feature-card"><div class="feature-card__icon">◈</div><h3 class="feature-card__title">Бренд</h3><p class="feature-card__desc">Работа над айдентикой и позиционированием Hub</p></article><article class="feature-card"><div class="feature-card__icon">❋</div><h3 class="feature-card__title">Аналитика</h3><p class="feature-card__desc">Изучение метрик и эффективности кампаний</p></article></div></div></section>
-    <section class="inner-block inner-block--surface"><div class="container"><h2>Тимлид направления</h2><div class="dept-lead"><div class="dept-lead__avatar">А</div><div><p class="dept-lead__label">Руководитель</p><p class="dept-lead__name">Андрей Хлыстунов</p><p class="dept-lead__role">Маркетинг-директор</p></div></div></div></section>
-    <section class="inner-block inner-block--white"><div class="container"><blockquote class="inner-callout">Твои работы увидит реальная аудитория, а не только преподаватель.</blockquote></div></section>
-    <section class="inner-cta"><div class="container"><h2>Хочешь стать частью этого?</h2><button type="button" class="btn btn--primary" data-home-join>Вступить в Founder's Hub →</button></div></section>
-  </div>
- 
-  <!-- PAGE 5: HR -->
-  <div id="page-dir-5" style="display:none">
-    <div class="inner-hero"><div class="container"><span class="section-label">Направление 05</span><h1>Прикладной HR</h1><p class="inner-hero__lead">Управление людьми — навык, который нельзя получить из учебника. В Founder's Hub ты работаешь с реальными процессами найма, адаптации и развития команды.</p></div></div>
-    <section class="inner-block inner-block--white"><div class="container"><div class="inner-2col"><div><h2>Как это устроено?</h2><p class="inner-text">HR-направление Founder's Hub даёт возможность изучить управление персоналом изнутри: от написания вакансий до онбординга новых участников и построения системы мотивации.</p></div><div class="stepper"><div class="stepper__item"><p class="stepper__num">01</p><p class="stepper__title">Рекрутинг</p><p class="stepper__desc">Поиск и отбор кандидатов в организацию</p></div><div class="stepper__item"><p class="stepper__num">02</p><p class="stepper__title">Онбординг</p><p class="stepper__desc">Адаптация новых участников</p></div><div class="stepper__item"><p class="stepper__num">03</p><p class="stepper__title">Развитие</p><p class="stepper__desc">Построение треков роста для команды</p></div><div class="stepper__item"><p class="stepper__num">04</p><p class="stepper__title">Культура</p><p class="stepper__desc">Формирование среды и ценностей</p></div></div></div></div></section>
-    <section class="inner-block inner-block--surface"><div class="container"><h2>Что ты освоишь?</h2><div class="feature-cards"><article class="feature-card"><div class="feature-card__icon">✦</div><h3 class="feature-card__title">Найм</h3><p class="feature-card__desc">Практика проведения собеседований</p></article><article class="feature-card"><div class="feature-card__icon">◈</div><h3 class="feature-card__title">Документы</h3><p class="feature-card__desc">Работа с регламентами и процедурами</p></article><article class="feature-card"><div class="feature-card__icon">❋</div><h3 class="feature-card__title">Команда</h3><p class="feature-card__desc">Развитие людей и управление конфликтами</p></article></div></div></section>
-    <section class="inner-block inner-block--white"><div class="container"><h2>Тимлид направления</h2><div class="dept-lead"><div class="dept-lead__avatar">Ж</div><div><p class="dept-lead__label">Руководитель</p><p class="dept-lead__name">Жанель Шайкиева</p><p class="dept-lead__role">HR-директор</p></div></div></div></section>
-    <section class="inner-block inner-block--surface"><div class="container"><blockquote class="inner-callout">HR — это не бумаги. Это люди, процессы и культура, которую ты строишь своими руками.</blockquote></div></section>
-    <section class="inner-cta"><div class="container"><h2>Хочешь стать частью этого?</h2><button type="button" class="btn btn--primary" data-home-join>Вступить в Founder's Hub →</button></div></section>
-  </div>
- 
-  <!-- PAGE 6: Events -->
-  <div id="page-dir-6" style="display:none">
-    <div class="inner-hero"><div class="container"><span class="section-label">Направление 06</span><h1>Организация мероприятий</h1><p class="inner-hero__lead">От идеи до аплодисментов. В Founder's Hub ты можешь стать организатором, лидером и модератором реальных ивентов — не в симуляции, а по-настоящему.</p></div></div>
-    <section class="inner-block inner-block--white"><div class="container"><div class="inner-2col"><div><h2>Как это устроено?</h2><p class="inner-text">Ивент-направление — одно из самых видимых в Founder's Hub. Участники берут на себя полный цикл организации мероприятий: от концепции и логистики до ведения и разбора результатов.</p></div><ol class="numbered-list"><li><span class="numbered-list__num">01</span> Концепция — придумать формат и цель мероприятия</li><li><span class="numbered-list__num">02</span> Подготовка — логистика, спикеры, площадка, материалы</li><li><span class="numbered-list__num">03</span> Проведение — модерация и управление на месте</li><li><span class="numbered-list__num">04</span> Разбор — анализ результатов и обратная связь</li></ol></div></div></section>
-    <section class="inner-block inner-block--surface"><div class="container"><h2>Что ты получишь?</h2><div class="feature-cards"><article class="feature-card"><div class="feature-card__icon">✦</div><h3 class="feature-card__title">Форматы</h3><p class="feature-card__desc">Воркшопы, лекции, нетворкинг-вечера, питчи</p></article><article class="feature-card"><div class="feature-card__icon">◈</div><h3 class="feature-card__title">Команда</h3><p class="feature-card__desc">Распределение ролей и управление волонтёрами</p></article><article class="feature-card"><div class="feature-card__icon">❋</div><h3 class="feature-card__title">Опыт</h3><p class="feature-card__desc">Портфолио реальных проведённых мероприятий</p></article></div></div></section>
-    <section class="inner-block inner-block--white"><div class="container"><h2>Тимлид направления</h2><div class="dept-lead"><div class="dept-lead__avatar">А</div><div><p class="dept-lead__label">Руководитель</p><p class="dept-lead__name">Айгерим Есетова</p><p class="dept-lead__role">Ивент-директор</p></div></div></div></section>
-    <section class="inner-block inner-block--surface"><div class="container"><blockquote class="inner-callout">Каждое мероприятие Founder's Hub — это твоя точка роста как лидера и организатора.</blockquote></div></section>
-    <section class="inner-cta"><div class="container"><h2>Хочешь стать частью этого?</h2><button type="button" class="btn btn--primary" data-home-join>Вступить в Founder's Hub →</button></div></section>
-  </div>
- 
-  <!-- NEWS PAGE 1 -->
-  <div id="page-news-1" style="display:none">
-    <div class="inner-hero"><div class="container"><span class="news-hero__tag">Выборы</span><p class="news-hero__date">Май 2026</p><h1>Старт выборов Вице-президента Founder's Hub</h1><p class="inner-hero__lead">Founder's Hub объявляет о начале официального процесса выборов на пост Вице-президента организации.</p></div></div>
-    <section class="news-article"><div class="news-article__inner"><p>Выборы Вице-президента — важный шаг в развитии внутренней демократии Founder's Hub. Пост Вице-президента предполагает активное участие в стратегическом планировании, поддержку Президента и координацию ключевых направлений организации.</p><p>Кандидаты должны быть действующими участниками Founder's Hub, готовыми брать на себя ответственность и действовать в интересах всей команды. Заявки принимаются через официальную анкету.</p><p>Процедура выборов включает: подачу заявки и предвыборной программы, публичную презентацию перед участниками и голосование членов организации. Итоги будут объявлены по завершении голосования.</p><blockquote class="news-callout">Если ты хочешь развивать Founder's Hub и готов нести ответственность — это твой шанс. Выдвигай кандидатуру.</blockquote></div></section>
-    <section class="news-back"><div class="container"><button type="button" class="news-back__btn" data-go-news>← Вернуться к новостям</button></div></section>
-  </div>
- 
-  <!-- NEWS PAGE 2 -->
-  <div id="page-news-2" style="display:none">
-    <div class="inner-hero"><div class="container"><span class="news-hero__tag">Событие</span><p class="news-hero__date">7 мая 2026</p><h1>Завершение семестра и праздник для мужской команды</h1><p class="inner-hero__lead">Founder's Hub закрыл учебный семестр ярким мероприятием и поздравил мужской коллектив с праздником 7 мая.</p></div></div>
-    <section class="news-article"><div class="news-article__inner"><p>Весенний семестр 2026 года стал насыщенным для Founder's Hub: воркшопы, проектная работа, нетворкинг-встречи и многое другое. Мы завершили его достойно — собравшись всей командой на финальное мероприятие.</p><p>7 мая — особая дата для мужской части нашей команды. В этот день мы поздравили коллег, вручили подарки и сертификаты в знак признания их вклада в развитие организации.</p><p>Это не просто праздник — это момент, когда команда остановилась, чтобы отметить путь, пройденный вместе. Впереди новый сезон, новые проекты и новые победы Founder's Hub.</p><blockquote class="news-callout">Благодарим каждого участника за вклад в этот семестр. До встречи в новом сезоне!</blockquote></div></section>
-    <section class="news-back"><div class="container"><button type="button" class="news-back__btn" data-go-news>← Вернуться к новостям</button></div></section>
-  </div>
- 
   <script>
-    /* ─── DATA ─── */
-    const NEWS_DATA = [
-      { id: 'news/1', group: 1, tag: 'Выборы', date: 'Май 2026', title: "Старт выборов Вице-президента Founder's Hub", desc: 'В организации официально открыт приём заявок на пост Вице-президента. Любой активный участник может выдвинуть свою кандидатуру.', visual: 'news-card__visual--1', meta: '#1' },
-      { id: 'news/2', group: 1, tag: 'Событие', date: '7 мая 2026', title: 'Завершение семестра и праздник для мужской команды', desc: "Founder's Hub успешно закрыл учебный семестр. Мужской коллектив поздравили с праздником 7 мая, вручили подарки и сертификаты.", visual: 'news-card__visual--2', meta: '#2' },
-      { id: 'news/3', group: 2, tag: 'Анонс', date: 'Июнь 2026', title: "Летний набор в Founder's Hub", desc: 'Открыт приём заявок от новых участников. Заполни анкету и присоединяйся к команде основателей.', visual: 'news-card__visual--1', meta: '#3' },
-      { id: 'news/4', group: 2, tag: 'Образование', date: 'Июнь 2026', title: 'Серия воркшопов по предпринимательству', desc: 'В июне стартует цикл практических занятий с приглашёнными спикерами из бизнес-среды.', visual: 'news-card__visual--2', meta: '#4' },
-      { id: 'news/5', group: 3, tag: 'Партнёрство', date: 'Лето 2026', title: 'Новые партнёры экосистемы Narxoz', desc: "Founder's Hub расширяет сеть партнёров для поддержки студенческих проектов и стартапов.", visual: 'news-card__visual--1', meta: '#5' },
-      { id: 'news/6', group: 3, tag: 'Проекты', date: 'Лето 2026', title: 'Запуск проектного сезона 2026', desc: 'Команды Hub начинают работу над новыми проектами — от MVP до первых пилотов.', visual: 'news-card__visual--2', meta: '#6' }
+    /* ═══════════════════════════════════════════
+       1. QUESTION DATA
+       ═══════════════════════════════════════════ */
+    const questions = [
+      { question: "кто самый богатый бизнесмен казахстана?", answer: "вячеслав ким — $7,8 млрд по рейтингу forbes kazakhstan 2026." },
+      { question: "какой бизнес связан с вячеславом кимом?", answer: "kaspi.kz." },
+      { question: "кто основатель astana motors?", answer: "нурлан смагулов." },
+      { question: "кто основатель bi group?", answer: "айдын рахимбаев и айдар артемьев." },
+      { question: "с каким бизнесом связан тимур турлов?", answer: "freedom holding corp." },
+      { question: "кто из казахстанских предпринимателей впервые вошёл в мировой список миллиардеров forbes в 2026 году?", answer: "нурлан смагулов и айдын рахимбаев." },
+      { question: "сколько казахстанских предпринимателей вошло в список миллиардеров forbes в 2026 году?", answer: "8." },
+      { question: "с каким бизнесом связан владимир ким?", answer: "с горнодобывающей отраслью, в частности kaz minerals." },
+      { question: "кто из богатейших бизнесменов казахстана связан с финтехом?", answer: "вячеслав ким и михаил ломтадзе." },
+      { question: "что такое forbes?", answer: "международное деловое издание, известное рейтингами богатейших людей, компаний и предпринимателей." },
+      { question: "что такое стартап?", answer: "молодая компания, которая создаёт новый продукт или услугу и стремится быстро вырасти." },
+      { question: "чем стартап отличается от обычного бизнеса?", answer: "стартап обычно ориентирован на быстрый рост и масштабирование." },
+      { question: "что такое «единорог»?", answer: "частная стартап-компания стоимостью от $1 млрд." },
+      { question: "сколько должна стоить компания, чтобы стать единорогом?", answer: "минимум $1 млрд." },
+      { question: "что такое инвестиционный раунд?", answer: "этап привлечения инвестиций в компанию." },
+      { question: "кто такой бизнес-ангел?", answer: "частный инвестор, который вкладывает свои деньги в перспективные проекты." },
+      { question: "что такое венчурный капитал?", answer: "инвестиции в компании с высоким потенциалом роста, но и высоким риском." },
+      { question: "почему большинство стартапов закрывается?", answer: "например, из-за отсутствия спроса на продукт, нехватки денег или проблем с командой." },
+      { question: "что важнее для стартапа: идея или команда?", answer: "обычно команда: хорошая команда может изменить или улучшить первоначальную идею." },
+      { question: "как бесплатный стартап может зарабатывать?", answer: "через рекламу, подписки, комиссии, платные функции или другие модели монетизации." },
+      { question: "кто считается одним из самых молодых миллиардеров в мире?", answer: "марк цукерберг стал миллиардером в 23 года." },
+      { question: "можно ли стать миллиардером без собственной компании?", answer: "да. например, можно получить состояние через инвестиции, наследство или долю в чужой компании." },
+      { question: "зачем компании покупают другие компании?", answer: "чтобы выйти на новые рынки, получить технологии, клиентов или усилить свои позиции." },
+      { question: "что такое диверсификация?", answer: "распределение бизнеса или инвестиций между разными направлениями, чтобы снизить риски." },
+      { question: "зачем компания выходит на биржу?", answer: "чтобы привлечь капитал от инвесторов и получить доступ к публичному рынку." },
+      { question: "что такое ipo?", answer: "первичное публичное размещение акций компании на бирже." },
+      { question: "почему акции компании могут дорожать или дешеветь?", answer: "из-за изменения спроса, результатов компании, новостей, ожиданий инвесторов и ситуации на рынке." },
+      { question: "что сложнее: придумать идею или масштабировать бизнес?", answer: "однозначного ответа нет, но масштабирование требует выстроить процессы, команду и стабильную бизнес-модель." },
+      { question: "как соцсети изменили предпринимательство?", answer: "позволили дешевле рекламировать продукты, находить клиентов и строить личный бренд." },
+      { question: "что важнее бизнесмену: деньги, связи, знания или риск?", answer: "нет единственного ответа: успешному предпринимателю нужны разные навыки, а конкретный набор зависит от бизнеса." },
+      { question: "если бы тебе дали $1 млн на бизнес в казахстане — что бы ты открыла?", answer: "нет правильного ответа." },
+      { question: "какой казахстанский бизнес ты бы купила за $100 млн?", answer: "нет правильного ответа." },
+      { question: "кто станет следующим казахстанским миллиардером?", answer: "это прогноз, правильного ответа нет." },
+      { question: "какой маленький бизнес может стать огромной компанией?", answer: "любой перспективный бизнес с масштабируемой моделью — например, it, финтех или e-commerce." },
+      { question: "с кем из казахстанских бизнесменов ты бы хотела провести один день?", answer: "свободный ответ." }
     ];
 
-    /* ─── ROUTING ─── */
-    const ALL_PAGES = ['page-home','page-news-list','page-dir-1','page-dir-2','page-dir-3','page-dir-4','page-dir-5','page-dir-6','page-news-1','page-news-2'];
-    const routes = {
-      'news': 'page-news-list',
-      'directions/education': 'page-dir-1',
-      'directions/projects':  'page-dir-2',
-      'directions/network':   'page-dir-3',
-      'directions/marketing': 'page-dir-4',
-      'directions/hr':        'page-dir-5',
-      'directions/events':    'page-dir-6',
-      'news/1': 'page-news-1',
-      'news/2': 'page-news-2',
+    const OPEN_ANSWERS = new Set([
+      "нет правильного ответа.",
+      "это прогноз, правильного ответа нет.",
+      "свободный ответ."
+    ]);
+
+    const OPEN_DISPLAY = {
+      "нет правильного ответа.": "это вопрос для обсуждения.",
+      "это прогноз, правильного ответа нет.": "это вопрос для обсуждения.",
+      "свободный ответ.": "это вопрос для обсуждения."
     };
- 
-    function closeMobileMenu() {
-      const toggle = document.getElementById('nav-toggle');
-      if (toggle) toggle.checked = false;
-    }
- 
-    function navigate(hash) {
-      ALL_PAGES.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.style.display = 'none';
-      });
- 
-      const target = hash ? routes[hash] : null;
-      const pageId = target || 'page-home';
-      const pageEl = document.getElementById(pageId);
-      if (pageEl) pageEl.style.display = 'block';
- 
-      const nav = document.getElementById('main-nav');
-      const backBtn = document.getElementById('nav-back');
- 
-      if (target) {
-        nav.classList.add('nav--inner');
-        backBtn.style.display = 'inline-flex';
-      } else {
-        nav.classList.remove('nav--inner');
-        backBtn.style.display = 'none';
+
+    const SECTOR_LABELS = [
+      "BUSINESS", "STARTUP", "FORBES", "MONEY", "IDEA", "INVEST",
+      "TEAM", "RISK", "GROWTH", "KZ", "SUCCESS", "FUTURE"
+    ];
+
+    const SECTOR_COUNT = 12;
+    const SECTOR_ANGLE = 360 / SECTOR_COUNT;
+    const SPIN_MS = 4600;
+    const EXTRA_SPINS = 6;
+
+    /* Sector visual styles — premium gradients per sector */
+    const SECTOR_STYLES = [
+      { stops: ["#EE2E34", "#920001"], text: "#FFFFFF" },
+      { stops: ["#1a1a1a", "#000000"], text: "#FFFFFF", highlight: true },
+      { stops: ["#2a0a0a", "#920001"], text: "#FFFFFF" },
+      { stops: ["#EE2E34", "#c41e24"], text: "#FFFFFF" },
+      { stops: ["#0d0d0d", "#1a1a1a"], text: "rgba(255,255,255,0.9)" },
+      { stops: ["#920001", "#5a0001"], text: "#FFFFFF" },
+      { stops: ["#EE2E34", "#920001"], text: "#FFFFFF" },
+      { stops: ["#111111", "#000000"], text: "#FFFFFF", highlight: true },
+      { stops: ["#3d0a0c", "#920001"], text: "#FFFFFF" },
+      { stops: ["#EE2E34", "#b8181e"], text: "#FFFFFF" },
+      { stops: ["#0a0a0a", "#1c1c1c"], text: "rgba(255,255,255,0.85)" },
+      { stops: ["#920001", "#EE2E34"], text: "#FFFFFF" }
+    ];
+
+    /* ═══════════════════════════════════════════
+       2. STATE
+       ═══════════════════════════════════════════ */
+    let pool = [];
+    let answered = 0;
+    let currentIdx = -1;
+    let rotation = 0;
+    let spinning = false;
+    let dpr = 1;
+    let lastTickSector = -1;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ═══════════════════════════════════════════
+       DOM
+       ═══════════════════════════════════════════ */
+    const canvas = document.getElementById("wheel");
+    const ctx = canvas.getContext("2d");
+    const wheelOuter = document.getElementById("wheelOuter");
+    const wheelFrame = document.getElementById("wheelFrame");
+    const spinBtn = document.getElementById("spinBtn");
+    const qCard = document.getElementById("qCard");
+    const completeCard = document.getElementById("completeCard");
+    const qProgress = document.getElementById("qProgress");
+    const qText = document.getElementById("qText");
+    const revealBtn = document.getElementById("revealBtn");
+    const aBlock = document.getElementById("aBlock");
+    const aLabel = document.getElementById("aLabel");
+    const aText = document.getElementById("aText");
+    const spinAgainBtn = document.getElementById("spinAgainBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const muteBtn = document.getElementById("muteBtn");
+    const confettiEl = document.getElementById("confetti");
+
+    /* ═══════════════════════════════════════════
+       5. QUESTION SELECTION
+       ═══════════════════════════════════════════ */
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
       }
- 
-      closeMobileMenu();
-      window.scrollTo(0, 0);
-    }
- 
-    function goTo(hash) {
-      history.pushState(null, '', hash ? '#' + hash : window.location.pathname);
-      navigate(hash);
-    }
- 
-    window.addEventListener('popstate', () => navigate(location.hash.slice(1)));
- 
-    /* ─── NEWS PAGE RENDER ─── */
-    function newsCardHTML(n) {
-      return `
-        <article class="news-card" data-route="${n.id}">
-          <div class="news-card__visual ${n.visual}">
-            <span class="news-card__tag">${n.tag}</span>
-          </div>
-          <div class="news-card__body">
-            <span class="news-card__date">${n.date}</span>
-            <h4 class="news-card__title">${n.title}</h4>
-            <p class="news-card__desc">${n.desc}</p>
-            <div class="news-card__footer">
-              <button type="button" class="news-card__read-btn" data-route="${n.id}">Читать →</button>
-              <span class="news-card__meta">${n.meta}</span>
-            </div>
-          </div>
-        </article>
-      `;
+      return a;
     }
 
-    function bindNewsCards(root) {
-      root.querySelectorAll('.news-card[data-route]').forEach(card => {
-        const route = card.dataset.route;
-        if (!routes[route]) {
-          card.style.cursor = 'default';
-          card.querySelector('.news-card__read-btn')?.remove();
-          return;
+    function initPool() {
+      pool = shuffle(questions.map((_, i) => i));
+      answered = 0;
+      currentIdx = -1;
+    }
+
+    function pickQuestion() {
+      if (!pool.length) return null;
+      const pos = Math.floor(Math.random() * pool.length);
+      return pool.splice(pos, 1)[0];
+    }
+
+    function isOpen(answer) {
+      return OPEN_ANSWERS.has(answer.toLowerCase());
+    }
+
+    function pad(n) {
+      return String(n).padStart(2, "0");
+    }
+
+    function sectorForQuestion(qIdx) {
+      return qIdx % SECTOR_COUNT;
+    }
+
+    /* ═══════════════════════════════════════════
+       3. WHEEL RENDERING
+       ═══════════════════════════════════════════ */
+    function makeSectorGradient(cx, cy, r, startA, endA, stops) {
+      const mid = (startA + endA) / 2;
+      const gx = cx + Math.cos(mid) * r * 0.5;
+      const gy = cy + Math.sin(mid) * r * 0.5;
+      const g = ctx.createRadialGradient(cx, cy, 0, gx, gy, r);
+      g.addColorStop(0, stops[0]);
+      g.addColorStop(1, stops[1]);
+      return g;
+    }
+
+    function resizeWheel() {
+      dpr = window.devicePixelRatio || 1;
+      const size = canvas.clientWidth;
+      canvas.width = size * dpr;
+      canvas.height = size * dpr;
+      drawWheel(rotation);
+    }
+
+    function drawWheel(rotDeg) {
+      const size = canvas.width;
+      const cx = size / 2;
+      const cy = size / 2;
+      const outerR = cx - 3 * dpr;
+      const rotRad = (rotDeg * Math.PI) / 180;
+
+      ctx.clearRect(0, 0, size, size);
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(rotRad);
+
+      for (let i = 0; i < SECTOR_COUNT; i++) {
+        const startA = (i * SECTOR_ANGLE - 90) * Math.PI / 180;
+        const endA = ((i + 1) * SECTOR_ANGLE - 90) * Math.PI / 180;
+        const style = SECTOR_STYLES[i];
+
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.arc(0, 0, outerR, startA, endA);
+        ctx.closePath();
+        ctx.fillStyle = makeSectorGradient(0, 0, outerR, startA, endA, style.stops);
+        ctx.fill();
+
+        if (style.highlight) {
+          ctx.save();
+          ctx.clip();
+          ctx.beginPath();
+          ctx.arc(0, 0, outerR * 0.7, startA, endA);
+          ctx.strokeStyle = "rgba(255,255,255,0.04)";
+          ctx.lineWidth = outerR * 0.5;
+          ctx.stroke();
+          ctx.restore();
         }
-        card.addEventListener('click', () => goTo(route));
-      });
-      root.querySelectorAll('.news-card__read-btn[data-route]').forEach(btn => {
-        btn.addEventListener('click', e => { e.stopPropagation(); goTo(btn.dataset.route); });
-      });
+
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.arc(0, 0, outerR, startA, endA);
+        ctx.closePath();
+        ctx.strokeStyle = "rgba(255,255,255,0.12)";
+        ctx.lineWidth = 1.2 * dpr;
+        ctx.stroke();
+
+        ctx.save();
+        const midA = (startA + endA) / 2;
+        ctx.rotate(midA);
+        const fontSize = Math.max(9, outerR * 0.052);
+        ctx.font = `600 ${fontSize}px "Space Grotesk", sans-serif`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = style.text;
+        ctx.shadowColor = "rgba(0,0,0,0.5)";
+        ctx.shadowBlur = 3 * dpr;
+        ctx.fillText(SECTOR_LABELS[i], outerR * 0.66, 0);
+        ctx.shadowBlur = 0;
+        ctx.restore();
+      }
+
+      const hubOuter = outerR * 0.2;
+      const hubInner = outerR * 0.14;
+
+      const ringGrad = ctx.createRadialGradient(0, 0, hubInner, 0, 0, hubOuter);
+      ringGrad.addColorStop(0, "#EE2E34");
+      ringGrad.addColorStop(1, "#920001");
+
+      ctx.beginPath();
+      ctx.arc(0, 0, hubOuter, 0, Math.PI * 2);
+      ctx.fillStyle = ringGrad;
+      ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,255,0.25)";
+      ctx.lineWidth = 1.5 * dpr;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(0, 0, hubInner, 0, Math.PI * 2);
+      ctx.fillStyle = "#000000";
+      ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,255,0.1)";
+      ctx.lineWidth = 1 * dpr;
+      ctx.stroke();
+
+      ctx.fillStyle = "#FFFFFF";
+      ctx.font = `700 ${Math.max(10, hubInner * 0.42)}px "Space Grotesk", sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("КРУТИ", 0, 0);
+
+      ctx.restore();
     }
 
-    function renderNewsPage() {
-      [1, 2, 3].forEach(group => {
-        const grid = document.getElementById('news-group-' + group);
-        if (!grid) return;
-        const items = NEWS_DATA.filter(n => n.group === group);
-        grid.innerHTML = items.length
-          ? items.map(newsCardHTML).join('')
-          : '<p class="news-group__empty">В этой группе пока нет новостей.</p>';
-        if (items.length) bindNewsCards(grid);
-      });
+    /* ═══════════════════════════════════════════
+       4. WHEEL ROTATION
+       Pointer fixed at top (12 o'clock).
+       Sector i center = i * SECTOR_ANGLE + SECTOR_ANGLE/2 clockwise from top.
+       After clockwise rotation R: center lands at (center + R) mod 360.
+       We need center + R ≡ 0 (mod 360)  →  R ≡ -center (mod 360).
+       ═══════════════════════════════════════════ */
+    function targetRotation(current, sectorIdx) {
+      const center = sectorIdx * SECTOR_ANGLE + SECTOR_ANGLE / 2;
+      const align = (360 - center) % 360;
+      const mod = ((current % 360) + 360) % 360;
+      let delta = align - mod;
+      if (delta <= 0) delta += 360;
+      return current + EXTRA_SPINS * 360 + delta;
     }
 
-    /* ─── GENERIC H-SLIDER ─── */
-    function initHSlider(wrapper, cardSelector) {
-      if (!wrapper) return;
-      const track = wrapper.querySelector('.slider-track');
-      const prevBtn = wrapper.querySelector('[data-slider-prev]');
-      const nextBtn = wrapper.querySelector('[data-slider-next]');
-      const dotsBox = wrapper.querySelector('.slider-dots');
-      if (!track) return;
-
-      const cards = track.querySelectorAll(cardSelector);
-      if (dotsBox && dotsBox.children.length === 0) {
-        cards.forEach((_, i) => {
-          const d = document.createElement('span');
-          d.className = 'slider-dot' + (i === 0 ? ' is-active' : '');
-          d.dataset.index = String(i);
-          dotsBox.appendChild(d);
-        });
-      }
-      const dots = dotsBox ? dotsBox.querySelectorAll('.slider-dot') : [];
-
-      function getStep() {
-        const card = cards[0];
-        if (!card) return track.offsetWidth;
-        const gap = parseFloat(getComputedStyle(track).gap) || 20;
-        return card.offsetWidth + gap;
-      }
-
-      function getIndex() {
-        const step = getStep();
-        return step ? Math.round(track.scrollLeft / step) : 0;
-      }
-
-      function update() {
-        const idx = getIndex();
-        dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
-        if (prevBtn) prevBtn.disabled = track.scrollLeft <= 2;
-        if (nextBtn) nextBtn.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
-      }
-
-      track.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update);
-
-      dots.forEach(d => {
-        d.addEventListener('click', () => {
-          cards[+d.dataset.index]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-        });
-      });
-
-      prevBtn?.addEventListener('click', () => {
-        const idx = Math.max(0, getIndex() - 1);
-        cards[idx]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-      });
-      nextBtn?.addEventListener('click', () => {
-        const idx = Math.min(cards.length - 1, getIndex() + 1);
-        cards[idx]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-      });
-
-      let down = false, sx = 0, sl = 0;
-      track.addEventListener('mousedown', e => { down = true; sx = e.pageX - track.offsetLeft; sl = track.scrollLeft; });
-      track.addEventListener('mouseleave', () => { down = false; });
-      track.addEventListener('mouseup', () => { down = false; });
-      track.addEventListener('mousemove', e => {
-        if (!down) return;
-        e.preventDefault();
-        track.scrollLeft = sl - (e.pageX - track.offsetLeft - sx) * 1.2;
-      });
-
-      update();
+    function easeSpin(t) {
+      if (reducedMotion) return t;
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
     }
- 
-    /* ─── INIT ─── */
-    document.addEventListener('DOMContentLoaded', () => {
-      const hash = location.hash.slice(1);
-      if (routes[hash]) {
-        navigate(hash);
+
+    /* ═══════════════════════════════════════════
+       8. PROGRESS
+       ═══════════════════════════════════════════ */
+    function updateProgress() {
+      qProgress.textContent = `ВОПРОС ${pad(answered)} / ${pad(questions.length)}`;
+    }
+
+    /* ═══════════════════════════════════════════
+       6 & 7. QUESTION & ANSWER UI
+       ═══════════════════════════════════════════ */
+    function hideCard() {
+      qCard.classList.remove("visible");
+      qCard.hidden = true;
+      aBlock.classList.remove("visible", "open");
+      revealBtn.hidden = false;
+      revealBtn.style.display = "";
+    }
+
+    function showCard() {
+      qCard.hidden = false;
+      requestAnimationFrame(() => qCard.classList.add("visible"));
+    }
+
+    function hideComplete() {
+      completeCard.classList.remove("visible");
+      completeCard.hidden = true;
+    }
+
+    function showComplete() {
+      completeCard.hidden = false;
+      requestAnimationFrame(() => completeCard.classList.add("visible"));
+    }
+
+    function displayQuestion(qIdx) {
+      currentIdx = qIdx;
+      answered++;
+      updateProgress();
+      qText.textContent = questions[qIdx].question;
+      aBlock.classList.remove("visible", "open");
+      revealBtn.style.display = "";
+      aLabel.textContent = "ОТВЕТ";
+      showCard();
+    }
+
+    function revealAnswer() {
+      const ans = questions[currentIdx].answer;
+      const open = isOpen(ans);
+
+      if (open) {
+        aBlock.classList.add("open");
+        aLabel.textContent = "НЕТ ПРАВИЛЬНОГО ОТВЕТА";
+        aText.textContent = OPEN_DISPLAY[ans.toLowerCase()] || "это вопрос для обсуждения.";
       } else {
-        navigate('');
-        if (hash && ['about', 'directions', 'join', 'team'].includes(hash)) {
-          setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' }), 50);
-        }
+        aBlock.classList.remove("open");
+        aLabel.textContent = "ОТВЕТ";
+        aText.textContent = ans;
       }
 
-      renderNewsPage();
+      revealBtn.style.display = "none";
+      aBlock.classList.add("visible");
+    }
 
-      document.querySelectorAll('.direction-card[data-route]').forEach(card => {
-        card.addEventListener('click', () => goTo(card.dataset.route));
-      });
+    function setSpinBtn(on) {
+      spinBtn.disabled = on;
+      spinBtn.textContent = on ? "КРУТИТСЯ..." : "КРУТИТЬ КОЛЕСО";
+    }
 
-      document.querySelectorAll('[data-nav]').forEach(link => {
-        link.addEventListener('click', e => {
-          e.preventDefault();
-          const target = link.dataset.nav;
-          if (target === 'news') {
-            goTo('news');
-          } else {
-            goTo('');
-            setTimeout(() => {
-              document.getElementById(target)?.scrollIntoView({ behavior: 'smooth' });
-            }, 50);
-          }
-          closeMobileMenu();
-        });
-      });
+    /* ═══════════════════════════════════════════
+       10. SOUND
+       ═══════════════════════════════════════════ */
+    let audioCtx = null;
+    let soundOn = false;
 
-      document.querySelectorAll('[data-go-news]').forEach(btn => {
-        btn.addEventListener('click', () => goTo('news'));
-      });
+    function initAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === "suspended") audioCtx.resume();
+    }
 
-      document.getElementById('nav-back')?.addEventListener('click', () => {
-        if (history.length > 1) { history.back(); } else { goTo(''); }
-      });
+    function tick() {
+      if (!soundOn || !audioCtx) return;
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.connect(g); g.connect(audioCtx.destination);
+      o.frequency.value = 720;
+      o.type = "sine";
+      g.gain.setValueAtTime(0.025, audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.035);
+      o.start(); o.stop(audioCtx.currentTime + 0.035);
+    }
 
-      document.getElementById('nav-logo').addEventListener('click', e => {
-        e.preventDefault();
-        goTo('');
-      });
+    function stopChime() {
+      if (!soundOn || !audioCtx) return;
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.connect(g); g.connect(audioCtx.destination);
+      o.frequency.setValueAtTime(480, audioCtx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(260, audioCtx.currentTime + 0.18);
+      o.type = "triangle";
+      g.gain.setValueAtTime(0.05, audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+      o.start(); o.stop(audioCtx.currentTime + 0.2);
+    }
 
-      document.querySelectorAll('[data-home-join]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          goTo('');
-          setTimeout(() => {
-            document.getElementById('join')?.scrollIntoView({ behavior: 'smooth' });
-          }, 50);
-        });
-      });
+    function checkTick(deg) {
+      const norm = ((deg % 360) + 360) % 360;
+      const sec = Math.floor(norm / SECTOR_ANGLE) % SECTOR_COUNT;
+      if (sec !== lastTickSector) { lastTickSector = sec; tick(); }
+    }
 
-      document.querySelectorAll('.team-card__toggle').forEach(btn => {
-        btn.addEventListener('click', e => {
-          e.stopPropagation();
-          const card = btn.closest('.team-card');
-          const full = card.querySelector('.team-card__full-bio');
-          const willOpen = !full.classList.contains('is-open');
-          card.closest('.slider-track')?.querySelectorAll('.team-card__full-bio.is-open').forEach(el => {
-            if (el !== full) {
-              el.classList.remove('is-open');
-              const toggle = el.closest('.team-card__body')?.querySelector('.team-card__toggle');
-              if (toggle) toggle.textContent = 'Читать биографию ↓';
-            }
-          });
-          full.classList.toggle('is-open', willOpen);
-          btn.textContent = willOpen ? 'Свернуть ↑' : 'Читать биографию ↓';
-        });
-      });
-
-      document.querySelectorAll('.nav__links a, .nav__menu .btn').forEach(el => {
-        el.addEventListener('click', closeMobileMenu);
-      });
-
-      initHSlider(document.getElementById('whom-slider'), '.whom-card');
-      initHSlider(document.getElementById('team-leadership-slider'), '.team-card');
-      initHSlider(document.getElementById('team-dept-slider'), '.team-card');
+    muteBtn.addEventListener("click", () => {
+      soundOn = !soundOn;
+      if (soundOn) initAudio();
+      muteBtn.textContent = soundOn ? "🔊" : "🔇";
+      muteBtn.setAttribute("aria-label", soundOn ? "Выключить звук" : "Включить звук");
     });
- 
-    /* ─── STORIES SLIDER ─── */
-    (function() {
-      const track = document.querySelector('#stories-slider .stories-track');
-      const dotsBox = document.getElementById('stories-dots');
-      const prevBtn = document.getElementById('stories-prev');
-      const nextBtn = document.getElementById('stories-next');
-      if (!track || !dotsBox) return;
- 
-      const cards = track.querySelectorAll('.story-card');
-      cards.forEach((_, i) => {
-        const d = document.createElement('span');
-        d.className = 'slider-dot' + (i === 0 ? ' is-active' : '');
-        d.dataset.index = i;
-        dotsBox.appendChild(d);
-      });
-      const dots = dotsBox.querySelectorAll('.slider-dot');
- 
-      function getStep() { return (cards[0]?.offsetWidth || 0) + 20; }
- 
-      function syncDots() {
-        const idx = Math.round(track.scrollLeft / getStep());
-        dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
-        if (prevBtn) prevBtn.disabled = track.scrollLeft <= 1;
-        if (nextBtn) nextBtn.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
-      }
- 
-      track.addEventListener('scroll', syncDots, { passive: true });
-      window.addEventListener('resize', syncDots);
- 
-      dots.forEach(d => {
-        d.addEventListener('click', () => {
-          cards[+d.dataset.index]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-        });
-      });
- 
-      prevBtn?.addEventListener('click', () => track.scrollBy({ left: -getStep(), behavior: 'smooth' }));
-      nextBtn?.addEventListener('click', () => track.scrollBy({ left: getStep(), behavior: 'smooth' }));
- 
-      let down = false, sx = 0, sl = 0;
-      track.addEventListener('mousedown', e => { down = true; sx = e.pageX - track.offsetLeft; sl = track.scrollLeft; });
-      track.addEventListener('mouseleave', () => { down = false; });
-      track.addEventListener('mouseup', () => { down = false; });
-      track.addEventListener('mousemove', e => {
-        if (!down) return;
-        e.preventDefault();
-        track.scrollLeft = sl - (e.pageX - track.offsetLeft - sx) * 1.2;
-      });
- 
-      syncDots();
-    })();
- 
-    /* ─── WHOM / TEAM SLIDERS: see initHSlider above ─── */
 
-    /* ─── DIRECTIONS SLIDER ─── */
-    (function() {
-      const wrapper = document.getElementById('dir-slider');
-      const track = wrapper?.querySelector('.dir-slider-track');
-      const dotsContainer = document.getElementById('dir-dots');
-      const prevBtn = wrapper?.querySelector('.dir-arrow--prev');
-      const nextBtn = wrapper?.querySelector('.dir-arrow--next');
-      if (!track || !dotsContainer) return;
- 
-      const cards = track.querySelectorAll('.direction-card');
-      dotsContainer.innerHTML = '';
-      cards.forEach((_, i) => {
-        const dot = document.createElement('span');
-        dot.className = 'slider-dot' + (i === 0 ? ' is-active' : '');
-        dot.dataset.index = String(i);
-        dotsContainer.appendChild(dot);
-      });
- 
-      function getCardStep() {
-        const card = track.querySelector('.direction-card');
-        return card ? card.offsetWidth + 20 : track.offsetWidth;
+    /* ═══════════════════════════════════════════
+       CONFETTI (subtle)
+       ═══════════════════════════════════════════ */
+    let particles = [];
+    let confettiRunning = false;
+
+    function burstConfetti() {
+      if (reducedMotion) return;
+      const colors = ["#EE2E34", "#920001", "#FFFFFF", "#000000"];
+      const w = window.innerWidth, h = window.innerHeight;
+      confettiEl.width = w; confettiEl.height = h;
+      particles = [];
+      for (let i = 0; i < 28; i++) {
+        particles.push({
+          x: w / 2 + (Math.random() - 0.5) * 160,
+          y: h * 0.38,
+          vx: (Math.random() - 0.5) * 5,
+          vy: -Math.random() * 7 - 2,
+          w: Math.random() * 5 + 2,
+          h: Math.random() * 3 + 1,
+          color: colors[i % colors.length],
+          rot: Math.random() * 360,
+          rv: (Math.random() - 0.5) * 10,
+          life: 1
+        });
       }
-      function getActiveIndex() { return Math.round(track.scrollLeft / getCardStep()); }
-      function isAtStart() { return track.scrollLeft <= 2; }
-      function isAtEnd() { return track.scrollLeft + track.clientWidth >= track.scrollWidth - 2; }
- 
-      function updateControls() {
-        const index = getActiveIndex();
-        dotsContainer.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('is-active', i === index));
-        if (prevBtn) prevBtn.disabled = isAtStart();
-        if (nextBtn) nextBtn.disabled = isAtEnd();
+      if (!confettiRunning) { confettiRunning = true; animConfetti(); }
+    }
+
+    function animConfetti() {
+      const c = confettiEl.getContext("2d");
+      c.clearRect(0, 0, confettiEl.width, confettiEl.height);
+      let alive = false;
+      particles.forEach(p => {
+        if (p.life <= 0) return;
+        alive = true;
+        p.x += p.vx; p.y += p.vy; p.vy += 0.15;
+        p.rot += p.rv; p.life -= 0.014;
+        c.save();
+        c.translate(p.x, p.y);
+        c.rotate(p.rot * Math.PI / 180);
+        c.globalAlpha = Math.max(0, p.life);
+        c.fillStyle = p.color;
+        c.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        c.restore();
+      });
+      alive ? requestAnimationFrame(animConfetti) : (confettiRunning = false, c.clearRect(0, 0, confettiEl.width, confettiEl.height));
+    }
+
+    /* ═══════════════════════════════════════════
+       SPIN FLOW
+       ═══════════════════════════════════════════ */
+    function doSpin() {
+      if (spinning) return;
+
+      if (!pool.length) {
+        hideCard();
+        spinBtn.disabled = true;
+        showComplete();
+        return;
       }
- 
-      track.addEventListener('scroll', updateControls, { passive: true });
-      window.addEventListener('resize', updateControls);
- 
-      dotsContainer.addEventListener('click', e => {
-        const dot = e.target.closest('.slider-dot');
-        if (!dot) return;
-        cards[+dot.dataset.index]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-      });
- 
-      prevBtn?.addEventListener('click', () => {
-        const target = Math.max(0, getActiveIndex() - 1);
-        cards[target]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-      });
- 
-      nextBtn?.addEventListener('click', () => {
-        const target = Math.min(cards.length - 1, getActiveIndex() + 1);
-        cards[target]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-      });
- 
-      let isDown = false, startX = 0, scrollLeft = 0;
-      track.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft; });
-      track.addEventListener('mouseleave', () => { isDown = false; });
-      track.addEventListener('mouseup', () => { isDown = false; });
-      track.addEventListener('mousemove', e => {
-        if (!isDown) return;
-        e.preventDefault();
-        track.scrollLeft = scrollLeft - (e.pageX - track.offsetLeft - startX) * 1.2;
-      });
- 
-      updateControls();
-    })();
+
+      const qIdx = pickQuestion();
+      const sector = sectorForQuestion(qIdx);
+      const from = rotation;
+      const to = targetRotation(from, sector);
+      const dur = reducedMotion ? 280 : SPIN_MS;
+
+      spinning = true;
+      setSpinBtn(true);
+      hideCard();
+      hideComplete();
+      wheelOuter.classList.add("spinning");
+      wheelFrame.classList.remove("bounce");
+      lastTickSector = -1;
+
+      const t0 = performance.now();
+
+      function frame(now) {
+        const t = Math.min((now - t0) / dur, 1);
+        rotation = from + (to - from) * easeSpin(t);
+        drawWheel(rotation);
+        if (!reducedMotion && t < 1) checkTick(rotation);
+
+        if (t < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          rotation = to;
+          drawWheel(rotation);
+          spinning = false;
+          setSpinBtn(false);
+          wheelOuter.classList.remove("spinning");
+          wheelFrame.classList.add("bounce");
+          stopChime();
+          burstConfetti();
+          displayQuestion(qIdx);
+        }
+      }
+
+      requestAnimationFrame(frame);
+    }
+
+    /* ═══════════════════════════════════════════
+       9. RESET
+       ═══════════════════════════════════════════ */
+    function resetAll() {
+      initPool();
+      hideCard();
+      hideComplete();
+      spinBtn.disabled = false;
+      setSpinBtn(false);
+    }
+
+    /* ═══════════════════════════════════════════
+       EVENTS
+       ═══════════════════════════════════════════ */
+    spinBtn.addEventListener("click", () => { if (soundOn) initAudio(); doSpin(); });
+    revealBtn.addEventListener("click", revealAnswer);
+    spinAgainBtn.addEventListener("click", () => {
+      if (spinning) return;
+      if (!pool.length) { hideCard(); spinBtn.disabled = true; showComplete(); return; }
+      doSpin();
+    });
+    resetBtn.addEventListener("click", resetAll);
+    window.addEventListener("resize", resizeWheel);
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "Enter" && document.activeElement === spinBtn && !spinning) doSpin();
+    });
+
+    /* ═══════════════════════════════════════════
+       INIT
+       ═══════════════════════════════════════════ */
+    initPool();
+    resizeWheel();
   </script>
 </body>
 </html>
+
+
